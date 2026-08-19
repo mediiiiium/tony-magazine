@@ -1,0 +1,85 @@
+name: Magazine
+
+# 週刊個人誌「ヨリミチ」。毎週日曜朝に claude -p（サブスク枠・Web検索つき）が
+# 「普段触れないジャンル」を1つ調査して誌面を発行し、Slack DM に通知する。
+# 流儀は tony の brief/report と同じ: LLM失敗でも黙らない（必ず Slack に何か言う）。
+on:
+  schedule:
+    - cron: '0 21 * * 6'   # UTC土 21:00 = JST日曜 6:00（遅延込みで朝に届く）
+  workflow_dispatch:        # 手動発行（動作確認用）
+
+permissions:
+  contents: write           # 発行した号を docs/ に push するため
+
+concurrency:
+  group: magazine
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 発行情報を決める
+        id: meta
+        run: |
+          echo "slug=$(TZ=Asia/Tokyo date +%F)" >> "$GITHUB_OUTPUT"
+          echo "date_ja=$(TZ=Asia/Tokyo date '+%Y年%-m月%-d日')" >> "$GITHUB_OUTPUT"
+
+      - name: プロンプトを組み立てる
+        env:
+          DATE_JA: ${{ steps.meta.outputs.date_ja }}
+        run: python scripts/make_prompt.py
+
+      - name: Claude Code をインストール
+        run: npm install -g @anthropic-ai/claude-code
+
+      # サブスク枠(CLAUDE_CODE_OAUTH_TOKEN)。Web検索と参照ページの読み込みだけ許可。
+      # 失敗しても続行し、通知ステップが「発行できなかった」と必ず知らせる。
+      - name: claude -p で今週号を執筆
+        continue-on-error: true
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          set +e
+          claude -p "$(cat prompt.txt)" \
+            --allowedTools "WebSearch,WebFetch" \
+            --output-format text > issue_raw.txt 2> issue_err.txt
+          rc=$?
+          set -e
+          echo "--- 終了コード $rc / 原稿 $(wc -c < issue_raw.txt) bytes ---"
+          if [ $rc -ne 0 ]; then
+            echo "--- stderr ---"; head -c 2000 issue_err.txt
+            : > issue_raw.txt
+            exit $rc
+          fi
+
+      - name: 誌面を組む（検品・サニタイズ込み）
+        id: build
+        continue-on-error: true
+        env:
+          DATE_SLUG: ${{ steps.meta.outputs.slug }}
+          DATE_JA: ${{ steps.meta.outputs.date_ja }}
+        run: python scripts/build_issue.py
+
+      - name: Pages へ発行（docs/ を push）
+        if: steps.build.outcome == 'success'
+        run: |
+          git config user.name "yorimichi-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs
+          git commit -m "発行: ${{ steps.meta.outputs.slug }} 号"
+          git push
+
+      # ★このステップは絶対に飛ばさない。成功でも失敗でも必ず Slack に知らせる。
+      - name: Slack へ通知
+        if: always()
+        env:
+          SLACK_USER_TOKEN: ${{ secrets.SLACK_USER_TOKEN }}
+        run: python scripts/notify_slack.py
