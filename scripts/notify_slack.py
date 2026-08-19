@@ -44,8 +44,11 @@ def main():
                 f"今週の寄り道: *{result['topic']}* —「{result['title']}」\n"
                 f"{result['lead']}\n"
                 f"<{result['url']}|📰 読む>\n\n{MARKER}")
+        notes = list(result.get("warnings") or [])
         if result.get("dropped_videos"):
-            text += f"\n_（実在確認できなかった動画 {len(result['dropped_videos'])} 本は誌面から外しました）_"
+            notes.append(f"実在確認できなかった動画 {len(result['dropped_videos'])} 本を誌面から外しました")
+        if notes:
+            text += "\n_（" + " / ".join(notes) + "）_"
     else:
         reason = result.get("reason", "原稿の生成に失敗（claude -p が異常終了）")
         text = (f"⚠️ *ヨリミチ 今週号を発行できませんでした*\n"

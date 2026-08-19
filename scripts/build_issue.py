@@ -97,6 +97,9 @@ def main():
         fail(f"本文が短すぎます（{len(body)}文字）")
     if 'class="sources"' not in body or "<a href=" not in body:
         fail("ソース欄がありません（この誌の必須要件）")
+    warnings = []
+    if 'class="topics"' not in body:
+        warnings.append("今週のトピックス欄がありません")
 
     issues = json.load(open("docs/issues.json", encoding="utf-8"))
     slug = os.environ.get("DATE_SLUG")
@@ -138,7 +141,8 @@ def main():
 
     url = f"https://mediiiiium.github.io/yorimichi/issues/{slug}.html"
     json.dump({"ok": True, "no": no, "title": meta["title"], "topic": meta["topic"],
-               "lead": meta["lead"], "url": url, "dropped_videos": dropped},
+               "lead": meta["lead"], "url": url, "dropped_videos": dropped,
+               "warnings": warnings},
               open("build_result.json", "w"), ensure_ascii=False)
     print(f"第{no}号「{meta['title']}」を組みました → docs/issues/{slug}.html")
     if dropped:
