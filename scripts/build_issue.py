@@ -70,6 +70,18 @@ def embed_videos(body):
     return body, dropped
 
 
+def card_lead(text, limit=80):
+    """表紙カードの抜粋。80字でぶつ切りにすると文の途中で切れるので、句点まで戻す。
+       句点が手前すぎる（半分未満）ときだけ … で締める。"""
+    if len(text) <= limit:
+        return text
+    head = text[:limit]
+    stop = head.rfind("。")
+    if stop >= limit // 2:
+        return head[:stop + 1]
+    return head.rstrip("、（(「 ") + "…"
+
+
 def main():
     if not os.path.exists(RAW) or os.path.getsize(RAW) == 0:
         fail("原稿がありません（claude -p 失敗）")
@@ -133,7 +145,7 @@ def main():
         f'      <span class="card-emoji">{esc(i["emoji"])}</span>\n'
         f'      <span class="card-no">第{i["no"]}号 · {esc(i["date_ja"])} · {esc(i["topic"])}</span>\n'
         f'      <h2>{esc(i["title"])}</h2>\n'
-        f'      <p>{esc(i["lead"][:80])}</p>\n'
+        f'      <p>{esc(card_lead(i["lead"]))}</p>\n'
         f'    </a>' for i in issues)
     idx = open("templates/index.html", encoding="utf-8").read()
     open("docs/index.html", "w", encoding="utf-8").write(
