@@ -60,6 +60,16 @@ jobs:
             exit $rc
           fi
 
+      # 扉の1枚。Met の Open Access → Wikimedia Commons の順に探す。
+      # ここはコケてよい（build 側が「題を一字置く扉」に切り替えて Slack で知らせる）。
+      - name: 扉の図版を用意する
+        continue-on-error: true
+        env:
+          DATE_SLUG: ${{ steps.meta.outputs.slug }}
+        run: |
+          pip install --quiet pillow numpy
+          python scripts/fetch_hero.py
+
       - name: 誌面を組む（検品・サニタイズ込み）
         id: build
         continue-on-error: true
