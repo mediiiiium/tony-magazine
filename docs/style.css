@@ -6,6 +6,9 @@
   --line: #d9d2c2;
   --card: #fffdf7;
   --accent: #8a6d1f; /* 既定値。各号が上書きする */
+  /* 差し色をそのまま文字色に使うと、暗い差し色の号（紺・深緑など）が地に沈む。
+     文字・罫に使う版を別に持ち、明暗どちらの地でも読める側へ寄せる */
+  --accent-ink: color-mix(in srgb, var(--accent) 88%, #17130a);
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -14,6 +17,7 @@
     --ink-soft: #a89e88;
     --line: #3a352a;
     --card: #201d15;
+    --accent-ink: color-mix(in srgb, var(--accent) 62%, #fff6e2);
   }
 }
 * { box-sizing: border-box; }
@@ -25,9 +29,14 @@ body {
   font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
   font-weight: 400;
   line-height: 2;
+}
+/* palt は約物を詰める指定。長い本文にかけると読みが窮屈になるので、
+   詰まって見えてほしい見出し・ラベル側だけに効かせる */
+h1, h2, h3, .kicker, .issue-tag, .card-no, .cover-tagline, blockquote.pullquote {
   font-feature-settings: "palt";
 }
-a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; }
 img, iframe { max-width: 100%; }
 
 /* ---------- 表紙（index） ---------- */
@@ -35,10 +44,9 @@ img, iframe { max-width: 100%; }
 .cover-masthead {
   font-family: "Shippori Mincho B1", serif;
   font-weight: 800;
-  /* 誌名がラテン文字13字なので、和文4字前提の値だと60remの表紙からはみ出す */
-  font-size: clamp(2.2rem, 8vw, 4.6rem);
+  font-size: clamp(2.2rem, 8vw, 4.6rem);  /* ラテン13字。和文4字前提の 12vw/7rem では表紙からはみ出す */
   letter-spacing: .06em;
-  line-height: 1.1;
+  line-height: 1.15;
   margin: 0;
 }
 .cover-tagline { color: var(--ink-soft); letter-spacing: .12em; margin: .8rem 0 0; }
@@ -55,15 +63,16 @@ img, iframe { max-width: 100%; }
   text-decoration: none;
   transition: transform .15s ease, box-shadow .15s ease;
 }
-.card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,.10); }
-.card-emoji { font-size: 2.2rem; display: block; }
-.card-no { color: var(--ink-soft); font-size: .78rem; letter-spacing: .1em; display: block; margin-top: .4rem; }
+.card:hover, .card:focus-visible { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,.10); }
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
+.card-emoji { font-size: 2.2rem; display: block; line-height: 1; }
+.card-no { color: var(--ink-soft); font-size: .78rem; letter-spacing: .1em; display: block; margin-top: .55rem; line-height: 1.7; }
 .card h2 {
   font-family: "Shippori Mincho B1", serif;
   font-weight: 700;
   font-size: 1.25rem;
   line-height: 1.5;
-  margin: .5rem 0 .4rem;
+  margin: .55rem 0 .5rem;
 }
 .card p { font-size: .85rem; color: var(--ink-soft); line-height: 1.8; margin: 0; }
 .cover-foot { margin-top: 3.5rem; color: var(--ink-soft); font-size: .8rem; letter-spacing: .06em; }
@@ -71,76 +80,102 @@ img, iframe { max-width: 100%; }
 /* ---------- 号（issue） ---------- */
 .hero {
   position: relative;
-  padding: 3.2rem 1.5rem 3.8rem;
+  padding: 3.2rem 1.5rem 4rem;
   background:
     radial-gradient(60rem 30rem at 110% -20%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 60%),
     radial-gradient(40rem 24rem at -20% 110%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%);
   border-bottom: 1px solid var(--line);
 }
 .hero-inner, main, footer .foot-inner { max-width: 42rem; margin: 0 auto; }
+/* 見出しが長い号で float の回り込み事故が起きるので、grid で位置を固定する */
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  column-gap: 1.5rem;
+}
+.hero-inner > * { grid-column: 1 / -1; }
 .masthead {
+  grid-column: 1; grid-row: 1;
   font-family: "Shippori Mincho B1", serif;
   font-weight: 800;
-  letter-spacing: .1em;
+  letter-spacing: .1em;  /* ラテンに .3em は開きすぎ */
   font-size: 1rem;
   color: var(--ink);
   text-decoration: none;
+  align-self: center;
 }
-.issue-tag { float: right; text-align: right; color: var(--ink-soft); font-size: .78rem; letter-spacing: .12em; }
-.issue-tag .no { display: block; color: var(--accent); font-weight: 700; }
-.hero-emoji { font-size: 3.6rem; margin: 2.2rem 0 0; line-height: 1; }
+.issue-tag {
+  grid-column: 2; grid-row: 1;
+  text-align: right; color: var(--ink-soft); font-size: .78rem; letter-spacing: .12em; line-height: 1.7;
+}
+.issue-tag .no { display: block; color: var(--accent-ink); font-weight: 700; }
+.hero-emoji { font-size: 3.6rem; margin: 2.4rem 0 0; line-height: 1; }
 .kicker {
-  color: var(--accent);
+  color: var(--accent-ink);
   font-weight: 700;
   letter-spacing: .3em;
   font-size: .85rem;
-  margin: 1.2rem 0 0;
+  margin: 1.4rem 0 0;
 }
 .hero h1 {
   font-family: "Shippori Mincho B1", serif;
   font-weight: 800;
   font-size: clamp(1.9rem, 6vw, 3rem);
   line-height: 1.45;
-  margin: .4rem 0 0;
+  margin: .5rem 0 0;
+  text-wrap: balance;
 }
+/* リードは本文より格上。色を落とさず、大きさと罫で示す */
 .lead {
-  font-size: 1.02rem;
-  color: var(--ink-soft);
-  border-left: 3px solid var(--accent);
-  padding-left: 1rem;
-  margin: 1.6rem 0 0;
+  font-size: 1.08rem;
+  line-height: 1.95;
+  color: var(--ink);
+  border-left: 3px solid var(--accent-ink);
+  padding-left: 1.1rem;
+  margin: 1.8rem 0 0;
 }
 
-main { padding: 3rem 1.5rem 2rem; }
-.chapter { margin: 0 0 3rem; }
+main { padding: 3.4rem 1.5rem 2rem; }
+.chapter { margin: 0 0 3.4rem; }
 .chapter h2 {
   font-family: "Shippori Mincho B1", serif;
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.55rem;
   line-height: 1.6;
-  margin: 0 0 1.2rem;
+  margin: 0 0 1.4rem;
   padding-top: 1.2rem;
   position: relative;
+  text-wrap: balance;
 }
 .chapter h2::before {
   content: "";
   position: absolute;
   top: 0; left: 0;
   width: 2.6rem; height: 4px;
-  background: var(--accent);
+  background: var(--accent-ink);
 }
-.chapter h3 { font-size: 1.05rem; margin: 1.8rem 0 .6rem; }
-.chapter p { margin: 0 0 1.2rem; }
+/* h3 が本文とほぼ同寸で階層が潰れていたので、太さと字間で段を作る */
+.chapter h3 {
+  font-size: 1.14rem; font-weight: 700; letter-spacing: .04em;
+  line-height: 1.7; margin: 2.2rem 0 .7rem;
+}
+/* 行間 2.0 に対し段落間 1.2rem では改段が見えない。1行ぶん空ける */
+.chapter p { margin: 0 0 1.7rem; }
+.chapter p:last-child { margin-bottom: 0; }
+.chapter ul, .chapter ol { margin: 0 0 1.7rem; padding-left: 1.4rem; }
+.chapter li { margin: 0 0 .4rem; }
 
 blockquote.pullquote {
   font-family: "Shippori Mincho B1", serif;
   font-weight: 700;
-  font-size: 1.35rem;
-  line-height: 1.9;
+  font-size: clamp(1.25rem, 4.2vw, 1.45rem);
+  line-height: 1.95;
   text-align: center;
-  color: var(--accent);
-  margin: 2.6rem 0;
+  color: var(--accent-ink);
+  margin: 3.2rem 0;
   padding: 0 1rem;
+  text-wrap: balance;
 }
 blockquote.pullquote::before { content: "「"; }
 blockquote.pullquote::after { content: "」"; }
@@ -149,50 +184,51 @@ aside.column {
   background: color-mix(in srgb, var(--accent) 8%, var(--card));
   border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
   border-radius: 10px;
-  padding: 1.2rem 1.4rem;
-  margin: 2.4rem 0;
+  padding: 1.3rem 1.5rem;
+  margin: 2.8rem 0;
   font-size: .92rem;
+  line-height: 1.95;
 }
-aside.column h3 { margin: 0 0 .6rem; color: var(--accent); font-size: .95rem; letter-spacing: .08em; }
-aside.column p { margin: 0 0 .8rem; }
+aside.column h3 { margin: 0 0 .7rem; color: var(--accent-ink); font-size: .95rem; letter-spacing: .08em; }
+aside.column p { margin: 0 0 .9rem; }
 aside.column p:last-child { margin-bottom: 0; }
 
-figure.video { margin: 2.4rem 0; }
+figure.video { margin: 2.8rem 0; }
 figure.video .frame {
   aspect-ratio: 16 / 9;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 12px 30px rgba(0,0,0,.18);
+  box-shadow: 0 8px 20px rgba(38,34,27,.13);
   background: #000;
 }
 figure.video iframe { width: 100%; height: 100%; border: 0; display: block; }
-figure.video figcaption { font-size: .8rem; color: var(--ink-soft); margin-top: .7rem; line-height: 1.7; }
+figure.video figcaption { font-size: .8rem; color: var(--ink-soft); margin-top: .8rem; line-height: 1.85; }
 
-.sources { margin: 4rem 0 0; border-top: 3px double var(--line); padding-top: 1.6rem; }
+.sources { margin: 4.4rem 0 0; border-top: 3px double var(--line); padding-top: 1.6rem; }
 .sources h2 { font-size: .9rem; letter-spacing: .3em; color: var(--ink-soft); margin: 0 0 1rem; }
 .sources ul { list-style: none; margin: 0; padding: 0; counter-reset: src; }
 .sources li {
   counter-increment: src;
   font-size: .84rem;
   line-height: 1.9;
-  padding: .45rem 0 .45rem 2.2rem;
+  padding: .5rem 0 .5rem 2.2rem;
   position: relative;
   border-bottom: 1px solid var(--line);
 }
 .sources li::before {
   content: counter(src, decimal-leading-zero);
-  position: absolute; left: 0; top: .5rem;
-  color: var(--accent);
+  position: absolute; left: 0; top: .55rem;
+  color: var(--accent-ink);
   font-weight: 700;
   font-size: .78rem;
 }
 
-footer { padding: 2.5rem 1.5rem 4rem; border-top: 1px solid var(--line); margin-top: 3rem; }
+footer { padding: 2.8rem 1.5rem 4rem; border-top: 1px solid var(--line); margin-top: 3.4rem; }
 footer a { font-size: .9rem; }
-.colophon { color: var(--ink-soft); font-size: .75rem; line-height: 1.9; margin-top: 1.2rem; }
+.colophon { color: var(--ink-soft); font-size: .75rem; line-height: 1.9; margin-top: 1.3rem; }
 
 /* ---------- 巻末トピックス ---------- */
-.topics { margin: 4rem 0 0; border-top: 3px double var(--line); padding-top: 1.8rem; }
+.topics { margin: 4.4rem 0 0; border-top: 3px double var(--line); padding-top: 1.8rem; }
 .topics > h2 {
   font-family: "Shippori Mincho B1", serif;
   font-weight: 800;
@@ -205,15 +241,27 @@ footer a { font-size: .9rem; }
   border: 1px solid var(--line);
   border-left: 5px solid var(--accent);
   border-radius: 8px;
-  padding: 1rem 1.3rem;
+  padding: 1.1rem 1.4rem;
   margin: 0 0 1rem;
 }
 .topic-group h3 {
-  margin: 0 0 .4rem;
+  margin: 0 0 .5rem;
   font-size: .85rem;
   letter-spacing: .25em;
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 .topic-group ul { margin: 0; padding-left: 1.2rem; }
-.topic-group li { font-size: .88rem; line-height: 1.9; margin: .3rem 0; }
-.topic-group a { font-size: .8rem; }
+.topic-group li { font-size: .88rem; line-height: 1.9; margin: .45rem 0; }
+/* 出典リンクが本文と同寸で埋もれていたので、小さくして役割を分ける */
+.topic-group a { font-size: .76rem; letter-spacing: .04em; white-space: nowrap; }
+
+@media (max-width: 560px) {
+  .hero { padding: 2.4rem 1.2rem 3rem; }
+  .hero-inner { grid-template-columns: 1fr; row-gap: .6rem; }
+  .masthead { grid-column: 1; grid-row: 1; }
+  .issue-tag { grid-column: 1; grid-row: 2; text-align: left; }
+  .hero-emoji { margin-top: 1.8rem; }
+  main { padding: 2.6rem 1.2rem 2rem; }
+  .cover { padding: 2.6rem 1.2rem 4rem; }
+  .topic-group a { white-space: normal; }
+}
