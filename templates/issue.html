@@ -11,25 +11,25 @@
 <link rel="stylesheet" href="../style.css">
 </head>
 <body style="--accent:{{ACCENT}}">
-<header class="hero">
-  <div class="hero-inner">
-    <div class="issue-tag"><span class="no">第{{ISSUE_NO}}号</span>{{DATE_JA}}</div>
-    <a class="masthead" href="../index.html">Tony Magazine</a>
-    <p class="hero-emoji">{{EMOJI}}</p>
-    <p class="kicker">{{TOPIC}}</p>
-    <h1>{{TITLE}}</h1>
-    <p class="lead">{{LEAD}}</p>
-  </div>
+<header class="hero{{HERO_CLASS}}"{{HERO_STYLE}}>
+{{HERO_GLYPH}}
+  <div class="hero-top"><a class="masthead" href="../index.html">Tony Magazine</a><span>第 {{ISSUE_NO}} 号　{{DATE_JA}}</span></div>
+  <div class="hero-inner"><p class="kicker">{{TOPIC}}</p><h1>{{TITLE}}</h1></div>
+{{HERO_CREDIT}}
 </header>
-<main>
+<div class="wrap">
+  <div class="after-hero measure"><p class="lead">{{LEAD}}</p></div>
+  <main class="measure">
 {{BODY}}
-</main>
-<footer>
-  <div class="foot-inner">
+  </main>
+</div>
+{{TOPICS}}
+<div class="wrap">
+  <footer><div class="wrap measure">
     <a href="../index.html">← 目次へもどる</a>
     <p class="colophon">Tony Magazine — 毎週日曜、興味の一歩先へ寄り道する個人誌。<br>
-    この号は Claude が Web 上の公開情報を調べて編集しました。事実関係は末尾のソースを参照してください。</p>
-  </div>
-</footer>
+    この号は Claude が Web 上の公開情報を調べて編集しました。事実関係は末尾のソースを参照してください。{{CREDIT_LINE}}</p>
+  </div></footer>
+</div>
 </body>
 </html>

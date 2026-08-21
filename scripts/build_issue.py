@@ -6,6 +6,11 @@
 - 動画IDは YouTube のサムネイルが実在するか HTTP で確認し、無い動画は落とす（ID捏造対策）
 - ソース欄が無い号は不合格（このマガジンの必須要件）
 失敗時は build_result.json に理由を書いて exit 1（通知ステップが拾う）。
+
+誌面の組み方:
+- 扉は全面1枚。docs/img/<slug>.(webp|jpg) があればそれ、無ければ題を一字置く（glyph）
+- 巻末トピックスは大きさの違うカードのモザイクに組み替える
+- 英語ソースは日本語ダイジェストごと専用レーンに立てる（原文を開かなくて済むように）
 """
 import html
 import json
@@ -17,6 +22,18 @@ import urllib.request
 RAW = "issue_raw.txt"
 ALLOWED_ACCENT = re.compile(r"^#[0-9a-fA-F]{6}$")
 YT_ID = re.compile(r"^[A-Za-z0-9_-]{11}$")
+IMG_DIR = "docs/img"
+
+# トピックスの5分野の地色（この順・固定。プロンプト側と対応）
+TINT = {
+    "AI": "#16212f",
+    "クラフトビール": "#6d4413",
+    "海外フットボール": "#173023",
+    "エンタメ": "#331a27",
+    "SNSバズ": "#e9e1ce",   # ここだけ明るいので文字を反転する（.light）
+}
+LIGHT_TINTS = {"#e9e1ce"}
+DEFAULT_TINT = "#22201c"
 
 
 def fail(reason):
@@ -82,6 +99,209 @@ def card_lead(text, limit=80):
     return head.rstrip("、（(「 ") + "…"
 
 
+# ─────────────────────────────────────────────────────────────
+# 英語ソース: 原文を開かなくて済むように、日本語ダイジェストごと1枚に立てる
+# ─────────────────────────────────────────────────────────────
+def en_sources(body):
+    """<article class="en-src" data-words="N"> を専用レーンにまとめ、バッジと注記を付ける。"""
+    arts = re.findall(r'(?is)<article class="en-src"[^>]*>.*?</article>', body)
+    if not arts:
+        return body, 0
+    for a in arts:
+        body = body.replace(a, "", 1)
+
+    built = []
+    for a in arts:
+        wm = re.search(r'data-words="(\d+)"', a)
+        host = re.search(r'<h3>\s*<a href="https?://([^/"]+)', a)
+        foot = []
+        if host:
+            foot.append(html.escape(host.group(1).replace("www.", "")))
+        if wm:
+            n = int(wm.group(1))
+            foot.append(f"英語 ・ 約{n:,}語 ・ 読了 {max(1, round(n / 250))}分")
+        foot.append("ダイジェストは Claude が原文から作成")
+        a = re.sub(r'\sdata-words="\d+"', "", a)
+        a = a.replace(">", '>\n<p class="en-ja en-tag"><span class="en-flag">EN</span>英語ソース</p>', 1)
+        a = a.replace("</article>", f'<p class="foot">{" ／ ".join(foot)}</p></article>')
+        built.append(a)
+
+    lane = ('<div class="en-lane">\n'
+            '<p class="en-lane-note"><span class="en-flag">EN</span>'
+            '英語のソースには、Claude が原文を読んで書いた日本語ダイジェストを付けています。'
+            '原文を開かなくても中身が分かります。</p>\n' + "\n".join(built) + "\n</div>\n")
+    # ソース欄の <h2> 直後に差し込む
+    body = re.sub(r'(?is)(<section class="sources">\s*<h2>.*?</h2>)', r"\1\n" + lane.replace("\\", "\\\\"), body, count=1)
+    return body, len(arts)
+
+
+# ─────────────────────────────────────────────────────────────
+# 巻末トピックス: 大きさの違うカードのモザイクに組み替える
+# ─────────────────────────────────────────────────────────────
+def spans_for(items):
+    """1行が必ず6カラムになるように割り当てる。乱数は使わず、見出しの長さで決める。"""
+    n = len(items)
+    out = []
+    i = 0
+    while i < n:
+        rest = n - i
+        if rest == 1:
+            out.append(6); i += 1
+        elif rest == 3:
+            out += [2, 2, 2]; i += 3
+        else:
+            a, b = len(items[i]["head"]), len(items[i + 1]["head"])
+            if a > b * 1.15:
+                out += [4, 2]
+            elif b > a * 1.15:
+                out += [2, 4]
+            else:
+                out += [3, 3]
+            i += 2
+    return out
+
+
+def parse_topic_li(li):
+    """LLM が書いた <li> を、見出し / 補足 / リンク / ダイジェスト / 動画 に分解する。"""
+    vid = ""
+    m = re.search(r'(?is)<span class="yt"[^>]*data-yt="([^"]+)"[^>]*>\s*</span>', li)
+    if m:
+        vid = m.group(1).strip()
+        li = li.replace(m.group(0), "")
+    digest = ""
+    m = re.search(r'(?is)<div class="digest"[^>]*>.*?</div>', li)
+    if m:
+        digest = m.group(0)
+        li = li.replace(digest, "")
+    href = text = ""
+    links = re.findall(r'(?is)<a href="([^"]+)"[^>]*>(.*?)</a>', li)
+    if links:
+        href, text = links[-1]
+        li = re.sub(r'(?is)<a href="[^"]+"[^>]*>.*?</a>\s*$', "", li.strip())
+    plain = re.sub(r"(?is)<[^>]+>", "", li).strip()
+    plain = re.sub(r"\s+", " ", plain)
+    head, mark, sub = plain.partition("。")
+    if not mark and len(plain) > 46:
+        # 句点が無い長い項目は、読点で切って見出しと補足に分ける（丸ごと見出しにしない）
+        cut = plain.rfind("、", 0, 46)
+        if cut > 12:
+            head, sub = plain[:cut], plain[cut + 1:]
+    return {"head": (head + "。") if mark else head, "sub": sub.strip(),
+            "href": href.strip(), "outlet": re.sub(r"(?is)<[^>]+>", "", text).strip(),
+            "digest": digest, "vid": vid}
+
+
+def build_digest(digest_html, words):
+    """LLM の <div class="digest"> を、畳める <details> に変える。"""
+    inner = re.sub(r'(?is)^<div class="digest"[^>]*>|</div>$', "", digest_html).strip()
+    by = "原文（英語）を Claude が読んで作成"
+    if words:
+        by = f"原文（英語・約{words:,}語）を Claude が読んで作成"
+    return ('<details class="digest"><summary>日本語ダイジェスト</summary>'
+            f'{inner}<p class="by">{by}</p></details>')
+
+
+def mosaicize(body):
+    """<div class="topic-group"> の羅列を、カードのモザイクに組み替える。"""
+    sec = re.search(r'(?is)<section class="topics">(.*?)</section>', body)
+    if not sec:
+        return body, [], 0, []
+    inner = sec.group(1)
+    dropped, videos, cats = [], 0, []
+    cards = []
+    for grp in re.findall(r'(?is)<div class="topic-group">(.*?)</div>\s*(?=<div class="topic-group">|$)', inner):
+        cat = re.search(r"(?is)<h3>(.*?)</h3>", grp)
+        cat = re.sub(r"(?is)<[^>]+>", "", cat.group(1)).strip() if cat else ""
+        # ダイジェスト（中に <ul class="figs"><li> を持つ）を先に退避しないと、
+        # 中の <li> まで項目として拾ってしまう
+        stash = []
+
+        def hide(m):
+            stash.append(m.group(0))
+            return f"\x00D{len(stash) - 1}\x00"
+
+        grp = re.sub(r'(?is)<div class="digest"[^>]*>.*?</div>', hide, grp)
+        lis = [re.sub(r"\x00D(\d+)\x00", lambda m: stash[int(m.group(1))], x)
+               for x in re.findall(r"(?is)<li>(.*?)</li>", grp)]
+        items = [parse_topic_li(x) for x in lis]
+        if not items:
+            continue
+        cats.append(cat)
+        for it, sp in zip(items, spans_for(items)):
+            tint = TINT.get(cat, DEFAULT_TINT)
+            cls = ["card"]
+            if sp >= 4:
+                cls.append("wide")
+            if tint in LIGHT_TINTS:
+                cls.append("light")
+            if it["digest"]:
+                cls.append("en")
+            wm = re.search(r'data-words="(\d+)"', it["digest"])
+            parts = [f'<span class="cat">{html.escape(cat)}']
+            if it["digest"]:
+                parts.append('<span class="en-flag">EN</span>')
+            parts.append("</span>")
+            head = html.escape(it["head"])
+            parts.append(f'<h3><a href="{html.escape(it["href"], quote=True)}">{head}</a></h3>'
+                         if it["href"] else f"<h3>{head}</h3>")
+            if it["sub"]:
+                parts.append(f'<p class="sub">{html.escape(it["sub"])}</p>')
+            if it["vid"]:
+                if YT_ID.match(it["vid"]) and yt_exists(it["vid"]):
+                    parts.append(
+                        f'<a class="yt-thumb" href="https://www.youtube.com/watch?v={it["vid"]}">'
+                        f'<img src="https://img.youtube.com/vi/{it["vid"]}/hqdefault.jpg" alt="" loading="lazy">'
+                        f"<span>YouTubeで見る</span></a>")
+                    videos += 1
+                else:
+                    dropped.append(it["vid"] or "(IDなし)")
+            if it["digest"]:
+                parts.append(build_digest(it["digest"], int(wm.group(1)) if wm else 0))
+            if it["outlet"]:
+                parts.append(f'<span class="outlet">{html.escape(it["outlet"])}</span>')
+            cards.append(f'<article class="{" ".join(cls)}" style="grid-column:span {sp};--tint:{tint}"'
+                         f' data-mark="{html.escape(cat[:1])}">' + "".join(parts) + "</article>")
+
+    if not cards:
+        return body, dropped, videos, cats
+    new = ('<section class="topics"><h2>今週のトピックス</h2>\n<div class="mosaic">\n'
+           + "\n".join(cards) + "\n</div></section>")
+    return body[:sec.start()] + new + body[sec.end():], dropped, videos, cats
+
+
+# ─────────────────────────────────────────────────────────────
+# 扉（全面1枚 / 写真が無ければ題を一字）
+# ─────────────────────────────────────────────────────────────
+def hero_for(slug, meta):
+    """docs/img/<slug>.(webp|jpg|png) があれば全面写真、無ければ glyph。
+       クレジットは docs/img/<slug>.json の {"credit_html": "...", "alt": "..."} から。"""
+    for ext in ("webp", "jpg", "jpeg", "png"):
+        path = f"{IMG_DIR}/{slug}.{ext}"
+        if os.path.exists(path):
+            credit = ""
+            side = f"{IMG_DIR}/{slug}.json"
+            if os.path.exists(side):
+                try:
+                    credit = json.load(open(side, encoding="utf-8")).get("credit_html", "")
+                except Exception:
+                    credit = ""
+            return {
+                "file": f"{slug}.{ext}",
+                "class": "",
+                "style": f' style="background-image:url(../img/{slug}.{ext})"',
+                "glyph": "",
+                "credit": f'  <p class="credit">{credit}</p>' if credit else "",
+                "credit_line": ("<br>扉の図版: " + re.sub(r"(?is)<[^>]+>", "",
+                                 re.sub(r"(?i)<br\s*/?>", " ／ ", credit))) if credit else "",
+                "photo": True,
+            }
+    g = (meta.get("glyph") or meta.get("topic") or "誌")[:2]
+    char = html.escape(g[0]) + (f"<em>{html.escape(g[1])}</em>" if len(g) > 1 else "")
+    return {"file": "", "class": " glyph", "style": "",
+            "glyph": f'  <div class="char">{char}</div>',
+            "credit": "", "credit_line": "", "photo": False}
+
+
 def main():
     if not os.path.exists(RAW) or os.path.getsize(RAW) == 0:
         fail("原稿がありません（claude -p 失敗）")
@@ -109,9 +329,24 @@ def main():
         fail(f"本文が短すぎます（{len(body)}文字）")
     if 'class="sources"' not in body or "<a href=" not in body:
         fail("ソース欄がありません（この誌の必須要件）")
+
     warnings = []
+    body, n_en = en_sources(body)
+    if not n_en:
+        warnings.append("英語ソースが1件もありません（日英ミックスが方針）")
     if 'class="topics"' not in body:
         warnings.append("今週のトピックス欄がありません")
+    body, t_dropped, t_videos, t_cats = mosaicize(body)
+    dropped += t_dropped
+    missing = [c for c in TINT if c not in t_cats]
+    if t_cats and missing:
+        warnings.append("トピックスに分野が足りません: " + " / ".join(missing))
+    # トピックスは本文（38rem）の外に出す。カードのモザイクは70remで組むため
+    topics = ""
+    mt = re.search(r'(?is)<section class="topics">.*?</section>', body)
+    if mt:
+        topics = mt.group(0)
+        body = body[:mt.start()] + body[mt.end():]
 
     issues = json.load(open("docs/issues.json", encoding="utf-8"))
     slug = os.environ.get("DATE_SLUG")
@@ -122,6 +357,10 @@ def main():
         fail(f"{slug} の号は発行済みです")
     no = len(issues) + 1
 
+    hero = hero_for(slug, meta)
+    if not hero["photo"]:
+        warnings.append("扉の写真がないため、題を一字置く扉になりました")
+
     tpl = open("templates/issue.html", encoding="utf-8").read()
     esc = lambda s: html.escape(str(s), quote=True)
     page = (tpl.replace("{{TITLE}}", esc(meta["title"]))
@@ -131,34 +370,64 @@ def main():
                .replace("{{ACCENT}}", meta["accent"])
                .replace("{{ISSUE_NO}}", str(no))
                .replace("{{DATE_JA}}", esc(date_ja))
+               .replace("{{HERO_CLASS}}", hero["class"])
+               .replace("{{HERO_STYLE}}", hero["style"])
+               .replace("{{HERO_GLYPH}}", hero["glyph"])
+               .replace("{{HERO_CREDIT}}", hero["credit"])
+               .replace("{{CREDIT_LINE}}", hero["credit_line"])
+               .replace("{{TOPICS}}", topics)
                .replace("{{BODY}}", body))
     open(f"docs/issues/{slug}.html", "w", encoding="utf-8").write(page)
 
     issues.insert(0, {"no": no, "date": slug, "date_ja": date_ja, "topic": meta["topic"],
-                      "title": meta["title"], "lead": meta["lead"],
-                      "emoji": meta["emoji"], "accent": meta["accent"]})
+                      "title": meta["title"], "lead": meta["lead"], "emoji": meta["emoji"],
+                      "accent": meta["accent"], "glyph": (meta.get("glyph") or meta["topic"])[:2],
+                      "hero": hero["file"]})
     json.dump(issues, open("docs/issues.json", "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
-
-    cards = "\n".join(
-        f'    <a class="card" href="issues/{i["date"]}.html" style="--accent:{i["accent"]}">\n'
-        f'      <span class="card-emoji">{esc(i["emoji"])}</span>\n'
-        f'      <span class="card-no">第{i["no"]}号 · {esc(i["date_ja"])} · {esc(i["topic"])}</span>\n'
-        f'      <h2>{esc(i["title"])}</h2>\n'
-        f'      <p>{esc(card_lead(i["lead"]))}</p>\n'
-        f'    </a>' for i in issues)
-    idx = open("templates/index.html", encoding="utf-8").read()
-    open("docs/index.html", "w", encoding="utf-8").write(
-        idx.replace("{{CARDS}}", cards).replace("{{COUNT}}", str(len(issues))))
+    write_cover(issues)
 
     url = f"https://mediiiiium.github.io/tony-magazine/issues/{slug}.html"
     json.dump({"ok": True, "no": no, "title": meta["title"], "topic": meta["topic"],
                "lead": meta["lead"], "url": url, "dropped_videos": dropped,
-               "warnings": warnings},
+               "en_sources": n_en, "topic_videos": t_videos, "warnings": warnings},
               open("build_result.json", "w"), ensure_ascii=False)
     print(f"第{no}号「{meta['title']}」を組みました → docs/issues/{slug}.html")
     if dropped:
         print(f"⚠️ 実在確認できず落とした動画: {dropped}", file=sys.stderr)
+    for w in warnings:
+        print(f"⚠️ {w}", file=sys.stderr)
+
+
+def write_cover(issues):
+    """表紙（目次）。最新号を大きく、あとは3カラムずつ。扉と同じ黒地で連動させる。"""
+    esc = lambda s: html.escape(str(s), quote=True)
+    out = []
+    for k, i in enumerate(issues):
+        lead = k == 0
+        span = 6 if lead else 3
+        rest = len(issues) - 1
+        if not lead and rest % 2 == 1 and k == len(issues) - 1:
+            span = 6                      # 余った1枚は全幅にして穴を作らない
+        img = i.get("hero")
+        cls = "issue lead-issue" if lead else "issue"
+        style = f"grid-column:span {span}"
+        ghost = ""
+        if img:
+            style += f";background-image:url(img/{img})"
+        else:
+            cls += " glyph"
+            ghost = f'<span class="ghost">{esc((i.get("glyph") or i["topic"])[:1])}</span>'
+        body = [f'<span class="kicker">{esc(i["topic"])}</span>', f'<h2>{esc(i["title"])}</h2>']
+        if lead:
+            body.append(f'<p>{esc(card_lead(i["lead"]))}</p>')
+        out.append(
+            f'  <a class="{cls}" style="{style}" href="issues/{i["date"]}.html">\n'
+            f'    {ghost}<span class="no">第 {i["no"]} 号　{esc(i["date_ja"])}</span>\n'
+            f'    <span class="body">{"".join(body)}</span>\n  </a>')
+    idx = open("templates/index.html", encoding="utf-8").read()
+    open("docs/index.html", "w", encoding="utf-8").write(
+        idx.replace("{{CARDS}}", "\n".join(out)).replace("{{COUNT}}", str(len(issues))))
 
 
 if __name__ == "__main__":

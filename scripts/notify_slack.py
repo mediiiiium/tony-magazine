@@ -43,12 +43,13 @@ def main():
         text = (f"📖 *Tony Magazine 第{result['no']}号* が届きました\n"
                 f"今週の寄り道: *{result['topic']}* —「{result['title']}」\n"
                 f"{result['lead']}\n"
-                f"<{result['url']}|📰 読む>\n\n{MARKER}")
+                f"<{result['url']}|📰 読む>")
         notes = list(result.get("warnings") or [])
         if result.get("dropped_videos"):
             notes.append(f"実在確認できなかった動画 {len(result['dropped_videos'])} 本を誌面から外しました")
         if notes:
             text += "\n_（" + " / ".join(notes) + "）_"
+        text += f"\n\n{MARKER}"   # マーカーは必ず末尾（無通知＝成功、と読ませないため）
     else:
         reason = result.get("reason", "原稿の生成に失敗（claude -p が異常終了）")
         text = (f"⚠️ *Tony Magazine 今週号を発行できませんでした*\n"

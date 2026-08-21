@@ -10,15 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<div class="cover">
+<body class="cover">
+<div class="masthead-block">
   <h1 class="cover-masthead">Tony Magazine</h1>
   <p class="cover-tagline">毎週日曜の朝、興味の一歩先へ寄り道する — 読者ひとりのための週刊誌</p>
-  <hr class="cover-rule">
-  <div class="cards">
-{{CARDS}}
-  </div>
-  <p class="cover-foot">既刊 {{COUNT}} 号 · 毎週日曜 6:00 発行 · 編集: Claude（GitHub Actions）</p>
 </div>
+<div class="rule"><hr></div>
+<div class="shelf">
+{{CARDS}}
+</div>
+<p class="cover-foot">既刊 {{COUNT}} 号 · 毎週日曜 6:00 発行 · 編集: Claude（GitHub Actions）</p>
 </body>
 </html>

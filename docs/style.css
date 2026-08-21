@@ -1,267 +1,247 @@
-/* Tony Magazine — 誌面スタイル。号ごとの差し色は body の --accent で注入する */
-:root {
-  --paper: #f7f3ea;
-  --ink: #26221b;
-  --ink-soft: #6b6353;
-  --line: #d9d2c2;
-  --card: #fffdf7;
-  --accent: #8a6d1f; /* 既定値。各号が上書きする */
-  /* 差し色をそのまま文字色に使うと、暗い差し色の号（紺・深緑など）が地に沈む。
-     文字・罫に使う版を別に持ち、明暗どちらの地でも読める側へ寄せる */
-  --accent-ink: color-mix(in srgb, var(--accent) 88%, #17130a);
+/* Tony Magazine
+   冒頭に写真を1枚ガツンと敷き、以降は畳む。巻末トピックスは大きさの違うカードのモザイク。
+   表紙（目次）も同じ黒地で扉に連動させる。 */
+:root{
+  --paper:#f7f3ea; --ink:#26221b; --ink-soft:#6b6353; --line:#d9d2c2;
+  --accent:#8a6d1f; --accent-ink:color-mix(in srgb, var(--accent) 88%, #17130a);
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #17150f;
-    --ink: #ece5d3;
-    --ink-soft: #a89e88;
-    --line: #3a352a;
-    --card: #201d15;
-    --accent-ink: color-mix(in srgb, var(--accent) 62%, #fff6e2);
-  }
-}
-* { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
-  font-weight: 400;
-  line-height: 2;
-}
-/* palt は約物を詰める指定。長い本文にかけると読みが窮屈になるので、
-   詰まって見えてほしい見出し・ラベル側だけに効かせる */
-h1, h2, h3, .kicker, .issue-tag, .card-no, .cover-tagline, blockquote.pullquote {
-  font-feature-settings: "palt";
-}
-a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; }
-img, iframe { max-width: 100%; }
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN",sans-serif;line-height:2}
+h1,h2,h3,.kicker,.cat,.masthead{font-feature-settings:"palt"}
+a{color:var(--accent-ink);text-underline-offset:3px;text-decoration-thickness:1px}
+img{max-width:100%;display:block}
+.wrap{max-width:58rem;margin:0 auto;padding:0 1.5rem}
+.measure{max-width:40rem;margin:0 auto}
 
-/* ---------- 表紙（index） ---------- */
-.cover { max-width: 60rem; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
-.cover-masthead {
-  font-family: "Shippori Mincho B1", serif;
-  font-weight: 800;
-  font-size: clamp(2.2rem, 8vw, 4.6rem);  /* ラテン13字。和文4字前提の 12vw/7rem では表紙からはみ出す */
-  letter-spacing: .06em;
-  line-height: 1.15;
-  margin: 0;
-}
-.cover-tagline { color: var(--ink-soft); letter-spacing: .12em; margin: .8rem 0 0; }
-.cover-rule { border: none; border-top: 3px double var(--line); margin: 2.5rem 0; }
-.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1.2rem; }
-.card {
-  display: block;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-top: 6px solid var(--accent);
-  border-radius: 10px;
-  padding: 1.3rem 1.4rem 1.5rem;
-  color: var(--ink);
-  text-decoration: none;
-  transition: transform .15s ease, box-shadow .15s ease;
-}
-.card:hover, .card:focus-visible { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,.10); }
-@media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
-.card-emoji { font-size: 2.2rem; display: block; line-height: 1; }
-.card-no { color: var(--ink-soft); font-size: .78rem; letter-spacing: .1em; display: block; margin-top: .55rem; line-height: 1.7; }
-.card h2 {
-  font-family: "Shippori Mincho B1", serif;
-  font-weight: 700;
-  font-size: 1.25rem;
-  line-height: 1.5;
-  margin: .55rem 0 .5rem;
-}
-.card p { font-size: .85rem; color: var(--ink-soft); line-height: 1.8; margin: 0; }
-.cover-foot { margin-top: 3.5rem; color: var(--ink-soft); font-size: .8rem; letter-spacing: .06em; }
+/* 扉 */
+.kicker{color:var(--accent-ink);font-weight:700;letter-spacing:.34em;font-size:.8rem;margin:0}
 
-/* ---------- 号（issue） ---------- */
-.hero {
-  position: relative;
-  padding: 3.2rem 1.5rem 4rem;
-  background:
-    radial-gradient(60rem 30rem at 110% -20%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 60%),
-    radial-gradient(40rem 24rem at -20% 110%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%);
-  border-bottom: 1px solid var(--line);
-}
-.hero-inner, main, footer .foot-inner { max-width: 42rem; margin: 0 auto; }
-/* 見出しが長い号で float の回り込み事故が起きるので、grid で位置を固定する */
-.hero-inner {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: start;
-  column-gap: 1.5rem;
-}
-.hero-inner > * { grid-column: 1 / -1; }
-.masthead {
-  grid-column: 1; grid-row: 1;
-  font-family: "Shippori Mincho B1", serif;
-  font-weight: 800;
-  letter-spacing: .1em;  /* ラテンに .3em は開きすぎ */
-  font-size: 1rem;
-  color: var(--ink);
-  text-decoration: none;
-  align-self: center;
-}
-.issue-tag {
-  grid-column: 2; grid-row: 1;
-  text-align: right; color: var(--ink-soft); font-size: .78rem; letter-spacing: .12em; line-height: 1.7;
-}
-.issue-tag .no { display: block; color: var(--accent-ink); font-weight: 700; }
-.hero-emoji { font-size: 3.6rem; margin: 2.4rem 0 0; line-height: 1; }
-.kicker {
-  color: var(--accent-ink);
-  font-weight: 700;
-  letter-spacing: .3em;
-  font-size: .85rem;
-  margin: 1.4rem 0 0;
-}
-.hero h1 {
-  font-family: "Shippori Mincho B1", serif;
-  font-weight: 800;
-  font-size: clamp(1.9rem, 6vw, 3rem);
-  line-height: 1.45;
-  margin: .5rem 0 0;
-  text-wrap: balance;
-}
-/* リードは本文より格上。色を落とさず、大きさと罫で示す */
-.lead {
-  font-size: 1.08rem;
-  line-height: 1.95;
-  color: var(--ink);
-  border-left: 3px solid var(--accent-ink);
-  padding-left: 1.1rem;
-  margin: 1.8rem 0 0;
+/* 本文 */
+main{padding:1rem 0 0}
+.chapter{margin:0 0 3.6rem}
+.chapter h2{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:1.6rem;
+  line-height:1.6;margin:0 0 1.4rem;padding-top:1.2rem;position:relative;text-wrap:balance}
+.chapter h2::before{content:"";position:absolute;top:0;left:0;width:2.6rem;height:4px;background:var(--accent-ink)}
+.chapter h3{font-size:1.14rem;font-weight:700;letter-spacing:.04em;line-height:1.7;margin:2.2rem 0 .7rem}
+.chapter p{margin:0 0 1.7rem}
+blockquote.pullquote{font-family:"Shippori Mincho B1",serif;font-weight:700;
+  font-size:clamp(1.3rem,4.4vw,1.55rem);line-height:1.95;text-align:center;
+  color:var(--accent-ink);margin:3.4rem auto;padding:0 1rem;text-wrap:balance}
+blockquote.pullquote::before{content:"「"}blockquote.pullquote::after{content:"」"}
+aside.column{background:color-mix(in srgb,var(--accent) 8%,#fffdf7);
+  border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));border-radius:10px;
+  padding:1.3rem 1.5rem;margin:2.8rem 0;font-size:.92rem;line-height:1.95}
+aside.column h3{margin:0 0 .7rem;color:var(--accent-ink);font-size:.95rem;letter-spacing:.08em}
+aside.column p{margin:0 0 .9rem}aside.column p:last-child{margin-bottom:0}
+figure.video{margin:2.8rem 0}
+figure.video .frame{aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;
+  box-shadow:0 8px 20px rgba(38,34,27,.13)}
+figure.video iframe{width:100%;height:100%;border:0}
+figure.video figcaption{font-size:.8rem;color:var(--ink-soft);margin-top:.8rem;line-height:1.85}
+.sources{margin:4.4rem 0 0;border-top:3px double var(--line);padding-top:1.6rem}
+.sources h2{font-size:.9rem;letter-spacing:.3em;color:var(--ink-soft);margin:0 0 1rem}
+.sources ul{list-style:none;margin:0;padding:0;counter-reset:src}
+.sources li{counter-increment:src;font-size:.84rem;line-height:1.9;padding:.5rem 0 .5rem 2.2rem;
+  position:relative;border-bottom:1px solid var(--line)}
+.sources li::before{content:counter(src,decimal-leading-zero);position:absolute;left:0;top:.55rem;
+  color:var(--accent-ink);font-weight:700;font-size:.78rem}
+.topics{margin:4.4rem 0 0;border-top:3px double var(--line);padding-top:1.8rem}
+.topics>h2{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:1.2rem;letter-spacing:.2em;margin:0 0 1.4rem}
+.topic-group{background:#fffdf7;border:1px solid var(--line);border-left:5px solid var(--accent);
+  border-radius:8px;padding:1.1rem 1.4rem;margin:0 0 1rem}
+.topic-group h3{margin:0 0 .5rem;font-size:.85rem;letter-spacing:.25em;color:var(--accent-ink)}
+.topic-group ul{margin:0;padding-left:1.2rem}
+.topic-group li{font-size:.88rem;line-height:1.9;margin:.45rem 0}
+.topic-group a{font-size:.76rem;letter-spacing:.04em}
+footer{padding:2.8rem 0 4rem;border-top:1px solid var(--line);margin-top:3.4rem}
+.colophon{color:var(--ink-soft);font-size:.75rem;line-height:1.9;margin-top:1.3rem}
+
+/* ---------- 冒頭1枚（全面） ---------- */
+.hero{position:relative;min-height:78vh;display:flex;align-items:flex-end;
+  background:#1b1917 center/cover no-repeat;color:#f5efe2;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,rgba(12,11,10,.72) 0%,rgba(12,11,10,.42) 38%,rgba(12,11,10,0) 66%)}
+.hero-top{position:absolute;top:0;left:0;right:0;z-index:2;
+  display:flex;justify-content:space-between;align-items:baseline;
+  max-width:70rem;margin:0 auto;padding:2rem 2.4rem;
+  font-size:.76rem;letter-spacing:.18em;color:rgba(245,239,226,.72)}
+.hero-top .masthead{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:.95rem;
+  letter-spacing:.1em;color:#f5efe2;text-decoration:none}
+.hero-inner{position:relative;z-index:2;max-width:70rem;margin:0 auto;width:100%;
+  padding:0 2.4rem 4.2rem}
+.hero .kicker{color:#d8b45a;letter-spacing:.34em;font-size:.8rem;margin:0 0 1rem}
+.hero h1{font-family:"Shippori Mincho B1",serif;font-weight:800;
+  font-size:clamp(2.3rem,6.6vw,4.2rem);line-height:1.32;margin:0;max-width:22em;
+  text-wrap:balance;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+.hero .credit{position:absolute;right:2.4rem;bottom:1.1rem;z-index:2;
+  font-size:.66rem;letter-spacing:.08em;color:rgba(245,239,226,.5);text-align:right;line-height:1.7}
+.hero .credit a{color:inherit}
+/* 写真の無い週は同じ黒いヒーローに一字を置く */
+.hero.glyph{background:radial-gradient(70rem 40rem at 72% 45%,#2b2721,#141210 70%)}
+.hero.glyph .char{position:absolute;right:6%;top:50%;transform:translateY(-50%);z-index:1;
+  font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:clamp(9rem,26vw,20rem);
+  line-height:1;color:rgba(245,239,226,.13)}
+.hero.glyph .char em{font-style:normal;color:rgba(216,180,90,.34)}
+/* 扉のあとの本文 */
+.after-hero{padding:4rem 0 0}
+.after-hero .lead{font-size:1.08rem;line-height:1.95;margin:0;
+  border-left:3px solid var(--accent-ink);padding-left:1.1rem}
+
+/* ---------- 冒頭以降は畳む ---------- */
+.after-hero{padding:3.4rem 0 0}
+main.measure{max-width:38rem}
+.chapter{margin:0 0 2.8rem}
+.chapter h2{font-size:1.42rem;margin:0 0 1.1rem;padding-top:1rem}
+.chapter h2::before{width:2.2rem;height:3px}
+.chapter p{margin:0 0 1.4rem;font-size:.97rem;line-height:1.95}
+blockquote.pullquote{font-size:clamp(1.2rem,3.6vw,1.38rem);margin:2.8rem auto}
+aside.column{margin:2.4rem 0;font-size:.88rem}
+figure.video{margin:2.4rem 0}
+
+/* ソースは畳んで2段に */
+.sources{margin:3.6rem 0 0;padding-top:1.3rem}
+.sources ul{columns:2;column-gap:2rem}
+.sources li{break-inside:avoid;font-size:.78rem;line-height:1.8;padding:.35rem 0 .35rem 1.9rem;border:none}
+.sources li::before{top:.42rem;font-size:.7rem}
+
+/* ---------- 巻末トピックス = 大きさの違うカードのモザイク ---------- */
+.topics{max-width:70rem;margin:4.6rem auto 0;border:none;padding:0 2.4rem}
+.topics>h2{font-size:1.05rem;letter-spacing:.3em;margin:0 0 1.4rem;color:var(--ink-soft);font-weight:700}
+.mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:.9rem}
+@media(max-width:760px){
+  .mosaic{grid-template-columns:repeat(2,1fr)}
+  .tile{grid-column:span 2 !important}
+  .sources ul{columns:1}
+  .topics{padding:0 1.5rem}
 }
 
-main { padding: 3.4rem 1.5rem 2rem; }
-.chapter { margin: 0 0 3.4rem; }
-.chapter h2 {
-  font-family: "Shippori Mincho B1", serif;
-  font-weight: 700;
-  font-size: 1.55rem;
-  line-height: 1.6;
-  margin: 0 0 1.4rem;
-  padding-top: 1.2rem;
-  position: relative;
-  text-wrap: balance;
-}
-.chapter h2::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 2.6rem; height: 4px;
-  background: var(--accent-ink);
-}
-/* h3 が本文とほぼ同寸で階層が潰れていたので、太さと字間で段を作る */
-.chapter h3 {
-  font-size: 1.14rem; font-weight: 700; letter-spacing: .04em;
-  line-height: 1.7; margin: 2.2rem 0 .7rem;
-}
-/* 行間 2.0 に対し段落間 1.2rem では改段が見えない。1行ぶん空ける */
-.chapter p { margin: 0 0 1.7rem; }
-.chapter p:last-child { margin-bottom: 0; }
-.chapter ul, .chapter ol { margin: 0 0 1.7rem; padding-left: 1.4rem; }
-.chapter li { margin: 0 0 .4rem; }
+/* ---------- トピックス: 1件1枚のカード ---------- */
+.mosaic .card{position:relative;overflow:hidden;border-radius:16px;
+  background:var(--tint);color:#f3ecdd;padding:1.7rem 1.8rem 1.3rem;
+  display:flex;flex-direction:column;gap:.55rem;min-height:11.5rem}
+.mosaic .card .cat{font-size:.66rem;letter-spacing:.3em;font-weight:700;color:rgba(243,236,221,.5)}
+.mosaic .card h3{margin:0;font-family:"Shippori Mincho B1",serif;font-weight:800;
+  font-size:1.24rem;line-height:1.55;letter-spacing:.01em}
+.mosaic .card.wide h3{font-size:1.5rem;line-height:1.5}
+.mosaic .card h3 a{color:inherit;text-decoration:none;
+  background-image:linear-gradient(currentColor,currentColor);
+  background-size:0 1px;background-repeat:no-repeat;background-position:0 100%;
+  transition:background-size .25s ease}
+.mosaic .card h3 a:hover{background-size:100% 1px}
+.mosaic .card h3 a::after{content:"";position:absolute;inset:0}  /* カード全体を押せる */
+.mosaic .card .sub{margin:0;font-size:.85rem;line-height:1.85;color:rgba(243,236,221,.72)}
+.mosaic .card .outlet{margin-top:auto;padding-top:.7rem;font-size:.68rem;letter-spacing:.06em;
+  color:rgba(243,236,221,.45)}
+.mosaic .card::after{content:attr(data-mark);position:absolute;right:-.1em;bottom:-.34em;
+  font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:9rem;line-height:1;
+  color:rgba(243,236,221,.06);pointer-events:none}
+.mosaic .card.light{color:#241f18}
+.mosaic .card.light .cat{color:rgba(36,31,24,.5)}
+.mosaic .card.light .sub{color:rgba(36,31,24,.72)}
+.mosaic .card.light .outlet{color:rgba(36,31,24,.5)}
+.mosaic .card.light::after{color:rgba(36,31,24,.08)}
+@media(max-width:760px){.mosaic .card{grid-column:span 2 !important;min-height:0}}
 
-blockquote.pullquote {
-  font-family: "Shippori Mincho B1", serif;
-  font-weight: 700;
-  font-size: clamp(1.25rem, 4.2vw, 1.45rem);
-  line-height: 1.95;
-  text-align: center;
-  color: var(--accent-ink);
-  margin: 3.2rem 0;
-  padding: 0 1rem;
-  text-wrap: balance;
-}
-blockquote.pullquote::before { content: "「"; }
-blockquote.pullquote::after { content: "」"; }
+/* ---------- 表紙（扉に連動させて黒地） ---------- */
+body.cover{background:#111010;color:#f3ecdd}
+.cover .masthead-block{max-width:70rem;margin:0 auto;padding:6rem 2.4rem 0}
+.cover .cover-masthead{font-family:"Shippori Mincho B1",serif;font-weight:800;color:#f5efe2;
+  font-size:clamp(2.6rem,8.4vw,5.4rem);letter-spacing:.06em;line-height:1.1;margin:0}
+.cover .cover-tagline{color:rgba(243,236,221,.55);letter-spacing:.12em;margin:1.1rem 0 0;font-size:.95rem}
+.cover .rule{max-width:70rem;margin:3rem auto 0;padding:0 2.4rem}
+.cover .rule hr{border:none;border-top:1px solid rgba(243,236,221,.16);margin:0}
+.shelf{max-width:70rem;margin:2.6rem auto 0;padding:0 2.4rem;
+  display:grid;grid-template-columns:repeat(6,1fr);gap:1rem}
+.issue{position:relative;overflow:hidden;border-radius:18px;text-decoration:none;color:#f3ecdd;
+  display:flex;flex-direction:column;justify-content:flex-end;min-height:20rem;
+  background:#1b1917 center/cover no-repeat}
+.issue::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,9,8,.88) 12%,rgba(10,9,8,.25) 58%,rgba(10,9,8,0) 88%)}
+.issue>*{position:relative;z-index:1}
+.issue .no{padding:1.6rem 1.7rem 0;font-size:.7rem;letter-spacing:.24em;color:rgba(243,236,221,.62)}
+.issue .body{padding:.6rem 1.7rem 1.6rem}
+.issue .kicker{color:#d8b45a;letter-spacing:.3em;font-size:.7rem;margin:0 0 .5rem}
+.issue h2{font-family:"Shippori Mincho B1",serif;font-weight:800;margin:0;
+  font-size:1.5rem;line-height:1.45}
+.issue.lead-issue{min-height:30rem}
+.issue.lead-issue h2{font-size:clamp(1.7rem,3.4vw,2.5rem)}
+.issue.lead-issue p{margin:.9rem 0 0;font-size:.9rem;line-height:1.9;color:rgba(243,236,221,.7);max-width:34em}
+.issue.glyph{background:radial-gradient(40rem 26rem at 70% 40%,#2b2721,#141210 72%)}
+.issue.glyph .ghost{position:absolute;right:4%;top:44%;transform:translateY(-50%);z-index:0;
+  font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:11rem;line-height:1;
+  color:rgba(243,236,221,.10)}
+.cover-foot{max-width:70rem;margin:3rem auto 5rem;padding:0 2.4rem;
+  color:rgba(243,236,221,.45);font-size:.78rem;letter-spacing:.06em}
+@media(max-width:760px){.shelf{grid-template-columns:1fr}.issue{grid-column:1 !important}}
 
-aside.column {
-  background: color-mix(in srgb, var(--accent) 8%, var(--card));
-  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
-  border-radius: 10px;
-  padding: 1.3rem 1.5rem;
-  margin: 2.8rem 0;
-  font-size: .92rem;
-  line-height: 1.95;
-}
-aside.column h3 { margin: 0 0 .7rem; color: var(--accent-ink); font-size: .95rem; letter-spacing: .08em; }
-aside.column p { margin: 0 0 .9rem; }
-aside.column p:last-child { margin-bottom: 0; }
+/* ── 英語ソース：原文を開かなくていいようにする ───────────────── */
+.en-lane{margin:0 0 1.8rem}
+.en-lane-note{margin:0 0 .9rem;font-size:.74rem;line-height:1.9;color:var(--ink-soft)}
+.en-flag{display:inline-block;font:700 .6rem/1 ui-sans-serif,system-ui;letter-spacing:.18em;
+  padding:.32em .55em .28em;border-radius:4px;background:var(--accent-ink);color:#fdfbf5;
+  vertical-align:.12em;margin-right:.5em}
+.en-lane-note .en-flag{margin-right:.4em}
 
-figure.video { margin: 2.8rem 0; }
-figure.video .frame {
-  aspect-ratio: 16 / 9;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(38,34,27,.13);
-  background: #000;
-}
-figure.video iframe { width: 100%; height: 100%; border: 0; display: block; }
-figure.video figcaption { font-size: .8rem; color: var(--ink-soft); margin-top: .8rem; line-height: 1.85; }
+.en-src{position:relative;border:1px solid var(--line);border-left:5px solid var(--accent-ink);
+  border-radius:10px;background:#fffdf7;padding:1.15rem 1.4rem 1.25rem}
+.en-src h3{margin:.15rem 0 .25rem;font-family:"Shippori Mincho B1",serif;font-weight:800;
+  font-size:1.06rem;line-height:1.55;letter-spacing:.01em}
+.en-src h3 a{color:var(--ink);text-decoration:none;
+  background:linear-gradient(var(--accent),var(--accent)) 0 100%/0 1px no-repeat;
+  transition:background-size .25s}
+.en-src h3 a:hover{background-size:100% 1px}
+.en-src .en-ja{margin:0 0 .9rem;font-size:.78rem;color:var(--ink-soft);letter-spacing:.02em}
+.en-src .pts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.5rem}
+.en-src .pts li{font-size:.87rem;line-height:1.85;padding-left:1.15rem;position:relative}
+.en-src .pts li::before{content:"";position:absolute;left:0;top:.72em;
+  width:.42rem;height:.42rem;border-radius:50%;background:var(--accent)}
+.en-src .orig{margin:1rem 0 0;padding:.85rem 1rem;border-radius:8px;
+  background:color-mix(in srgb,var(--accent) 7%,#fff);border:1px dashed color-mix(in srgb,var(--accent) 40%,#fff)}
+.en-src .orig .en{display:block;font:italic .82rem/1.7 Georgia,"Times New Roman",serif;color:var(--ink-soft)}
+.en-src .orig .ja{display:block;margin-top:.45rem;font-size:.85rem;line-height:1.8}
+.en-src .orig .ja::before{content:"↳ ";color:var(--accent-ink)}
+.en-src .foot{margin:.85rem 0 0;font-size:.7rem;letter-spacing:.04em;color:var(--ink-soft)}
 
-.sources { margin: 4.4rem 0 0; border-top: 3px double var(--line); padding-top: 1.6rem; }
-.sources h2 { font-size: .9rem; letter-spacing: .3em; color: var(--ink-soft); margin: 0 0 1rem; }
-.sources ul { list-style: none; margin: 0; padding: 0; counter-reset: src; }
-.sources li {
-  counter-increment: src;
-  font-size: .84rem;
-  line-height: 1.9;
-  padding: .5rem 0 .5rem 2.2rem;
-  position: relative;
-  border-bottom: 1px solid var(--line);
-}
-.sources li::before {
-  content: counter(src, decimal-leading-zero);
-  position: absolute; left: 0; top: .55rem;
-  color: var(--accent-ink);
-  font-weight: 700;
-  font-size: .78rem;
-}
+/* モザイクカードの中に畳む版 */
+.mosaic .card.en h3 a::after{content:none}   /* カード全面リンクを解除（中を押せるように） */
+.mosaic .card.en .en-flag{background:rgba(243,236,221,.16);color:inherit;margin:0 0 0 .5em}
+.mosaic .card.en.light .en-flag{background:rgba(36,31,24,.14)}
+.digest{position:relative;z-index:2;margin-top:.9rem;
+  border-top:1px solid rgba(243,236,221,.16);padding-top:.7rem}
+.card.light .digest{border-top-color:rgba(36,31,24,.16)}
+.digest>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:.45em;
+  font-size:.7rem;letter-spacing:.1em;font-weight:700;color:rgba(243,236,221,.8);
+  padding:.4em .8em;border-radius:99px;border:1px solid rgba(243,236,221,.28)}
+.card.light .digest>summary{color:rgba(36,31,24,.8);border-color:rgba(36,31,24,.28)}
+.digest>summary::-webkit-details-marker{display:none}
+.digest>summary::after{content:"＋";font-weight:400}
+.digest[open]>summary::after{content:"−"}
+.digest>summary:hover{background:rgba(243,236,221,.1)}
+.figs{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(7.5rem,1fr));gap:.9rem 1.2rem;margin:.9rem 0 .9rem;padding:0}
+.figs li{font-size:.66rem;letter-spacing:.04em;color:rgba(243,236,221,.6);line-height:1.4}
+.card.light .figs li{color:rgba(36,31,24,.6)}
+.figs b{display:block;font-family:"Shippori Mincho B1",serif;font-weight:800;
+  font-size:1.35rem;letter-spacing:0;color:#e8dcc0;line-height:1.15}
+.card.light .figs b{color:#241f18}
+.digest .body{margin:0;font-size:.82rem;line-height:1.9;color:rgba(243,236,221,.8)}
+.card.light .digest .body{color:rgba(36,31,24,.8)}
+.digest .by{margin:.7rem 0 0;font-size:.64rem;letter-spacing:.06em;color:rgba(243,236,221,.45)}
+.card.light .digest .by{color:rgba(36,31,24,.45)}
+@media(max-width:760px){.en-src{padding:1rem 1.1rem}}
 
-footer { padding: 2.8rem 1.5rem 4rem; border-top: 1px solid var(--line); margin-top: 3.4rem; }
-footer a { font-size: .9rem; }
-.colophon { color: var(--ink-soft); font-size: .75rem; line-height: 1.9; margin-top: 1.3rem; }
+/* 英語ソースの見出しバッジ／トピックスの動画サムネイル */
+.en-src .en-tag{margin:0 0 .5rem}
+.yt-thumb{position:relative;z-index:2;display:block;margin:.9rem 0 0;border-radius:10px;
+  overflow:hidden;text-decoration:none;color:inherit}
+.yt-thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;
+  filter:saturate(.9) brightness(.92);transition:filter .25s}
+.yt-thumb:hover img{filter:none}
+.yt-thumb span{position:absolute;left:.7rem;bottom:.55rem;font-size:.66rem;letter-spacing:.08em;
+  background:rgba(10,9,8,.72);color:#f3ecdd;padding:.3em .7em;border-radius:99px}
+.card .yt-thumb+.outlet{padding-top:.7rem}
 
-/* ---------- 巻末トピックス ---------- */
-.topics { margin: 4.4rem 0 0; border-top: 3px double var(--line); padding-top: 1.8rem; }
-.topics > h2 {
-  font-family: "Shippori Mincho B1", serif;
-  font-weight: 800;
-  font-size: 1.3rem;
-  letter-spacing: .2em;
-  margin: 0 0 1.4rem;
-}
-.topic-group {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-left: 5px solid var(--accent);
-  border-radius: 8px;
-  padding: 1.1rem 1.4rem;
-  margin: 0 0 1rem;
-}
-.topic-group h3 {
-  margin: 0 0 .5rem;
-  font-size: .85rem;
-  letter-spacing: .25em;
-  color: var(--accent-ink);
-}
-.topic-group ul { margin: 0; padding-left: 1.2rem; }
-.topic-group li { font-size: .88rem; line-height: 1.9; margin: .45rem 0; }
-/* 出典リンクが本文と同寸で埋もれていたので、小さくして役割を分ける */
-.topic-group a { font-size: .76rem; letter-spacing: .04em; white-space: nowrap; }
-
-@media (max-width: 560px) {
-  .hero { padding: 2.4rem 1.2rem 3rem; }
-  .hero-inner { grid-template-columns: 1fr; row-gap: .6rem; }
-  .masthead { grid-column: 1; grid-row: 1; }
-  .issue-tag { grid-column: 1; grid-row: 2; text-align: left; }
-  .hero-emoji { margin-top: 1.8rem; }
-  main { padding: 2.6rem 1.2rem 2rem; }
-  .cover { padding: 2.6rem 1.2rem 4rem; }
-  .topic-group a { white-space: normal; }
-}
+/* ダイジェストを開いているあいだだけ、行の高さ揃えをやめる
+   （揃えたままだと、隣のカードが開いた分だけ引き伸ばされて大穴になる） */
+.mosaic:has(.digest[open]){align-items:start}
+.mosaic:has(.digest[open]) .card{min-height:13rem}
