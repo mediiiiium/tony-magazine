@@ -40,7 +40,7 @@ def main():
         result = json.load(open("build_result.json", encoding="utf-8"))
 
     if result.get("ok"):
-        text = (f"📖 *ヨリミチ 第{result['no']}号* が届きました\n"
+        text = (f"📖 *Tony Magazine 第{result['no']}号* が届きました\n"
                 f"今週の寄り道: *{result['topic']}* —「{result['title']}」\n"
                 f"{result['lead']}\n"
                 f"<{result['url']}|📰 読む>\n\n{MARKER}")
@@ -51,7 +51,7 @@ def main():
             text += "\n_（" + " / ".join(notes) + "）_"
     else:
         reason = result.get("reason", "原稿の生成に失敗（claude -p が異常終了）")
-        text = (f"⚠️ *ヨリミチ 今週号を発行できませんでした*\n"
+        text = (f"⚠️ *Tony Magazine 今週号を発行できませんでした*\n"
                 f"理由: {reason}\n<{run_url}|実行ログ>")
 
     auth = slack("auth.test", {}, token)

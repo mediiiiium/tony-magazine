@@ -1,5 +1,5 @@
 #!/bin/zsh
-# クリップボードの SLACK_USER_TOKEN を yorimichi repo の Secret に設定する。
+# クリップボードの SLACK_USER_TOKEN を tony-magazine repo の Secret に設定する。
 set -e
 v=$(pbpaste | tr -d '[:space:]')
 if [[ "$v" != xoxp-* ]]; then
@@ -8,5 +8,5 @@ if [[ "$v" != xoxp-* ]]; then
   exit 1
 fi
 echo "確認: ${v:0:8}... （${#v}文字）→ SLACK_USER_TOKEN"
-printf '%s' "$v" | gh secret set SLACK_USER_TOKEN -R mediiiiium/yorimichi
+printf '%s' "$v" | gh secret set SLACK_USER_TOKEN -R mediiiiium/tony-magazine
 echo "✅ 設定完了"

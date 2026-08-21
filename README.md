@@ -1,11 +1,11 @@
-# ヨリミチ
+# Tony Magazine
 
 毎週日曜の朝、興味を「広げる」か「深める」テーマをひとつ深掘りして届ける、
 読者ひとりのための週刊個人誌。GitHub Pages で発行し、Slack DM に届く。
 特集は毎号1テーマ（日常圏の深掘りも未知ジャンルへの寄り道も可。日英ソースをミックスし海外ソースは翻訳して紹介・YouTube動画つき）、
 巻末に AI / クラフトビール / 海外フットボール / エンタメ / SNSバズ の「今週のトピックス」。
 
-📰 誌面: https://mediiiiium.github.io/yorimichi/
+📰 誌面: https://mediiiiium.github.io/tony-magazine/
 
 ## 仕組み
 

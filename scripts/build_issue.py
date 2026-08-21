@@ -139,7 +139,7 @@ def main():
     open("docs/index.html", "w", encoding="utf-8").write(
         idx.replace("{{CARDS}}", cards).replace("{{COUNT}}", str(len(issues))))
 
-    url = f"https://mediiiiium.github.io/yorimichi/issues/{slug}.html"
+    url = f"https://mediiiiium.github.io/tony-magazine/issues/{slug}.html"
     json.dump({"ok": True, "no": no, "title": meta["title"], "topic": meta["topic"],
                "lead": meta["lead"], "url": url, "dropped_videos": dropped,
                "warnings": warnings},

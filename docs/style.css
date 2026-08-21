@@ -1,4 +1,4 @@
-/* ヨリミチ — 誌面スタイル。号ごとの差し色は body の --accent で注入する */
+/* Tony Magazine — 誌面スタイル。号ごとの差し色は body の --accent で注入する */
 :root {
   --paper: #f7f3ea;
   --ink: #26221b;
@@ -35,8 +35,9 @@ img, iframe { max-width: 100%; }
 .cover-masthead {
   font-family: "Shippori Mincho B1", serif;
   font-weight: 800;
-  font-size: clamp(3.4rem, 12vw, 7rem);
-  letter-spacing: .18em;
+  /* 誌名がラテン文字13字なので、和文4字前提の値だと60remの表紙からはみ出す */
+  font-size: clamp(2.2rem, 8vw, 4.6rem);
+  letter-spacing: .06em;
   line-height: 1.1;
   margin: 0;
 }
@@ -80,7 +81,7 @@ img, iframe { max-width: 100%; }
 .masthead {
   font-family: "Shippori Mincho B1", serif;
   font-weight: 800;
-  letter-spacing: .3em;
+  letter-spacing: .1em;
   font-size: 1rem;
   color: var(--ink);
   text-decoration: none;

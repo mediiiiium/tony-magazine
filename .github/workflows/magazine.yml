@@ -1,6 +1,6 @@
 name: Magazine
 
-# 週刊個人誌「ヨリミチ」。毎週日曜朝に claude -p（サブスク枠・Web検索つき）が
+# 週刊個人誌「Tony Magazine」。毎週日曜朝に claude -p（サブスク枠・Web検索つき）が
 # 「普段触れないジャンル」を1つ調査して誌面を発行し、Slack DM に通知する。
 # 流儀は tony の brief/report と同じ: LLM失敗でも黙らない（必ず Slack に何か言う）。
 on:
@@ -71,7 +71,7 @@ jobs:
       - name: Pages へ発行（docs/ を push）
         if: steps.build.outcome == 'success'
         run: |
-          git config user.name "yorimichi-bot"
+          git config user.name "tony-magazine-bot"
           git config user.email "actions@users.noreply.github.com"
           git add docs
           git commit -m "発行: ${{ steps.meta.outputs.slug }} 号"
