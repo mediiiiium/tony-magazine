@@ -244,7 +244,7 @@ def commons_pick(query, words):
 def commons_credit(c):
     bits = [b for b in (c["title"].rsplit(".", 1)[0], c["artist"]) if b]
     return (f'{", ".join(bits)}<br>Wikimedia Commons（{html_escape(c["license"])}）'
-            f' <a href="{c["page"]}">出典ページ</a>')
+            f' <a href="{c["page"]}">この写真のページ</a>')
 
 
 def html_escape(s):
