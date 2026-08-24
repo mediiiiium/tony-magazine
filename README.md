@@ -32,13 +32,31 @@ tony（~/tony）と同じ流儀: **LLM が失敗しても黙らない**。発行
 | `scripts/make_prompt.py` | 編集方針+過去号一覧からプロンプトを組む |
 | `scripts/build_issue.py` | 検品・サニタイズ・誌面組み・目次再生成 |
 | `scripts/notify_slack.py` | Slack DM 通知（成功時のみ `[magazine-ok]`） |
+| `scripts/rebuild.py` | 保管した生原稿から過去号を組み直す（デザイン変更後に走らせる） |
 | `templates/` | 号・目次の HTML テンプレート |
+| `archive/` | LLM が書いた生原稿（`YYYY-MM-DD.txt`）。誌面の原本 |
 | `docs/` | GitHub Pages 公開ルート。`issues/*.html` が各号、`issues.json` が既刊台帳 |
 
 ## 必要な Secrets（Actions）
 
 - `CLAUDE_CODE_OAUTH_TOKEN` — `claude setup-token` で発行（サブスク枠。API課金なし）
 - `SLACK_USER_TOKEN` — 私用WS「103」の gmail-digest App の User Token（tony と共用）
+
+## 過去号の扱い
+
+発行した号は消さない・上書きしない。台帳 `docs/issues.json` に積み、表紙
+`docs/index.html` は毎回そこから丸ごと作り直す（＝号が増えるだけで表紙は整う）。
+扉の写真も実体を `docs/img/` に落として commit するので、元サイトが消えても誌面は残る。
+
+**生原稿は `archive/YYYY-MM-DD.txt` に保管する。** 誌面デザインを変えたら、
+
+```
+python scripts/rebuild.py            # 全号を組み直す
+python scripts/rebuild.py 2026-08-23 # 号を指定
+```
+
+で過去号をいまの組版に揃えられる（号数・発行日・写真は台帳のまま引き継ぐ）。
+第1号 2026-08-20 だけは保管を始める前の号なので生原稿が無く、組み直せない。
 
 ## 手動発行
 

@@ -24,6 +24,8 @@ RAW = "issue_raw.txt"
 ALLOWED_ACCENT = re.compile(r"^#[0-9a-fA-F]{6}$")
 YT_ID = re.compile(r"^[A-Za-z0-9_-]{11}$")
 IMG_DIR = "docs/img"
+# LLM の生原稿の保管庫。誌面デザインを変えたとき、ここから過去号を組み直す。
+ARCHIVE_DIR = "archive"
 
 # トピックスの5分野の地色（この順・固定。プロンプト側と対応）
 TINT = {
@@ -334,11 +336,23 @@ def hero_for(slug, meta):
 
 
 def main():
-    if not os.path.exists(RAW) or os.path.getsize(RAW) == 0:
-        fail("原稿がありません（claude -p 失敗）")
-    raw = open(RAW, encoding="utf-8").read().strip()
+    slug = os.environ.get("DATE_SLUG")
+    if not slug:
+        fail("DATE_SLUG が未設定")
+    date_ja = os.environ.get("DATE_JA", slug)
+    # REBUILD=1 なら新規発行ではなく、保管してある生原稿からの組み直し
+    rebuild = os.environ.get("REBUILD") == "1"
+    src = f"{ARCHIVE_DIR}/{slug}.txt" if rebuild else RAW
+    if not os.path.exists(src) or os.path.getsize(src) == 0:
+        fail(f"生原稿がありません（{src}）" if rebuild else "原稿がありません（claude -p 失敗）")
+    raw = open(src, encoding="utf-8").read().strip()
     raw = re.sub(r"^```(html)?\s*", "", raw)
     raw = re.sub(r"\s*```$", "", raw)
+
+    # 検品より先に保存する。組版で弾かれた号でも、何を書いてきたかは残す
+    if not rebuild:
+        os.makedirs(ARCHIVE_DIR, exist_ok=True)
+        open(f"{ARCHIVE_DIR}/{slug}.txt", "w", encoding="utf-8").write(raw + "\n")
 
     m = re.search(r"(?s)<!--META\s*(\{.*?\})\s*META-->", raw)
     if not m:
@@ -362,13 +376,13 @@ def main():
         fail("ソース欄がありません（この誌の必須要件）")
 
     issues = json.load(open("docs/issues.json", encoding="utf-8"))
-    slug = os.environ.get("DATE_SLUG")
-    date_ja = os.environ.get("DATE_JA", slug)
-    if not slug:
-        fail("DATE_SLUG が未設定")
-    if any(i["date"] == slug for i in issues):
+    prev = next((i for i in issues if i["date"] == slug), None)
+    if prev and not rebuild:
         fail(f"{slug} の号は発行済みです")
-    no = len(issues) + 1
+    if rebuild and not prev:
+        fail(f"{slug} は台帳にない号です（組み直せません）")
+    no = prev["no"] if prev else len(issues) + 1        # 号数は振り直さない
+    date_ja = prev["date_ja"] if prev else date_ja
 
     warnings = []
     body, n_en = en_sources(body)
@@ -415,10 +429,14 @@ def main():
                .replace("{{BODY}}", body))
     open(f"docs/issues/{slug}.html", "w", encoding="utf-8").write(page)
 
-    issues.insert(0, {"no": no, "date": slug, "date_ja": date_ja, "topic": meta["topic"],
-                      "title": meta["title"], "lead": meta["lead"], "emoji": meta["emoji"],
-                      "accent": meta["accent"], "glyph": (meta.get("glyph") or meta["topic"])[:2],
-                      "hero": hero["file"]})
+    entry = {"no": no, "date": slug, "date_ja": date_ja, "topic": meta["topic"],
+             "title": meta["title"], "lead": meta["lead"], "emoji": meta["emoji"],
+             "accent": meta["accent"], "glyph": (meta.get("glyph") or meta["topic"])[:2],
+             "hero": hero["file"]}
+    if prev:
+        issues[issues.index(prev)] = entry
+    else:
+        issues.insert(0, entry)
     json.dump(issues, open("docs/issues.json", "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
     write_cover(issues)
