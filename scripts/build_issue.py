@@ -12,6 +12,7 @@
 - 巻末トピックスは大きさの違うカードのモザイクに組み替える
 - 英語ソースは日本語ダイジェストごと専用レーンに立てる（原文を開かなくて済むように）
 """
+import datetime
 import html
 import json
 import os
@@ -34,6 +35,10 @@ TINT = {
 }
 LIGHT_TINTS = {"#e9e1ce"}
 DEFAULT_TINT = "#22201c"
+
+# 「今週のトピックス」は速報の欄。発行日からこの日数より前の項目は載せない。
+# 1日ぶん甘いのは、報じられた日と現地の日付がずれることがあるため。
+FRESH_DAYS = 8
 
 
 def fail(reason):
@@ -161,8 +166,9 @@ def spans_for(items):
     return out
 
 
-def parse_topic_li(li):
-    """LLM が書いた <li> を、見出し / 補足 / リンク / ダイジェスト / 動画 に分解する。"""
+def parse_topic_li(li, attrs=""):
+    """LLM が書いた <li> を、見出し / 補足 / リンク / ダイジェスト / 動画 / 日付 に分解する。"""
+    md = re.search(r'data-date="(\d{4}-\d{2}-\d{2})"', attrs or "")
     vid = ""
     m = re.search(r'(?is)<span class="yt"[^>]*data-yt="([^"]+)"[^>]*>\s*</span>', li)
     if m:
@@ -188,7 +194,7 @@ def parse_topic_li(li):
             head, sub = plain[:cut], plain[cut + 1:]
     return {"head": (head + "。") if mark else head, "sub": sub.strip(),
             "href": href.strip(), "outlet": re.sub(r"(?is)<[^>]+>", "", text).strip(),
-            "digest": digest, "vid": vid}
+            "digest": digest, "vid": vid, "date": md.group(1) if md else ""}
 
 
 def build_digest(digest_html, words):
@@ -201,13 +207,35 @@ def build_digest(digest_html, words):
             f'{inner}<p class="by">{by}</p></details>')
 
 
-def mosaicize(body):
+def drop_stale(items, slug):
+    """発行日から見て古すぎる項目を落とす。日付が読めない項目は落とさず数だけ返す。"""
+    try:
+        pub = datetime.date.fromisoformat(slug or "")
+    except ValueError:
+        return items, [], 0
+    kept, stale, nodate = [], [], 0
+    for it in items:
+        try:
+            age = (pub - datetime.date.fromisoformat(it["date"])).days
+        except ValueError:
+            nodate += 1
+            kept.append(it)
+            continue
+        if -1 <= age <= FRESH_DAYS:
+            kept.append(it)
+        else:
+            stale.append(f'{it["head"][:20]}（{it["date"]}）')
+    return kept, stale, nodate
+
+
+def mosaicize(body, slug=""):
     """<div class="topic-group"> の羅列を、カードのモザイクに組み替える。"""
     sec = re.search(r'(?is)<section class="topics">(.*?)</section>', body)
     if not sec:
-        return body, [], 0, []
+        return body, [], 0, [], [], 0
     inner = sec.group(1)
     dropped, videos, cats = [], 0, []
+    stale, nodate = [], 0
     cards = []
     for grp in re.findall(r'(?is)<div class="topic-group">(.*?)</div>\s*(?=<div class="topic-group">|$)', inner):
         cat = re.search(r"(?is)<h3>(.*?)</h3>", grp)
@@ -221,9 +249,12 @@ def mosaicize(body):
             return f"\x00D{len(stash) - 1}\x00"
 
         grp = re.sub(r'(?is)<div class="digest"[^>]*>.*?</div>', hide, grp)
-        lis = [re.sub(r"\x00D(\d+)\x00", lambda m: stash[int(m.group(1))], x)
-               for x in re.findall(r"(?is)<li>(.*?)</li>", grp)]
-        items = [parse_topic_li(x) for x in lis]
+        lis = [(a, re.sub(r"\x00D(\d+)\x00", lambda m: stash[int(m.group(1))], x))
+               for a, x in re.findall(r"(?is)<li\b([^>]*)>(.*?)</li>", grp)]
+        items = [parse_topic_li(x, a) for a, x in lis]
+        items, gs, gn = drop_stale(items, slug)
+        stale += gs
+        nodate += gn
         if not items:
             continue
         cats.append(cat)
@@ -263,10 +294,10 @@ def mosaicize(body):
                          f' data-mark="{html.escape(cat[:1])}">' + "".join(parts) + "</article>")
 
     if not cards:
-        return body, dropped, videos, cats
+        return body, dropped, videos, cats, stale, nodate
     new = ('<section class="topics"><h2>今週のトピックス</h2>\n<div class="mosaic">\n'
            + "\n".join(cards) + "\n</div></section>")
-    return body[:sec.start()] + new + body[sec.end():], dropped, videos, cats
+    return body[:sec.start()] + new + body[sec.end():], dropped, videos, cats, stale, nodate
 
 
 # ─────────────────────────────────────────────────────────────
@@ -330,24 +361,6 @@ def main():
     if 'class="sources"' not in body or "<a href=" not in body:
         fail("ソース欄がありません（この誌の必須要件）")
 
-    warnings = []
-    body, n_en = en_sources(body)
-    if not n_en:
-        warnings.append("英語ソースが1件もありません（日英ミックスが方針）")
-    if 'class="topics"' not in body:
-        warnings.append("今週のトピックス欄がありません")
-    body, t_dropped, t_videos, t_cats = mosaicize(body)
-    dropped += t_dropped
-    missing = [c for c in TINT if c not in t_cats]
-    if t_cats and missing:
-        warnings.append("トピックスに分野が足りません: " + " / ".join(missing))
-    # トピックスは本文（38rem）の外に出す。カードのモザイクは70remで組むため
-    topics = ""
-    mt = re.search(r'(?is)<section class="topics">.*?</section>', body)
-    if mt:
-        topics = mt.group(0)
-        body = body[:mt.start()] + body[mt.end():]
-
     issues = json.load(open("docs/issues.json", encoding="utf-8"))
     slug = os.environ.get("DATE_SLUG")
     date_ja = os.environ.get("DATE_JA", slug)
@@ -356,6 +369,29 @@ def main():
     if any(i["date"] == slug for i in issues):
         fail(f"{slug} の号は発行済みです")
     no = len(issues) + 1
+
+    warnings = []
+    body, n_en = en_sources(body)
+    if not n_en:
+        warnings.append("英語ソースが1件もありません（日英ミックスが方針）")
+    if 'class="topics"' not in body:
+        warnings.append("今週のトピックス欄がありません")
+    body, t_dropped, t_videos, t_cats, t_stale, t_nodate = mosaicize(body, slug)
+    dropped += t_dropped
+    missing = [c for c in TINT if c not in t_cats]
+    if t_cats and missing:
+        warnings.append("トピックスに分野が足りません: " + " / ".join(missing))
+    if t_stale:
+        warnings.append(f"今週のものでないトピックスを{len(t_stale)}件落としました: "
+                        + " / ".join(t_stale))
+    if t_nodate:
+        warnings.append(f"日付(data-date)の無いトピックスが{t_nodate}件（速報性を検品できていません）")
+    # トピックスは本文（38rem）の外に出す。カードのモザイクは70remで組むため
+    topics = ""
+    mt = re.search(r'(?is)<section class="topics">.*?</section>', body)
+    if mt:
+        topics = mt.group(0)
+        body = body[:mt.start()] + body[mt.end():]
 
     hero = hero_for(slug, meta)
     if not hero["photo"]:

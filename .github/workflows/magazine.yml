@@ -35,6 +35,7 @@ jobs:
       - name: プロンプトを組み立てる
         env:
           DATE_JA: ${{ steps.meta.outputs.date_ja }}
+          DATE_SLUG: ${{ steps.meta.outputs.slug }}
         run: python scripts/make_prompt.py
 
       - name: Claude Code をインストール
