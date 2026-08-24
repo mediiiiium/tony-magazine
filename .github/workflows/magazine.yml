@@ -88,6 +88,21 @@ jobs:
           git commit -m "発行: ${{ steps.meta.outputs.slug }} 号"
           git push
 
+      # 検品で弾かれた号でも、LLM が何を書いてきたかは残す。発行ステップは
+      # build 成功が条件なので、これが無いと没原稿はランナーごと消えてしまう。
+      - name: 没になった原稿だけ残す
+        if: steps.build.outcome != 'success'
+        run: |
+          git config user.name "tony-magazine-bot"
+          git config user.email "actions@users.noreply.github.com"
+          if [ -n "$(git status --porcelain archive)" ]; then
+            git add archive
+            git commit -m "没: ${{ steps.meta.outputs.slug }} 号の原稿（検品で弾かれた）"
+            git push
+          else
+            echo "残す原稿なし（claude -p の段階で失敗）"
+          fi
+
       # ★このステップは絶対に飛ばさない。成功でも失敗でも必ず Slack に知らせる。
       - name: Slack へ通知
         if: always()
