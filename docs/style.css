@@ -109,6 +109,7 @@ figure.video{margin:2.4rem 0}
 .topics{max-width:70rem;margin:4.6rem auto 0;border:none;padding:0 2.4rem}
 .topics>h2{font-size:1.05rem;letter-spacing:.3em;margin:0 0 1.4rem;color:var(--ink-soft);font-weight:700}
 .mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:.9rem}
+.topics-none{margin:0;color:var(--ink-soft);font-size:.9rem;letter-spacing:.04em}
 @media(max-width:760px){
   .mosaic{grid-template-columns:repeat(2,1fr)}
   .tile{grid-column:span 2 !important}
@@ -173,6 +174,17 @@ body.cover{background:#111010;color:#f3ecdd}
   color:rgba(243,236,221,.10)}
 .cover-foot{max-width:70rem;margin:3rem auto 5rem;padding:0 2.4rem;
   color:rgba(243,236,221,.45);font-size:.78rem;letter-spacing:.06em}
+/* バックナンバー: 棚に出すのは新しい号だけ。古い号はここに畳む（JSなしの details） */
+.backnumbers{max-width:70rem;margin:1.8rem auto 0;padding:0 2.4rem}
+.backnumbers>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:.7rem;
+  font-size:.74rem;letter-spacing:.24em;color:rgba(243,236,221,.6);
+  border:1px solid rgba(243,236,221,.2);border-radius:999px;padding:.75rem 1.5rem;
+  transition:color .2s,border-color .2s}
+.backnumbers>summary::-webkit-details-marker{display:none}
+.backnumbers>summary::after{content:"＋";color:#d8b45a;font-size:.85rem;letter-spacing:0}
+.backnumbers[open]>summary::after{content:"−"}
+.backnumbers>summary:hover{color:#f3ecdd;border-color:rgba(216,180,90,.55)}
+.backnumbers .shelf{max-width:none;margin:1.8rem 0 0;padding:0}
 @media(max-width:760px){.shelf{grid-template-columns:1fr}.issue{grid-column:1 !important}}
 
 /* ── 英語ソース：原文を開かなくていいようにする ───────────────── */

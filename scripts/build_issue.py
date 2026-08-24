@@ -42,6 +42,10 @@ DEFAULT_TINT = "#22201c"
 # 1日ぶん甘いのは、報じられた日と現地の日付がずれることがあるため。
 FRESH_DAYS = 8
 
+# 表紙の棚に並べる号数。最新号1枚（全幅）＋3カラム6枚で3段ぶん。
+# これより古い号は「もっと見る」に畳む（週刊なので放っておくと年52号ぶん伸びる）
+SHELF = 7
+
 
 def fail(reason):
     json.dump({"ok": False, "reason": reason}, open("build_result.json", "w"), ensure_ascii=False)
@@ -296,7 +300,12 @@ def mosaicize(body, slug=""):
                          f' data-mark="{html.escape(cat[:1])}">' + "".join(parts) + "</article>")
 
     if not cards:
-        return body, dropped, videos, cats, stale, nodate
+        # 1枚も残らなかった週。ここで body をそのまま返すと、古いと判定して
+        # 落としたはずの項目が原稿のまま誌面に出てしまう（検品が逆に効かなくなる）
+        none = ('<section class="topics"><h2>今週のトピックス</h2>\n'
+                '<p class="topics-none">今週は、速報性のある項目が揃わなかったのでお休みです。</p>'
+                '</section>')
+        return body[:sec.start()] + none + body[sec.end():], dropped, videos, cats, stale, nodate
     new = ('<section class="topics"><h2>今週のトピックス</h2>\n<div class="mosaic">\n'
            + "\n".join(cards) + "\n</div></section>")
     return body[:sec.start()] + new + body[sec.end():], dropped, videos, cats, stale, nodate
@@ -454,15 +463,11 @@ def main():
 
 
 def write_cover(issues):
-    """表紙（目次）。最新号を大きく、あとは3カラムずつ。扉と同じ黒地で連動させる。"""
+    """表紙（目次）。最新号を大きく、あとは3カラムずつ。扉と同じ黒地で連動させる。
+       棚に出すのは新しい方から SHELF 号まで。それより古い号は「もっと見る」に畳む。"""
     esc = lambda s: html.escape(str(s), quote=True)
-    out = []
-    for k, i in enumerate(issues):
-        lead = k == 0
-        span = 6 if lead else 3
-        rest = len(issues) - 1
-        if not lead and rest % 2 == 1 and k == len(issues) - 1:
-            span = 6                      # 余った1枚は全幅にして穴を作らない
+
+    def card(i, span, lead=False):
         img = i.get("hero")
         cls = "issue lead-issue" if lead else "issue"
         style = f"grid-column:span {span}"
@@ -475,13 +480,33 @@ def write_cover(issues):
         body = [f'<span class="kicker">{esc(i["topic"])}</span>', f'<h2>{esc(i["title"])}</h2>']
         if lead:
             body.append(f'<p>{esc(card_lead(i["lead"]))}</p>')
-        out.append(
-            f'  <a class="{cls}" style="{style}" href="issues/{i["date"]}.html">\n'
-            f'    {ghost}<span class="no">第 {i["no"]} 号　{esc(i["date_ja"])}</span>\n'
-            f'    <span class="body">{"".join(body)}</span>\n  </a>')
+        return (f'  <a class="{cls}" style="{style}" href="issues/{i["date"]}.html">\n'
+                f'    {ghost}<span class="no">第 {i["no"]} 号　{esc(i["date_ja"])}</span>\n'
+                f'    <span class="body">{"".join(body)}</span>\n  </a>')
+
+    def deck(items, with_lead):
+        out = []
+        n = len(items)
+        for k, i in enumerate(items):
+            lead = with_lead and k == 0
+            span = 6 if lead else 3
+            rest = n - 1 if with_lead else n
+            if not lead and rest % 2 == 1 and k == n - 1:
+                span = 6                  # 余った1枚は全幅にして穴を作らない
+            out.append(card(i, span, lead))
+        return "\n".join(out)
+
+    head, tail = issues[:SHELF], issues[SHELF:]
+    more = ""
+    if tail:
+        more = ('<details class="backnumbers">\n'
+                f'  <summary>もっと見る（残り {len(tail)} 号）</summary>\n'
+                '  <div class="shelf">\n' + deck(tail, False) + '\n  </div>\n</details>')
     idx = open("templates/index.html", encoding="utf-8").read()
     open("docs/index.html", "w", encoding="utf-8").write(
-        idx.replace("{{CARDS}}", "\n".join(out)).replace("{{COUNT}}", str(len(issues))))
+        idx.replace("{{CARDS}}", deck(head, True))
+           .replace("{{MORE}}", more)
+           .replace("{{COUNT}}", str(len(issues))))
 
 
 if __name__ == "__main__":
