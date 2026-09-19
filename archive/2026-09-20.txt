@@ -1,0 +1,131 @@
+<!--META
+{"topic":"フットボール分析","title":"0.03か、0.76か——「期待値」がサッカーを変えた日","lead":"1本のシュートに「何%」という値札をつける指標、期待値得点(xG)。元賭博師、物理学者、統計オタクという畑違いの男たちが、ピッチの外からサッカーそのものを書き換えた15年間を追います。","emoji":"⚽","accent":"#14532d","glyph":"測","hero_query":"football stadium pitch grass"}
+META-->
+<section class="chapter">
+  <h2>1本のシュートに値段をつける</h2>
+  <p>ペナルティキックは、だいたい0.76点分の価値があります。ゴールから30メートル、しかもディフェンダーに視界を遮られた状態のミドルシュートは、せいぜい0.03点。サッカーの世界でここ十数年、こんな奇妙な「値付け」が当たり前になりました。エクスペクテッド・ゴールズ(xG、期待値得点)と呼ばれる指標です。1本のシュートが決まる確率を、コース、距離、角度、シュートの種類、守備の密度などから弾き出し、0から1のあいだの数字で表します。</p>
+  <p>この発想自体は、実は驚くほど古いものです。1952年から1967年にかけて、チャールズ・リープとバーナード・ベンジャミンという2人が667試合を観察し、ワールドカップの会場にまで足を運んでデータを取り続けました。「約10本のシュートに1点」という統計的な発見は、のちにチャールズ・ヒューズによって「POMO(得点確率最大のポジション)」という理論に発展します。そして1993年、ヴィック・バーネットとサラー・ヒルディッチという研究者が、人工芝がホームチームの成績に与える影響を調べる論文のなかで、「期待値得点(expected goals)」という言葉そのものを初めて使いました。2004年にはリチャード・ポラードらが、距離・角度・シュート前のタッチ数・ビルドアップの種類までを変数に組み込んだモデルを学術誌に発表しています。</p>
+  <p>ただし、これが「xG」という略称を得て一般のファンにまで届いたのは、もっと最近のことです。2012年、Optaのアナリストだったサム・グリーンが「プレミアリーグの得点者のパフォーマンスを評価する」と題したブログで、この指標に具体的な名前を与えました。それでも普及は遅く、イギリスの公共放送BBCの看板番組『マッチ・オブ・ザ・デイ』が試合後の統計コーナーで初めてxGを使ったのは、2017年8月12日のこと。それまでの5年間、xGはもっぱらオタクたちの内輪の会話でした。</p>
+</section>
+<section class="chapter">
+  <h2>賭け屋がクラブの舵を取るとき</h2>
+  <p>この指標を実際の経営に持ち込んだのが、マシュー・ベンハムという人物です。2004年に統計予測会社スマートオッズを立ち上げ、サッカーの賭博市場を数学モデルで「攻略」した資金をもとに、2012年にブレントフォードを、翌2013年にデンマークのFCミッティランを買収しました。</p>
+  <p>ベンハムの口癖は「リーグの順位表はひどく不正確だ。人々が思う以上に、そこには運が入り込んでいる」というものです。2015年2月、ブレントフォードが実際の順位表で5位につけていたとき、彼の内部モデルは「本当の実力は11位相当」と示していました。派手な補強より、こうした期待値との差を埋める意思決定を優先する。それがベンハム流でした。</p>
+  <p>もっとも顕著な成果はセットプレーです。ミッティランは専門のセットプレーコーチを配置したシーズン、コーナーキックやフリーキックだけでほぼ1試合に1点というとんでもない得点率を記録しました。守備でも攻撃でもない、ボールが止まっている数秒間こそ「サッカーで最も非効率な市場」だという発見です。ミッティランはこの路線で2015年以降、リーグ優勝を2度果たしています。</p>
+  <blockquote class="pullquote">「リーグの順位表はひどく不正確だ。人々が思う以上に、そこには運が入り込んでいる」——マシュー・ベンハム</blockquote>
+</section>
+<section class="chapter">
+  <h2>物理学者、アンフィールドへ</h2>
+  <p>もう一人、欠かせない人物がいます。ケンブリッジ大学で物理学の博士号を取得したイアン・グレアムです。2005年から2012年までトッテナムなどの分析を請け負う会社で働いたのち、2012年にリバプールへ移籍し、2023年までディレクター・オブ・リサーチを務めました。</p>
+  <p>グレアムが開発した「ポゼッション・バリュー」モデルは単純です。「ボールが今この位置にあるとき、チームが得点する確率は何%か」を全ピッチにわたって計算する。自陣でボールを持っているときの得点確率はおよそ0.4%、相手ペナルティエリア付近まで運べば1.7%に跳ね上がります。あるパスがこの確率を1.3ポイント押し上げたなら、それがそのパスの「貢献度」として数値化されるわけです。</p>
+  <p>この仕組みは移籍市場でも使われました。2017年、当時のスポーティングディレクター、マイケル・エドワーズはバイエル・レバークーゼンのユリアン・ブラントを推すユルゲン・クロップ監督に対し、データが示すモハメド・サラーを提案します。クロップは「妥協に開かれていた」と伝えられ、結果としてこれがクラブ史上もっとも成功した補強の一つになりました。2019年のチャンピオンズリーグ決勝でピッチに立った11人のうち9人は、グレアムのモデルを経由して獲得された選手です。例外は生え抜きのトレント・アレクサンダー=アーノルドと、グレアム就任前から在籍していたジョーダン・ヘンダーソンだけでした。</p>
+  <p>ただし栄光の裏には摩耗もありました。マンチェスター・シティとの終わりなき競争の中で、エドワーズは2022年に「もう一度あの移籍ウインドウを乗り切れない」と辞任し、グレアムも1年後、同じ理由でクラブを去っています。</p>
+  <blockquote class="pullquote">「クラブの全員——監督もスポーティングディレクターもスカウトもデータ部門も——が同じ選手に合意したとき、その補強は成功する」——イアン・グレアム</blockquote>
+</section>
+<section class="chapter">
+  <h2>数字は万能ではない</h2>
+  <p>とはいえxGは魔法の水晶玉ではありません。ある1試合の結果を予言するものではなく、あくまで「チャンスの質」を測る物差しにすぎない、というのが分析コミュニティの共通認識です。グレアム自身、リバプール時代にゴールキーパーのアリソンを評価しようとした際、セリエAの試合には守備陣形の追跡データが存在せず、自分たちのモデルを当てはめられなかったと振り返っています。データが揃っていない領域では、結局のところ人間の目に頼るしかありません。</p>
+  <p>この「数字が外れる」感覚は、今シーズンのプレミアリーグでも見られます。得点感覚に優れたある選手は、ここ9試合で9得点というハイペースにもかかわらず、対戦成績のよくない相手には、これまで放った3本のシュート(合計xG0.75)がすべて無得点に終わっています。理屈の上では2球に1球近く決まっていておかしくない数字が、現実にはゼロ。ブライトンのオーナー、トニー・ブルームのように専門のデータ会社(スター・リザード)を使い倒すクラブがある一方、xGはあくまで「賢い議論の材料」であって、答えそのものではないのです。</p>
+</section>
+<aside class="column">
+  <h3>元祖アナリスト、チャールズ・リープという男</h3>
+  <p>「サッカー最初の真のパフォーマンス分析者」と呼ばれるチャールズ・リープは、1950年代から60年代にかけて、パートナーのバーナード・ベンジャミンとともに667試合分の記録をノートに取り続けました。ワールドカップの会場にまで自費で足を運んだというから、その執念は並大抵ではありません。皮肉なのは、彼が集めた「10本に1本しか決まらない」というデータが、のちにチャールズ・ヒューズの手で「だから細かいパス回しより、早く前にボールを送るべきだ」という長いボール戦略の理論的根拠として使われたことです。統計そのものは正確でも、そこから導く結論は使う人間次第——xGの歴史は、その教訓を何度も繰り返しています。</p>
+</aside>
+<section class="chapter">
+  <h2>もっと知るには</h2>
+  <p>まず動画で雰囲気をつかむなら、プレミアリーグ公式の解説シリーズと、分析系YouTuberの数式寄りの解説を見比べてみてください。同じxGでも、語られ方がまったく違うのがわかります。</p>
+  <figure class="video" data-yt="XlQiZGJ-pkU"><figcaption>Football 101: What Is xG And Why It Matters（Premier League公式チャンネル）——xGの基礎を数分で紹介する公式解説動画。</figcaption></figure>
+  <figure class="video" data-yt="VcdFOiBWsKM"><figcaption>The Mathematics of Expected Goals Explained（McKay Johns）——xGモデルの計算ロジックをもう一段深く掘り下げた解説動画。</figcaption></figure>
+  <p>活字派には、イアン・グレアム自身による2024年の著書『How to Win the Premier League』がおすすめです。リバプールの内幕を、当事者の視点から具体的な数字とともに描いています。日本語で手を動かしたい人は、名城大学・小中研究室が公開している「サッカーにおけるゴール期待値」のページが便利です。約2000試合分のシュートデータをもとに、ピッチ上のどこから打てば何%決まるかをインタラクティブに確認できます。英語が平気であれば、American Soccer Analysisのサイトもデータと解説が充実しています。</p>
+</section>
+<section class="sources">
+  <h2>ソース</h2>
+  <ul>
+    <li><a href="https://thesefootballtimes.co/2020/04/08/the-roots-of-expected-goals-xg-and-its-journey-from-nerd-nonsense-to-the-mainstream/">The roots of Expected Goals (xG) and its journey from "nerd nonsense" to the mainstream</a> — xGの起源(リープ、バーネット、ポラード)と普及史を参照</li>
+    <li><a href="https://www.the42.ie/ian-graham-liverpool-6491974-Sep2024/">Arguments, compromise and the stress of chasing City: how the data revolution changed Liverpool</a> — イアン・グレアムのポゼッション・バリューモデル、サラー獲得、クロップとの軋轢を参照</li>
+    <li><a href="https://breakingthelines.com/squad-analysis/mathew-benham-brentford-a-story-on-innovation-through-statistical-analysis/">Mathew Benham & Brentford: A Story on Innovation through Statistical Analysis</a> — スマートオッズ創業とミッティランのセットプレー戦略を参照</li>
+    <li><a href="https://www.si.com/soccer/2015/05/15/soccer-analytics-brentford-midtjylland-matthew-benham">Soccer analytics revolution underway at Benham's Brentford, Midtjylland</a> — ベンハムの「順位表は不正確」発言とブレントフォードの内部モデルを参照</li>
+    <li><a href="https://www-ie.meijo-u.ac.jp/~konaka/sxg.html">サッカーにおけるゴール期待値</a> — xGの統計的な計算方法(位置ごとの成功確率、回帰モデル)を参照</li>
+  </ul>
+</section>
+
+<article class="en-src" data-words="2500">
+  <h3><a href="https://thesefootballtimes.co/2020/04/08/the-roots-of-expected-goals-xg-and-its-journey-from-nerd-nonsense-to-the-mainstream/">The roots of Expected Goals (xG) and its journey from "nerd nonsense" to the mainstream</a></h3>
+  <p class="en-ja">「期待値得点(xG)の起源——『オタクの戯言』から主流への道のり」／These Football Times</p>
+  <ul class="pts">
+    <li>チャールズ・リープとバーナード・ベンジャミンは1952年から1967年にかけて667試合を観察し、データ収集のために自費で4大会のワールドカップ会場まで足を運んだ。</li>
+    <li>「期待値得点」という用語そのものは1993年、ヴィック・バーネットとサラー・ヒルディッチが人工芝のホームアドバンテージへの影響を調べる論文の中で初めて使った。</li>
+    <li>xGがイギリスの一般視聴者に届いたのは意外に遅く、BBC『マッチ・オブ・ザ・デイ』の試合後統計コーナーに初めて登場したのは2017年8月12日だった。</li>
+  </ul>
+  <p class="orig">
+    <span class="en">"Though behind the scenes xG was the talk of the proverbial town, it had barely landed in the public consciousness by 12 August 2017, the day it first featured in Match of the Day's post-match statistical round-up."</span>
+    <span class="ja">「舞台裏ではxGはすでに評判の的だったが、2017年8月12日——『マッチ・オブ・ザ・デイ』の試合後統計コーナーに初めて登場したその日まで、一般の意識にはほとんど浸透していなかった」</span>
+  </p>
+</article>
+<article class="en-src" data-words="2500">
+  <h3><a href="https://www.the42.ie/ian-graham-liverpool-6491974-Sep2024/">Arguments, compromise and the stress of chasing City: how the data revolution changed Liverpool</a></h3>
+  <p class="en-ja">「口論、妥協、そしてシティを追う重圧——データ革命はいかにリバプールを変えたか」／The42</p>
+  <ul class="pts">
+    <li>グレアムのポゼッション・バリューモデルでは、自陣でボールを保持しているときの得点確率は約0.4%、相手ペナルティエリア付近まで運ぶと1.7%まで上昇する。この差が選手やパスの「貢献度」として数値化された。</li>
+    <li>2019年チャンピオンズリーグ決勝の先発11人のうち9人は、グレアムのモデルの推薦を経て獲得された選手だった。例外は生え抜きのトレント・アレクサンダー=アーノルドと、グレアム就任前から在籍したジョーダン・ヘンダーソンのみ。</li>
+    <li>スポーティングディレクターのマイケル・エドワーズは2022年に、グレアムはその1年後に、それぞれ同じ理由——マンチェスター・シティとの終わりなき競争による消耗——を挙げてクラブを去った。</li>
+  </ul>
+  <p class="orig">
+    <span class="en">"By the time Jurgen left, he didn't look like the same man as when he arrived. You could see the bags under his eyes."</span>
+    <span class="ja">「ユルゲンが去る頃には、就任時とはまるで別人のように見えた。目の下のクマがはっきり見えるほどだった」</span>
+  </p>
+</article>
+
+<section class="topics">
+  <h2>今週のトピックス</h2>
+  <div class="topic-group">
+    <h3>AI</h3>
+    <ul>
+      <li data-date="2026-09-14">アンソロピックCEOダリオ・アモデイの「AI開発を減速すべき」という提言に、OpenAIのサム・アルトマンとxAIのイーロン・マスクが賛同した。<a href="https://www.cnbc.com/2026/09/14/sam-altman-ai-slowdown-anthropic-amodei-musk.html">CNBC</a></li>
+      <li data-date="2026-09-14">AppleがiOS/macOS 27で刷新版Siriの英語ベータ版を公開、フランス語・日本語など5言語は10月に追加予定。<a href="https://9to5mac.com/2026/09/09/apple-confirms-siri-ai-launches-in-english-this-month-will-add-five-languages-in-october/">9to5Mac</a></li>
+      <li data-date="2026-09-18">アンソロピックが、Claudeが自社の次世代モデル研究開発の26%を「主導」していると発表。<a href="https://spectrumlocalnews.com/us/snplus/business/2026/09/18/anthropic-claude-helping-to-build-next-version">Spectrum News</a>
+        <div class="digest" data-words="650">
+          <ul class="figs"><li><b>26%</b>Claudeが主導するR&D業務の割合(2026年8月時点)</li><li><b>90%</b>Claudeとの「協力」形態で進む研究開発の割合</li><li><b>0%→26%</b>今年2月からわずか半年での変化</li></ul>
+          <p class="body">アンソロピックは、自社モデルClaudeが次世代モデルの研究開発において「高レベルな指示から最後まで」タスクを完了できる割合が、2026年2月時点ではゼロだったのに対し、8月には26%に達したと明らかにしました。研究開発全体の約9割は、人間の監督下でClaudeと「協力」する形で進められているといいます。AIが自分自身の後継機を作る作業を担い始めているという、この分野特有の自己言及的な状況を示す数字です。人間の監督は維持されているものの、その比率の伸びの速さが注目されています。</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>クラフトビール</h3>
+    <ul>
+      <li data-date="2026-09-14">ミネソタ州の老舗サミット・ブルーイングが、銀行への800万ドル超の未払い債務をめぐり差し押さえ手続きに直面していることが判明。<a href="https://www.mprnews.org/story/2026/09/14/summit-brewing-company-faces-foreclosure-in-st-paul">MPR News</a>
+        <div class="digest" data-words="350">
+          <ul class="figs"><li><b>820万ドル超</b>BMO銀行への未払い債務総額(利息・弁護士費用込み)</li><li><b>2024年末</b>問題の2件のローンを借り入れた時期</li><li><b>2026年7月31日</b>猶予期間(フォーベアランス)の期限</li></ul>
+          <p class="body">1986年創業でミネソタ州最大級の独立系ブルワリーの一つであるサミット・ブルーイングが、融資元のBMO銀行から起こされた差し押さえ訴訟に直面しています。2024年末に借りた計812万5000ドルのローンが2025年12月に不履行となり、猶予期間も2026年7月末で切れました。訴状は2026年9月10日にラムジー郡地裁に提出されています。CEOのブランドン・ブランド氏は、「これはブランド力や人材、経営モデルの問題ではなく、業界全体が直面する厳しい資本環境を映したものだ」とコメントしました。ブルワリーは営業を継続しながら、新たな出資者や資金調達を模索しているといいます。</p>
+        </div>
+      </li>
+      <li data-date="2026-09-15">飲料業界向けソフトウェア大手のVIP(バーモント・インフォメーション・プロセッシング)が、同業のエンコンパス・テクノロジーズを買収すると発表。<a href="https://www.brewbound.com/news/vip-acquires-encompass-in-deal-joining-2-large-bev-alc-tech-platforms/">Brewbound</a></li>
+      <li data-date="2026-09-16">市場調査会社NIQの週次データによると、直近の店頭(オフプレミス)販売は酒類全カテゴリーが前年割れとなった。<a href="https://www.brewbound.com/news/off-premise-declines-consistent-through-late-july-per-niq-weekly-scans">Brewbound</a></li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>海外フットボール</h3>
+    <ul>
+      <li data-date="2026-09-19">開幕7戦全勝だったアーセナルが、アウェーのブライトン戦に0-3で完敗し無傷record が止まった。<a href="https://www.espn.com/soccer/match/_/gameId/401879274">ESPN</a></li>
+      <li data-date="2026-09-17">絶好調のアーリング・ハーランドだが、直近9試合9得点というハイペースの一方、サンダーランド相手には過去2度の対戦で放った3本のシュート(合計xG0.75)がいずれもゴールにならず、唯一無得点のままの相手として名前が挙がった。<a href="https://www.ianslive.in/premier-league-matchweek-5-haaland-liverpool-arsenal-and-more-headline-key-storylines--20260917230310">IANS</a></li>
+      <li data-date="2026-09-18">女子スーパーリーグでマンチェスター・シティがリバプールに4-2で勝利、決勝点は終了間際のオウンゴールという劇的な決着だった。<a href="https://www.espn.com/soccer/report/_/gameId/401902914">ESPN</a></li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>エンタメ</h3>
+    <ul>
+      <li data-date="2026-09-19">上方漫才大賞を3度受賞した漫才師・中田ボタンさんが14日に死去していたことが判明、78歳だった。<a href="https://news.yahoo.co.jp/articles/b9e68b0688ab9e1257e85babfd7f45d599bcd345">日刊スポーツ</a></li>
+      <li data-date="2026-09-19">アイドルグループtimeleszの猪俣周杜容疑者が知人女性への傷害容疑で逮捕され、容疑を否認している。<a href="https://www.jiji.com/jc/article?k=2026091900290&g=soc">時事通信</a></li>
+      <li data-date="2026-09-18">映画『名探偵プリキュア！』が公開初日興収1億円を突破、金曜日公開作品としてシリーズ過去最高のスタートとなった。<a href="https://www.oricon.co.jp/news/2481628/full/">オリコン</a></li>
+      <li data-date="2026-09-19">お笑いコンビ・パンサーの向井慧が、TBS・若林有子アナウンサーとの交際を生放送で認め「めちゃくちゃ熱愛です」と発言した。<a href="https://news.yahoo.co.jp/articles/13bc805e0da87cc50a0d82845a5d7c05e6293787">スポーツ報知</a></li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>SNSバズ</h3>
+    <ul>
+      <li data-date="2026-09-18">ボリビアの雲霧林で100年ぶりとなる新種の野生ネコ「Leopardus tilcayo」の発見が発表され、愛らしい見た目から広く拡散した。<a href="https://www.aljazeera.com/news/2026/9/18/new-bolivian-cat-claws-its-way-into-species-list-what-we-meow">Al Jazeera</a></li>
+      <li data-date="2026-09-16">東京ゲームショウ2026の「カプコンスポットライト」で『モンスターハンターワイルズ：アセンダンス』の古龍テオ・テスカトル復活や新アクション「ブーストブレーサー」が発表され、Xで話題になった。<a href="https://www.famitsu.com/article/202609/88126">ファミ通.com</a></li>
+    </ul>
+  </div>
+</section>
