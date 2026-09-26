@@ -1,0 +1,137 @@
+<!--META
+{"topic":"香道","title":"香りは、嗅ぐのではなく聞くものだった","lead":"一片が金より高い香木を、じっと「聞く」——室町から続く日本の芸道、香道。その奥には東南アジアの森と中東の香水産業までつながる、意外と大きな世界がありました。","emoji":"🪵","accent":"#5C3A21","glyph":"香","hero_query":"agarwood incense wood"}
+META-->
+<section class="chapter">
+  <h2>香りを「嗅ぐ」のは、不粋である</h2>
+  <p>香道では、香りを嗅ぎません。「聞く」のです。焚かれた香木の前で目を閉じ、静かに立ち上る一筋の香りに耳を澄ますように向き合う——これが「聞香（もんこう）」と呼ばれる作法です。「嗅ぐ」という言葉を使うのは、この世界ではいささか不粋とされています。</p>
+  <p>日本における香りの記録は、飛鳥時代までさかのぼります。『日本書紀』によれば、推古3年（595年）、淡路島に一本の流木が漂着しました。島民がそれを薪として焚いたところ、あまりに良い香りがしたため驚いて朝廷に献上したと伝えられています。これが日本で初めて記録された香木でした。</p>
+  <p>平安時代になると、貴族たちは香料を調合した練り香「薫物（たきもの）」を衣服や部屋に焚きしめ、香りを競う遊びに興じるようになります。そして室町時代、禅の精神と結びつくことで、香木そのものの一木の香りを深く感じ取る「聞香」が成立しました。茶道・華道と並ぶ三大芸道のひとつ、香道の誕生です。</p>
+  <blockquote class="pullquote">香りを嗅ぐのではなく、聞く。その一語の選び方に、この芸道のすべてが表れています。</blockquote>
+  <p>香道には大きく分けて二つの流派があります。公家文化を源流とし、雅な様式を受け継ぐ「御家流（おいえりゅう）」と、武家の間で育まれ、香りを通じて礼儀作法と精神修養を重んじる「志野流（しのりゅう）」です。前者は室町期の文化人・三条西実隆を祖とし、後者は武士の教養として磨かれてきました。同じ香木を前にしても、公家と武士とではその向き合い方が違っていた、というのは想像するだけで面白い話です。</p>
+</section>
+
+<section class="chapter">
+  <h2>一片が黄金より高い「香木」の正体</h2>
+  <p>香道で焚かれる香木の主役は「沈香（じんこう）」と呼ばれる樹脂化した木片です。その正体は、東南アジアの山岳地帯に自生するジンチョウゲ科アクィラリア属の樹木。この木はカビの一種に感染すると、防御反応として樹脂を分泌します。その樹脂が長い年月をかけて木部に沈着し、水に沈むほど重く、そして芳香を放つ物質へと変化したものが沈香です。人為的に木を傷つけて樹脂化を促す技術は、すでに紀元後300年ごろの中国の記録に残っているといいます。</p>
+  <p>沈香の中でも最高級とされるのが「伽羅（きゃら）」です。金よりも希少とされ、美術館クラスの伽羅は1グラムが数千ドルで取引されることもあると言われています。</p>
+  <figure class="video" data-yt="jN2oF1J4h98"><figcaption>電池式の香炉で伽羅を実際に聞香してみる動画。香りの立ち方や作法の雰囲気が伝わります（YouTube）。</figcaption></figure>
+  <p>その価値を象徴する香木が、奈良・正倉院に伝わる「蘭奢待（らんじゃたい）」です。正式名称は黄熟香（おうじゅくこう）、長さ約1.5メートル、重さ約11.6キログラム。最新の分析により、8世紀後半から9世紀後半にかけての樹木で、ラブダナムやバニラなど約300種類もの成分が混じり合っていることが判明しています。室町時代には足利義満・義政が、戦国時代には織田信長が、近代に入ってからは明治天皇までもがこの香木の一部を切り取る「截香（せっこう）」を行った記録が残っています。一片の香りを削り取る行為が、時の権力者にとって自らの文化的正統性を示す政治的パフォーマンスでもあった——木片ひとつにここまでの歴史が刻まれているのは、香道ならではの面白さです。</p>
+</section>
+
+<section class="chapter">
+  <h2>香りで遊ぶ、という発想——組香と源氏香</h2>
+  <p>香道には、香りを鑑賞するだけでなく「当てる」遊びがあります。これが「組香（くみこう）」です。複数の香木を焚き、参加者はどれとどれが同じ香りで、どれが違うかを聞き分け、答えを記号や図で書き記していきます。中でも代表的なのが「源氏香」。『源氏物語』を題材にした組香で、香りの異同の組み合わせパターンを、物語の場面と重ね合わせて楽しむという、文学と嗅覚が融合した遊びです。</p>
+  <figure class="video" data-yt="A51bH67Gso0"><figcaption>石川県金沢市の香木店を訪ね、五種香（組香の一種）を体験する様子。作法や源氏香の意味も紹介されています（YouTube）。</figcaption></figure>
+  <p>面白いのは、香りを言葉にするときの表現方法です。香道では香りの質を「甘い」「酸っぱい」「苦い」といった、本来は味覚を表す言葉で語ります。嗅覚を聴覚の比喩（「聞く」）で捉え、さらにそれを味覚の言葉で描写する——感覚と感覚を横断させながら香りという曖昧なものを共有可能な体験に変えていく、この二重三重の言い換えの構造こそが、香道が何百年も遊びとして続いてきた理由なのかもしれません。</p>
+  <aside class="column">
+    <h3>香りは、味わうもの</h3>
+    <p>ワインのテイスティングで「タンニン」「果実味」といった言葉を使うように、香道でも香りを甘・酸・辛・鹹（塩辛い）・苦といった感覚語彙で表現します。目に見えず、記録も難しい「香り」という体験を、共有可能な言葉の型に落とし込む工夫は、現代の香水業界のテイスティングノートにも通じる発想と言えそうです。</p>
+  </aside>
+</section>
+
+<section class="chapter">
+  <h2>森の樹液が、中東で香水になるまで</h2>
+  <p>沈香を焚く文化は、日本だけのものではありません。むしろ規模でいえば、中東こそが最大の消費地です。アラビア商人による本格的な輸入は7世紀に始まったとされ、シルクロードを通じて東アジアから中央アジア、西アジア、ヨーロッパ、北アフリカへと広がっていきました。アラビア語で「ウード（Oud）」と呼ばれるこの香りは、サウジアラビアでは結婚式や祝い事、あるいは日々の礼拝の場でも焚かれ、生活に深く根づいています。</p>
+  <p>その市場規模は年間60億米ドル。生の原木は1ポンドあたり5,000米ドルで取引され、わずか3グラムの精油の小瓶が300米ドルを超えることも珍しくありません。2000年代にはイヴ・サンローランをはじめとする欧米ブランドが参入し、いまではトム フォードやシャネル、ディオールといった名だたるラグジュアリーブランドが独自のウード香水を展開しています。</p>
+  <p>けれども、この人気の裏には深刻な問題も横たわっています。沈香を生み出すアクィラリア属の樹木は、この100年あまりで野生個体群のおよそ8割が失われたと報告されており、主要な生産樹種は国際取引を規制するワシントン条約（CITES）附属書IIに掲載されています。ある研究では、世界の沈香貿易の実に7割が絶滅危惧種とされる2樹種に依存しており、その多くがいまだ野生からの採取に頼っていることが指摘されました。香りを守るために、香りのもとになる森をどう持続させるか——高級フレグランス業界は今、合成香料メーカーと組んで人工的に香り分子を再現する技術に活路を見出そうとしています。一片の木片をめぐる物語は、静かな和室の中だけでなく、地球規模のサプライチェーンの問題にまでつながっていました。</p>
+</section>
+
+<article class="en-src" data-words="1900">
+  <h3><a href="https://www.aramcoworld.com/articles/2025/ma25/the-fragrant-world-of-oud">The Fragrant World of Oud</a></h3>
+  <p class="en-ja">「ウードの芳しき世界」／AramcoWorld</p>
+  <ul class="pts">
+    <li>ウードの起源は紀元前2000年ごろにまでさかのぼるとされ、古代インドの文献には「gahuru」「agahuru」という語で登場する。サンスクリット語の「prâna（生命）」との関連も指摘される。</li>
+    <li>世界のウード市場は年間60億米ドル規模。原木は1ポンドあたり5,000米ドル、3グラムの精油瓶は300米ドル以上という高値がつく。</li>
+    <li>サウジアラビアでは結婚式や礼拝など日常の節目で焚かれる伝統が根強く、2000年代以降はイヴ・サンローランやトム フォードなど欧米ブランドも自社製品を展開している。</li>
+  </ul>
+  <p class="orig">
+    <span class="en">"US $6 billion: Annual global oud market. Raw material can sell for $5,000 per pound."</span>
+    <span class="ja">「60億米ドル——それが世界のウード市場の年間規模。原木は1ポンドあたり5,000米ドルで取引されることもある」</span>
+  </p>
+</article>
+
+<article class="en-src" data-words="850">
+  <h3><a href="https://news.mongabay.com/2025/04/global-agarwood-trade-heavily-dependent-on-wild-threatened-trees-study/">Global agarwood trade heavily dependent on wild, threatened trees: Study</a></h3>
+  <p class="en-ja">「世界の沈香貿易は、絶滅危惧の野生樹木に大きく依存している——最新研究」／Mongabay</p>
+  <ul class="pts">
+    <li>沈香貿易の70%が、絶滅危惧種2種（Aquilaria filariaとA. malaccensis）に依存している。</li>
+    <li>2010〜2020年の間、A. filariaの97%、A. malaccensisの57%が野生由来だった。</li>
+    <li>多くの沈香生産種はワシントン条約（CITES）で保護対象だが、同様の脅威に直面しながら未登録のままの種も存在する。</li>
+  </ul>
+  <p class="orig">
+    <span class="en">"While many agarwood-producing species in the Aquilaria and Gyrinops genera are protected under CITES, some species, like Aetoxylon sympetalum, remain unlisted despite facing similar threats."</span>
+    <span class="ja">「AquilariaやGyrinops属の多くの沈香生産種はCITESで保護されているが、Aetoxylon sympetalumのような種は、同様の脅威に直面していながら未登録のままだ」</span>
+  </p>
+</article>
+
+<section class="chapter">
+  <h2>もっと知るには</h2>
+  <p>香道は「特別な人の趣味」に見えて、実は一日体験から始められる芸道です。京都には薫玉堂や松栄堂といった数百年続く香老舗があり、金沢や東京にも香木店の見学・聞香体験を受け付けているところがあります。この記事で紹介した動画のように、志野流や御家流の教室では単発の体験講座を開いていることも多く、正座と作法さえ覚悟すれば、初心者でも一木の香りに向き合う時間を持つことができます。</p>
+  <p>手っ取り早く雰囲気を味わいたければ、まずは「源氏物語」を軽く読み返してから、YouTubeで組香の体験動画を眺めてみるのもおすすめです。物語の場面と香りの組み合わせという発想の奇妙さが、実感として腑に落ちてくるはずです。そして機会があれば、ウード香水を一滴だけ手首に。日本の静かな聞香と、中東の生活に溶け込んだ芳香文化——同じ木片から、まったく違う二つの香りの世界が育っていったことを、鼻先で確かめてみてください。</p>
+</section>
+
+<section class="sources">
+  <h2>ソース</h2>
+  <ul>
+    <li><a href="https://ja.wikipedia.org/wiki/%E9%A6%99%E9%81%93">香道 - Wikipedia</a> — 香道の定義と流派の概要</li>
+    <li><a href="https://wa-gokoro.jp/news/accomplishments-kodo-175/">香道の二大流派「御家流」と「志野流」の違いとは？ | ワゴコロ</a> — 二大流派の成立史</li>
+    <li><a href="https://www.tenkundo.co.jp/kodo/history.html">香道の歴史｜香道の美｜香司 鬼頭天薫堂</a> — 聞香の成立と歴史的経緯</li>
+    <li><a href="https://natgeo.nikkeibp.co.jp/atcl/news/25/091700515/">香木「蘭奢待」の香り成分や年代が判明、正倉院 | ナショナルジオグラフィック日本版</a> — 蘭奢待の成分分析・年代測定</li>
+    <li><a href="https://ja.wikipedia.org/wiki/%E8%98%AD%E5%A5%A2%E5%BE%85">蘭奢待 - Wikipedia</a> — 截香の歴史的記録</li>
+    <li><a href="https://zenechoes.blog/arts-culture/japanese-incense-kodo/">Japanese Incense and Kōdō: The Ancient Art of Listening to Fragrance - Zen Echoes</a> — 聞香の作法と香りの表現方法</li>
+    <li><a href="https://www.aramcoworld.com/articles/2025/ma25/the-fragrant-world-of-oud">The Fragrant World of Oud - AramcoWorld</a> — 中東のウード文化と市場規模</li>
+    <li><a href="https://news.mongabay.com/2025/04/global-agarwood-trade-heavily-dependent-on-wild-threatened-trees-study/">Global agarwood trade heavily dependent on wild, threatened trees: Study - Mongabay</a> — 沈香資源の枯渇と保護状況</li>
+  </ul>
+</section>
+
+<section class="topics">
+  <h2>今週のトピックス</h2>
+  <div class="topic-group">
+    <h3>AI</h3>
+    <ul>
+      <li data-date="2026-09-22">Anthropicが新フラッグシップ「Claude Opus 5.5」を発表。価格を2割下げつつ、100万トークンの文脈窓を維持した。<a href="https://emergent.sh/news/opus-5-5-release-date">Emergent</a></li>
+      <li data-date="2026-09-24">OpenAIがSoraの動画生成APIを今週中に停止すると発表。ディズニーとの10億ドル規模のライセンス契約も終了する。<a href="https://startupfortune.com/openai-shuts-down-soras-api-this-week-ending-its-billion-dollar-disney-deal/">StartupFortune</a>
+        <div class="digest" data-words="750">
+          <ul class="figs"><li><b>10億ドル</b>規模だったディズニーとのライセンス契約が終了</li><li><b>約100万ドル/日</b>のコンピュート費用が節約される見込み</li><li>Sora Web/アプリは<b>4月26日</b>に先行して終了済み</li></ul>
+          <p class="body">OpenAIは動画生成サービス「Sora」のAPIを2026年9月24日をもって停止すると発表しました。SoraのAPIを使うことで、Marvel・Pixar・Star Warsのキャラクターを使った動画をユーザーが生成できるようにしていたディズニーとの10億ドル規模の契約も、これにより終了します。同社はAPI停止によって1日あたり約100万ドルのコンピュート費用を節減できると見込んでいます。Sora単体のWeb・アプリサービスはすでに4月26日に打ち切られており、今回のAPI停止でSoraという製品はほぼ完全に終了する形となりました。ユーザーには停止前にコンテンツを書き出すよう案内されています。</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>クラフトビール</h3>
+    <ul>
+      <li data-date="2026-09-24">鎌倉ビール×英国アンティーク博物館BAMのコラボ「SHエールビール」がシャーロック・ホームズをモチーフにオンライン先行発売。<a href="https://craftbeers.fun/archives/14638">ビアなび</a></li>
+      <li data-date="2026-09-25">全国のクラフトビールが集結する「クラフトビア ディスカバリー2026」が東京ビッグサイトで開幕、27日まで開催。<a href="https://www.jbja.jp/archives/62231">日本ビアジャーナリスト協会</a></li>
+      <li data-date="2026-09-23">米ニューメキシコ州の6つの醸造所が共同で仕込んだフレッシュホップIPAが、複数のブルワリーで同時リリース。<a href="https://nmdarksidebrewcrew.com/2026/09/23/the-week-ahead-in-beer-giving-summer-one-proper-hoppy-farewell/">Dark Side Brew Crew</a>
+        <div class="digest" data-words="500">
+          <ul class="figs"><li><b>6軒</b>の醸造所が共同参加</li><li>ABV<b>4.2%</b>前後の飲みやすい仕様のものも同時展開</li></ul>
+          <p class="body">Dripline、Flock of Moons、Painted Lady、Ponderosa、Sidetrack、Thirsty Eyeの6つの醸造所が、秋の始まりを告げるフレッシュホップIPAを共同で仕込み、各店舗で同時リリースしました。同地域では夏の終わりを惜しむ季節のビールが続々と登場しており、同時期にはThirsty EyeとPonderosaによるセッションタイプのメキシカンスタイル黒ラガーも展開されています。</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>海外フットボール</h3>
+    <ul>
+      <li data-date="2026-09-24">サッカー日本代表がキリンチャレンジカップでウルグアイ代表に3-1勝利。A代表デビューの松木玖生と塩貝健人がそれぞれ初ゴールを記録した。<span class="yt" data-yt="HFZ6-xk4-I4"></span><a href="https://www.jfa.jp/samuraiblue/20260924/">JFA</a></li>
+      <li data-date="2026-09-23">ブライトンの三笘薫、左ハムストリング手術からのリハビリが続き、10月10日のサンダーランド戦復帰は困難との見方。<a href="https://football-tribe.com/japan/2026/09/23/359638/">Football Tribe Japan</a></li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>エンタメ</h3>
+    <ul>
+      <li data-date="2026-09-26">俳優の町田啓太と女優の玄理が第1子誕生を発表。<a href="https://news.livedoor.com/topics/keyword/34103/">livedoorニュース</a></li>
+      <li data-date="2026-09-26">WEST.解散の発表を受け、中間淳太が生放送で胸中を吐露した。<a href="https://news.livedoor.com/topics/keyword/34103/">livedoorニュース</a></li>
+      <li data-date="2026-09-27">AKB48元メンバーの長谷川百々花が5年ぶりに異例の復帰。「やっぱりやりたい」と心境を語った。<a href="https://news.livedoor.com/topics/keyword/34103/">livedoorニュース</a></li>
+      <li data-date="2026-09-26">Adoの所属事務所が誹謗中傷やデマの拡散に対し、法的措置を含む対抗策を講じる方針を表明。<a href="https://news.livedoor.com/topics/keyword/34103/">livedoorニュース</a></li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>SNSバズ</h3>
+    <ul>
+      <li data-date="2026-09-25">オリックス・平野佳寿投手の引退試合が行われ、荒れた試合展開への悲鳴と、引退セレモニーへの感謝の声がXに溢れた。<a href="https://news.livedoor.com/topics/detail/32410869/">livedoorニュース</a></li>
+      <li data-date="2026-09-21">子どもが自分の人形「Mia」を無邪気に紹介する動画の音声「My American Girl Doll」が、TikTokで新たなトレンド音源として急拡散中。<a href="https://newengen.com/insights/september-tiktok-trends/">Newengen</a></li>
+    </ul>
+  </div>
+</section>
