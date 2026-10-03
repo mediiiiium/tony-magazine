@@ -1,0 +1,133 @@
+<!--META
+{"topic":"暗渠","title":"地図にない川を歩く——東京の足もとで、いまも流れているもの","lead":"東京には、蓋をされ、地図から消えた川が無数にあります。消えたはずの川は、道のうねり、段差、橋の名前に姿を変えて残っている。足もとの「川の痕跡」を読む、暗渠散歩の入口へご案内します。","emoji":"🌊","accent":"#2F5D62","glyph":"暗","hero_query":"Shibuya River Tokyo"}
+META-->
+<section class="chapter">
+  <h2>1. 川は、なくなったのではなく、蓋をされた</h2>
+  <p>渋谷のキャットストリートを歩いたことはあるでしょうか。原宿から渋谷へ向かって、建物の並びを無視するようにゆるやかに曲がっていく、あの細い道です。あの曲がりは、デザインではありません。かつてそこを流れていた川の形です。</p>
+  <p>この川が渋谷川です。渋谷区と港区を流れて東京湾に注ぐ全長約11km（港区内では古川と呼ばれます）の川で、かつては穏田川（おんでんがわ）とも呼ばれていました。渋谷駅より上流側は、1962〜63年ごろに蓋をされ、地下は下水道に、地上は道路に変わっています。</p>
+  <p>こうして蓋をされた川や水路を「暗渠（あんきょ）」と呼びます。本来は蓋をされた水路そのものを指す言葉ですが、いまは「かつて川が流れていた地上の跡」を指して使われることが多い。散歩の世界では、暗渠を歩くことが一つのジャンルになっています。</p>
+  <blockquote class="pullquote">川は消えたのではない。地面の下と、街の形の中に、まだ居る。</blockquote>
+</section>
+
+<section class="chapter">
+  <h2>2. 「暗渠のサイン」を読む</h2>
+  <p>暗渠散歩の面白さは、地図に載っていない川を、現地の手がかりだけで見つけるところにあります。文春オンラインの暗渠解説（本田創氏）が挙げる目印は、次の4つです。</p>
+  <ul>
+    <li>区画を無視してくねくねと曲がった道</li>
+    <li>延々と続く緑道</li>
+    <li>周囲より少し低くなっている路地</li>
+    <li>川もないのに橋の名前がつく交差点</li>
+  </ul>
+  <p>キャットストリートの中腹には「穏田橋跡」の親柱が残り、渋谷駅近くには宮下橋の碑があります。のんべい横丁は川沿いに建った一角で、小池精米店は「穏田の水車」の名で川の記憶をブランドにしています。表参道のゆるやかな坂は、そのまま谷の断面です。</p>
+  <p>日本の暗渠ブームを引っぱってきたのは、高山英男さんと吉村生さんが始めた「暗渠マニアックス」などの愛好家たちです。後述する本田創さん（1972年東京生まれ）は暗渠研究の第一人者で、ウェブサイト「東京の水」を運営しています。川は街の「見えない骨格」なのだ、という見方がここにあります。</p>
+</section>
+
+<section class="chapter">
+  <h2>3. 川には「生まれ」がある——源流から谷へ</h2>
+  <p>暗渠は終点から歩くより、源流から下るほうが物語になります。本田さんの渋谷川水系のガイドによると、渋谷川の本流の源は新宿御苑です。「下の池」から出た水は、明治38年（1905年）にフランスから購入して設置された擬木橋の下をくぐって流れ出ました。園内には、1991年の調査で5か所の湧水が確認されています。</p>
+  <p>支流の源流にも、水が残っています。明治神宮御苑の「清正の井」は支流の源流の一つ。小田急線の代々木八幡駅の北の住宅地では、初台川の源流とされる側溝にクレソンが生え、十数年枯れることなく水が流れ続けているといいます。蓋をされた川の頭の部分に、いまも水が出ている。</p>
+  <p>水系は「木の根のように枝分かれする」ものだ、と本田さんは言います。谷地形の谷頭（谷の一番奥）に水辺が残りやすい、という見方を覚えると、地形図が急に読めるようになります。</p>
+  <figure class="video" data-yt="CMEfAFDFirE"><figcaption>「【渋谷は谷】センター街の真下に「暗渠」された「幻の川」地形の謎を辿る」（YouTube）。渋谷が「谷」である理由を、地形から追いかける解説動画。</figcaption></figure>
+</section>
+
+<section class="chapter">
+  <h2>4. なぜ蓋をしたのか、そして外国人は何を見るのか</h2>
+  <p>東京で暗渠化が進んだ波は二度あったとされます。一度目は関東大震災後の帝都復興期（1920〜30年代）、二度目は高度経済成長期の1960年代です。渋谷川の暗渠化は後者で、東京オリンピック（1964年）の前後に重なります。人口が増え、川が生活排水を受け止めきれなくなった結果、川は下水道幹線として地下に押し込められました。</p>
+  <p>この世界は、海外にも伝わっています。水文学の情報サイト Hidden Hydrology に載った Jason King 氏の記事は、暗渠マニアックスを紹介し、桃園川や善福寺川の跡をたどっています。暗渠を歩く人の言葉として引かれているのは、「川たちは『私たちはまだここにいる』と語りかけているようだ」という趣旨のものです。建築系ブログ hnaau は、谷中の暗渠を「川の都市論」として読み解いています。谷中を流れた藍染川は、豊島区の駒込の長池から上野の不忍池へ南下した川で、いまは「よみせ通り」と「へび道」という二つの歩行者の道になっています。名前の由来は、沿岸で染物業が栄えたことです。</p>
+
+  <article class="en-src" data-words="1100">
+    <h3><a href="https://www.hiddenhydrology.org/tokyo-drift/">Tokyo Drift</a></h3>
+    <p class="en-ja">「東京ドリフト」／Hidden Hydrology（Jason King）</p>
+    <ul class="pts">
+      <li>暗渠（ankyo）を、東京の地下に埋められた水路の総称として紹介。探索グループ「暗渠マニアックス」の創設者は高山英男氏と吉村生氏です。</li>
+      <li>東京暗渠散歩の地図を編集した本田創氏、明治〜平成の古地図を重ねられるスマホアプリ「東京時層地図」、荻窪の暗渠ツアーなど、始めるための道具が具体的に出てきます。</li>
+      <li>取り上げられる川は桃園川と善福寺川。記事は2024年4月にSubstackで公開され、2025年4月にHidden Hydrologyに転載されました。</li>
+    </ul>
+    <p class="orig">
+      <span class="en">“By getting to know them, we can appreciate the past dignity of these rivers.”</span>
+      <span class="ja">「川たちを知ることで、かつての川の尊厳を感じ取ることができる。」（暗渠を歩く人の言葉）</span>
+    </p>
+  </article>
+
+  <article class="en-src" data-words="2100">
+    <h3><a href="https://hnaau.com/blog/old_river_urbanism_1/">Tokyo Old River Urbanism part1, Yanaka</a></h3>
+    <p class="en-ja">「東京・古い川の都市論 その1 谷中」／hnaau</p>
+    <ul class="pts">
+      <li>谷中を縦に流れた藍染川は、駒込村（現・豊島区）の長池から上野の不忍池までを結ぶ川でした。</li>
+      <li>川は本郷台地と谷中の丘のあいだの低地を流れ、「谷中（Ya-Naka）」という名前そのものが谷の中心という意味だと論じられます。</li>
+      <li>いまは「よみせ通り」と「へび道」の二本の歩行者の道として、日常生活の背骨になっています。川は春日通り（地下を千代田線が走る）と並行して流れていました。</li>
+    </ul>
+    <p class="orig">
+      <span class="en">“As it was named 'Aizomegawa' or 'Indigo Dyeing River', the dyeing industry was used to be thriving along the river.”</span>
+      <span class="ja">「『藍染川』と名づけられたとおり、川沿いでは染物業が栄えていた。」（原文の英文は文法がやや崩れています）</span>
+    </p>
+  </article>
+</section>
+
+<blockquote class="pullquote">街の「不自然さ」は、たいてい川の自然だった。</blockquote>
+
+<aside class="column">
+  <h3>コラム　暗渠散歩、最初の一歩は「地図を二枚持つ」こと</h3>
+  <p>道具はスマホ1台で足ります。現在の地図と、昔の地図を並べる。それだけです。上で紹介した「東京時層地図」のように、明治〜平成の地図を重ねられるアプリがあります。昔の地図に水色の線があって、いまの地図に線がない場所。そこが暗渠候補です。あとは現地で、道の曲がり・段差・橋の名前を見る。見つかったら、立ち止まって「ここ、川だったんだ」と言ってみてください。街の見え方が変わります。</p>
+</aside>
+
+<section class="chapter">
+  <h2>5. もっと知るには</h2>
+  <ol>
+    <li><strong>まず渋谷から歩く。</strong>稲荷橋（暗渠の始まり）→山手線ガード下のくぼみ→宮下橋の碑→キャットストリート→表参道の坂、の順がわかりやすい。1〜2時間で歩けます。</li>
+    <li><strong>地図を二枚持つ。</strong>現在の地図と、明治期の地図を重ねてみる。</li>
+    <li><strong>源流を訪ねる。</strong>新宿御苑の下の池、明治神宮御苑の清正の井、白金自然教育園（国立科学博物館附属）は、川の「生まれ」が見える場所です。</li>
+    <li><strong>動画で予習する。</strong>下の動画は、暗渠がなぜ人を惹きつけるかを解説しています。</li>
+  </ol>
+  <figure class="video" data-yt="9tq4bQh_FUk"><figcaption>「【暗渠】なぜ暗渠は都会の文化人に人気があるのか？【歴史】【地形】【解説】」（YouTube）</figcaption></figure>
+</section>
+
+<section class="sources">
+  <h2>ソース</h2>
+  <ul>
+    <li><a href="https://bunshun.jp/articles/-/46045">新宿御苑から渋谷駅へ…東京のど真ん中を流れる「渋谷川」の暗渠には何がある？（文春オンライン）</a> — 渋谷川の概要、暗渠化の時期、暗渠のサイン4種</li>
+    <li><a href="https://mizbering.jp/archives/13635">水のない水辺から・・・「暗渠」の愉しみ方 第7回（ミズベリング）</a> — 源流、暗渠化の二つの波、著者・本田創氏の紹介</li>
+    <li><a href="https://sportinlife.go.jp/general/column/article/5140/">川にフタしてできた道「暗渠」がたくさん!?（Sport in Life）</a> — 渋谷川沿いの見どころ（稲荷橋、宮下橋の碑、穏田の水車など）</li>
+    <li><a href="https://www.hiddenhydrology.org/tokyo-drift/">Tokyo Drift（Hidden Hydrology）</a> — 暗渠マニアックス、東京時層地図の紹介</li>
+    <li><a href="https://hnaau.com/blog/old_river_urbanism_1/">Tokyo Old River Urbanism part1, Yanaka（hnaau）</a> — 谷中・藍染川の流路と現在</li>
+  </ul>
+</section>
+
+<section class="topics">
+  <h2>今週のトピックス</h2>
+  <div class="topic-group">
+    <h3>AI</h3>
+    <ul>
+      <li data-date="2026-10-02">AnthropicがClaude Codeを「プログラムできる実行環境」にする Claude Code Mods を公開した。TypeScriptでプロンプトの書き換えやツール呼び出しの管理ができる。<a href="https://aiweekly.co/alerts/anthropic-launches-claude-code-mods-typescript-agent-hooks">AI Weekly</a></li>
+      <li data-date="2026-10-02">Googleが衛星に載せたTPUで計算する構想「Project Suncatcher」を発表した。2027年初頭にプロトタイプ打ち上げを目指す。<a href="https://aiweekly.co/alerts/google-unveils-project-suncatcher-tpu-satellites-by-2027">AI Weekly</a></li>
+      <li data-date="2026-10-01">チャットボットの誤りが米中の緊張を招きかけた、とGebru氏とBender氏が指摘した。中国の貨物目録について、核兵器の部品だと誤って示した内容が米情報機関の報告に入ったという。<a href="https://aiweekly.co/alerts/gebru-bender-chatbot-report-almost-caused-us-china-clash">AI Weekly</a></li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>クラフトビール</h3>
+    <ul>
+      <li data-date="2026-10-01">米オレゴンのOakshire Brewingが、創業20年を前に閉店を発表した。コスト上昇と市場の競争激化を理由に挙げている。<a href="https://klcc.org/economy-business/2026-10-01/oakshire-brewing-closing-eugene-oregon-taprooms">KLCC</a></li>
+      <li data-date="2026-09-30">10月1日にビールの酒税が減税され、10月3日から奈良クラフトビール祭りが開幕する。<a href="https://craftbeers.fun/archives/14659">日刊クラフトビール通信</a></li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>海外フットボール</h3>
+    <ul>
+      <li data-date="2026-10-01">アルゼンチン代表のスカロニ監督が、辞任の姿勢を一転させて続投に前向きな考えを示した。ボリビア戦を前にした会見での発言。<a href="https://daily.co.jp/soccer/2026/10/01/0020881915.shtml">デイリースポーツ</a></li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>エンタメ</h3>
+    <ul>
+      <li data-date="2026-10-02">サッカー日本代表の久保建英と俳優の福原遥が結婚を発表した。交際報道は一切なく、本人たちのインスタグラムでの電撃発表だった。<a href="https://www.oricon.co.jp/news/2484214/">ORICON NEWS</a></li>
+      <li data-date="2026-10-03">鈴鹿央士の主演映画が、興行は苦戦しているものの観客からは絶賛されている。<a href="https://news.livedoor.com/topics/detail/32480943/">ライブドアニュース</a></li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>SNSバズ</h3>
+    <ul>
+      <li data-date="2026-10-03">ローソン先行発売のシルバニアファミリー「赤ちゃん家具コレクション」が話題になっている。シマエナガの赤ちゃんにはいちごのスタンドライトが付く。<a href="https://report.iko-yo.net/articles/33758">iko-yo</a></li>
+      <li data-date="2026-10-03">「うんこカステラ」を見た瞬間の驚きと笑いが、SNSで広がっている。<a href="https://search.yahoo.co.jp/realtime/search/matome/8318ae962e2f4788a2280b3b899d5f0e-1791007200">Yahoo!リアルタイム検索</a></li>
+    </ul>
+  </div>
+</section>
