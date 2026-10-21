@@ -1,7 +1,7 @@
 # Tony Magazine
 
 毎週日曜の朝、興味を「広げる」か「深める」テーマをひとつ深掘りして届ける、
-読者ひとりのための週刊個人誌。GitHub Pages で発行し、Slack DM に届く。
+読者ひとりのための週刊個人誌。GitHub Pages で発行し、Pushover（iPhone）に届く。
 特集は毎号1テーマ（日常圏の深掘りも未知ジャンルへの寄り道も可。日英ソースをミックスし海外ソースは翻訳して紹介・YouTube動画つき）、
 巻末に AI / クラフトビール / 海外フットボール / エンタメ / SNSバズ の「今週のトピックス」。
 
@@ -18,11 +18,12 @@
      - YouTube 動画IDはサムネイル実在確認。無い動画は落とす（ID捏造対策）
      - ソース欄が無い号は不合格
   → docs/ に commit & push（= GitHub Pages に発行）
-  → Slack 自分DM に「第N号 + リンク」通知。末尾マーカー [magazine-ok]
+  → Pushover に「第N号 + リンク」通知（発行できた号は「あとで」= 通知センターに静かに積む）
 ```
 
 tony（~/tony）と同じ流儀: **LLM が失敗しても黙らない**。発行できなかった週も
-必ず Slack に「発行できなかった + 理由」を投稿する（無通知＝成功と解釈させない）。
+必ず Pushover に「発行できなかった + 理由」を送る（無通知＝成功と解釈させない）。
+Pushover に送れなかったときは workflow が赤くなり、GitHub アプリの通知で気づく。
 
 ## リポジトリ構成
 
@@ -31,7 +32,7 @@ tony（~/tony）と同じ流儀: **LLM が失敗しても黙らない**。発行
 | `prompts/editorial.md` | 編集方針（テーマ選定ルール・禁止領域・出力形式）。誌の性格はここで変える |
 | `scripts/make_prompt.py` | 編集方針+過去号一覧からプロンプトを組む |
 | `scripts/build_issue.py` | 検品・サニタイズ・誌面組み・目次再生成 |
-| `scripts/notify_slack.py` | Slack DM 通知（成功時のみ `[magazine-ok]`） |
+| `scripts/notify.py` | Pushover 通知（tony の `scripts/notify.py` と同じ流儀） |
 | `scripts/rebuild.py` | 保管した生原稿から過去号を組み直す（デザイン変更後に走らせる） |
 | `templates/` | 号・目次の HTML テンプレート |
 | `archive/` | LLM が書いた生原稿（`YYYY-MM-DD.txt`）。誌面の原本 |
@@ -40,7 +41,7 @@ tony（~/tony）と同じ流儀: **LLM が失敗しても黙らない**。発行
 ## 必要な Secrets（Actions）
 
 - `CLAUDE_CODE_OAUTH_TOKEN` — `claude setup-token` で発行（サブスク枠。API課金なし）
-- `SLACK_USER_TOKEN` — 私用WS「103」の gmail-digest App の User Token（tony と共用）
+- `PUSHOVER_TOKEN` / `PUSHOVER_USER` — tony と同じ Pushover のキー（`scripts/secret-pushover.sh token|user` で設定）
 
 ## 過去号の扱い
 

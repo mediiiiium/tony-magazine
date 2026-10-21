@@ -1,8 +1,8 @@
 name: Magazine
 
 # 週刊個人誌「Tony Magazine」。毎週日曜朝に claude -p（サブスク枠・Web検索つき）が
-# 「普段触れないジャンル」を1つ調査して誌面を発行し、Slack DM に通知する。
-# 流儀は tony の brief/report と同じ: LLM失敗でも黙らない（必ず Slack に何か言う）。
+# 「普段触れないジャンル」を1つ調査して誌面を発行し、Pushover（iPhone）に通知する。
+# 流儀は tony の brief/report と同じ: LLM失敗でも黙らない（必ず Pushover に何か言う）。
 on:
   schedule:
     - cron: '0 21 * * 6'   # UTC土 21:00 = JST日曜 6:00（遅延込みで朝に届く）
@@ -62,7 +62,7 @@ jobs:
           fi
 
       # 扉の1枚。Met の Open Access → Wikimedia Commons の順に探す。
-      # ここはコケてよい（build 側が「題を一字置く扉」に切り替えて Slack で知らせる）。
+      # ここはコケてよい（build 側が「題を一字置く扉」に切り替えて通知で知らせる）。
       - name: 扉の図版を用意する
         continue-on-error: true
         env:
@@ -103,9 +103,11 @@ jobs:
             echo "残す原稿なし（claude -p の段階で失敗）"
           fi
 
-      # ★このステップは絶対に飛ばさない。成功でも失敗でも必ず Slack に知らせる。
-      - name: Slack へ通知
+      # ★このステップは絶対に飛ばさない。成功でも失敗でも必ず Pushover に知らせる。
+      #   Pushover に送れなかったらこのステップが落ちて workflow が赤くなる（GitHub アプリで気づく）。
+      - name: Pushover へ通知
         if: always()
         env:
-          SLACK_USER_TOKEN: ${{ secrets.SLACK_USER_TOKEN }}
-        run: python scripts/notify_slack.py
+          PUSHOVER_TOKEN: ${{ secrets.PUSHOVER_TOKEN }}
+          PUSHOVER_USER: ${{ secrets.PUSHOVER_USER }}
+        run: python scripts/notify.py
