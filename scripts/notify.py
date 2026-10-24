@@ -49,6 +49,14 @@ def build(result, run_url):
         notes = list(result.get("warnings") or [])
         if result.get("dropped_videos"):
             notes.append(f"実在確認できなかった動画 {len(result['dropped_videos'])} 本を誌面から外しました")
+        if os.path.exists("son_result.json"):
+            son = json.load(open("son_result.json", encoding="utf-8"))
+            if son.get("sent"):
+                notes.append(f"息子の Slack に今週の若手（{son['player']}）を送りました")
+            else:
+                notes.append(f"息子の Slack には送れていません: {son.get('reason', '理由不明')}")
+        else:
+            notes.append("息子の Slack に送れたか分かりません（送信ステップが途中で落ちた）")
         if notes:
             # 注記は本文が上限で切られても残るよう、先に長さを空けておく
             tail = "\n（" + " / ".join(notes) + "）"

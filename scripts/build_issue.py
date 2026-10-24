@@ -312,6 +312,158 @@ def mosaicize(body, slug=""):
 
 
 # ─────────────────────────────────────────────────────────────
+# 連載「今週の若手」: 選手カード。同じ中身を息子向け Slack にも渡す
+# ─────────────────────────────────────────────────────────────
+def plain_text(fragment):
+    return re.sub(r"\s+", " ", re.sub(r"(?is)<[^>]+>", "", fragment or "")).strip()
+
+
+POS_JA = {"F": "FW", "M": "MF", "D": "DF", "G": "GK"}
+
+
+def load_pick(slug, rebuild):
+    """scout.py が選んだ1人。発行時は archive にも写し、組み直しのときはそこから読む。"""
+    path = f"{ARCHIVE_DIR}/{slug}.pick.json"
+    src = path if rebuild else "pick.json"
+    if not os.path.exists(src):
+        return None
+    pick = json.load(open(src, encoding="utf-8"))
+    if not rebuild:
+        os.makedirs(ARCHIVE_DIR, exist_ok=True)
+        json.dump(pick, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    return pick if pick.get("ok") else None
+
+
+def stat_rows(pick):
+    """グラフの行: (項目, 値, 棒の長さ 0〜1, 補足)。棒は同じ枠の全リーグ23歳以下の中での位置。"""
+    r, pv = pick["ranks"], pick.get("p", {})
+    n = r["peers"]
+    where = lambda k: f'{pick["league"]}の23歳以下 {n}人中 {r[k]}位' if k in r else ""
+    by_rank = lambda k: 1 - (r[k] - 1) / max(n - 1, 1) if k in r else 0
+    share = pick["mins"] / max(pick["team_games"] * 90, 1)
+    rows = [("出場時間", f'{pick["mins"]:,}分', share, f'チームの試合時間の{share:.0%}（先発 {pick["starts"]}/{pick["team_games"]}試合）')]
+    if pick["pos"] == "G":
+        rows += [("セーブ率", f'{pick["save_pct"]:.0%}', pv.get("save_pct", 0), where("save_pct")),
+                 ("無失点", f'{pick["cs_full"]}試合', pv.get("cs_rate", 0), where("cs_full"))]
+    elif pick["pos"] == "D":
+        rows += [("出ている間の失点", f'90分で{pick["ga90"]:.2f}点', pv.get("ga90", 0), where("ga90")),
+                 ("無失点", f'{pick["cs_full"]}試合', pv.get("cs_rate", 0), where("cs_full")),
+                 ("ゴール＋アシスト", f'{int(pick["g"])}＋{int(pick["a"])}', pv.get("ga_a90", 0), where("ga_a90"))]
+    else:
+        rows += [("ゴール", f'{int(pick["g"])}', by_rank("g"), where("g")),
+                 ("アシスト", f'{int(pick["a"])}', by_rank("a"), where("a")),
+                 ("90分あたりの G＋A", f'{pick["ga_a90"]:.2f}', pv.get("ga_a90", 0), where("ga_a90"))]
+    return rows
+
+
+def rookie_visual(pick):
+    """数字の部分（誌面側で描く）。LLM の文章とは別に、pick.json だけから組む。"""
+    esc = lambda s: html.escape(str(s), quote=True)
+    out = []
+    if pick["events"]:
+        ev = "".join(f'<li><b>{esc(e["date"][5:].replace("-", "/"))}</b> vs {esc(e["vs"])}　{esc("・".join(e["what"]))}</li>'
+                     for e in pick["events"])
+        out.append(f'<div class="rk-week"><span>今週</span><ul>{ev}</ul></div>')
+    rows = "".join(
+        f'<div class="st"><span class="lb">{esc(lb)}</span><span class="val">{esc(v)}</span>'
+        f'<div class="bar"><i style="width:{max(3, round(min(max(w, 0), 1) * 100))}%"></i></div>'
+        f'<span class="note">{esc(note)}</span></div>' for lb, v, w, note in stat_rows(pick))
+    out.append(f'<div class="rk-stats">{rows}</div>')
+    cols = []
+    for g in pick["last5"]:
+        h = round(min(g["mins"], 90) / 90 * 100)
+        balls = "●" * int(g.get("g", 0)) + "○" * int(g.get("a", 0))
+        cols.append(f'<div class="col"><em>{esc(balls)}</em><div class="tube"><i style="height:{h}%"></i></div>'
+                    f'<span>{esc(g["date"][5:].replace("-", "/"))}</span><small>{g["mins"]}′</small></div>')
+    out.append('<div class="rk-last5"><p class="lb">直近5試合の出場時間'
+               '<span>● ゴール　○ アシスト</span></p><div class="cols">' + "".join(cols) + "</div></div>")
+    total = sum(pick["parts"].values()) or 1
+    segs = "".join(f'<i style="flex:{v / total:.3f}" title="{esc(k)}"><span>{esc(k)}</span></i>'
+                   for k, v in pick["parts"].items() if v > 0)
+    out.append(f'<div class="rk-why"><p class="lb">選ばれた理由（点数の内わけ）</p><div class="stack">{segs}</div>'
+               f'<p class="note">{esc(pick["slot"])}の枠で、7リーグ＋J1 の23歳以下 {pick["pool"]}人から点数で選出</p></div>')
+    return "".join(out)
+
+
+def rookies(body, slug="", pick=None):
+    """連載「今週の若手」（1号1人）を組む。数字は pick.json から描き、文章と動画は LLM の原稿から取る。
+    返り値: (body, 息子向けの中身 or None, 落とした動画, 警告)"""
+    sec = re.search(r'(?is)<section class="rookies">(.*?)</section>', body)
+    if not pick:
+        if sec:
+            body = body[:sec.start()] + body[sec.end():]
+        return body, None, [], ["今週の若手を選べませんでした（pick.json なし）"]
+    if not sec:
+        return body, None, [], ["今週の若手欄がありません"]
+    inner = sec.group(1)
+    dropped, warnings = [], []
+    art = (re.search(r'(?is)<article class="rookie"[^>]*>(.*?)</article>', inner) or [None, ""])[1]
+    field = lambda cls: plain_text((re.search(rf'(?is)<p class="{cls}">(.*?)</p>', art) or [None, ""])[1])
+    clips = []
+    for vid, cap in re.findall(r'(?is)<li[^>]*data-yt="([^"]*)"[^>]*>(.*?)</li>', art):
+        vid = vid.strip()
+        if YT_ID.match(vid) and yt_exists(vid):
+            clips.append({"vid": vid, "caption": plain_text(cap)})
+        else:
+            dropped.append(vid or "(IDなし)")
+    if not clips:
+        warnings.append("若手欄の動画が1本も残りませんでした")
+    links = re.findall(r'(?is)<a href="([^"]+)"[^>]*>(.*?)</a>', art)
+    href, outlet = links[-1] if links else ("", "")
+    head = plain_text((re.search(r"(?is)<h3>(.*?)</h3>", art) or [None, ""])[1]) or pick["name"]
+    why, kidline = field("why"), field("kid")
+
+    fav = None
+    mf = re.search(r'(?is)<p class="fav"([^>]*)>(.*?)</p>', inner)
+    if mf:
+        md = re.search(r'data-date="(\d{4}-\d{2}-\d{2})"', mf.group(1))
+        flinks = re.findall(r'(?is)<a href="([^"]+)"[^>]*>(.*?)</a>', mf.group(2))
+        text = plain_text(re.sub(r'(?is)<a href="[^"]+"[^>]*>.*?</a>', "", mf.group(2)))
+        kept, _, _ = drop_stale([{"head": text[:20], "date": md.group(1) if md else ""}], slug)
+        if kept and text:
+            fav = {"text": text, "href": flinks[-1][0].strip() if flinks else "",
+                   "outlet": plain_text(flinks[-1][1]) if flinks else ""}
+
+    esc = lambda s: html.escape(str(s), quote=True)
+    meta = f'{pick["age"]}歳 ／ {POS_JA.get(pick["pos"], pick["pos"])} ／ {pick["team_name"]} ／ {pick["league"]}'
+    crest = f'<img class="crest" src="{esc(pick["logo"])}" alt="" loading="lazy">' if pick.get("logo") else ""
+    parts = [f'<header class="rk-head">{crest}<div><h3>{esc(head)}</h3>'
+             f'<p class="rk-en">{esc(pick["name"])}</p></div></header>',
+             '<ul class="chips">' + "".join(f"<li>{esc(x)}</li>" for x in meta.split(" ／ ")) + "</ul>",
+             rookie_visual(pick)]
+    if why:
+        parts.append(f'<p class="why">{esc(why)}</p>')
+    if kidline:
+        parts.append(f'<p class="kid"><span>こどもむけ</span>{esc(kidline)}</p>')
+    if clips:
+        parts.append('<div class="clips">' + "".join(
+            f'<a class="yt-thumb" href="https://www.youtube.com/watch?v={c["vid"]}">'
+            f'<img src="https://img.youtube.com/vi/{c["vid"]}/hqdefault.jpg" alt="" loading="lazy">'
+            f'<span>{esc(c["caption"] or "YouTubeで見る")}</span></a>' for c in clips) + "</div>")
+    if href:
+        parts.append(f'<a class="outlet" href="{esc(href.strip())}">{esc(plain_text(outlet) or "出典")}</a>')
+    cards = ['<article class="rookie">' + "".join(parts) + "</article>"]
+    if fav:
+        link = f' <a href="{esc(fav["href"])}">{esc(fav["outlet"] or "出典")}</a>' if fav["href"] else ""
+        cards.append(f'<p class="fav"><span>おまけ</span>{esc(fav["text"])}{link}</p>')
+    new = '<section class="rookies"><h2>今週の若手</h2>\n' + "\n".join(cards) + "\n</section>"
+    kid = {"head": head, "espn": pick["name"], "meta": meta, "kid": kidline, "clips": clips, "fav": fav,
+           "line": next((f"{lb} {v}" for lb, v, _, _ in stat_rows(pick)[1:2]), ""),
+           "events": ["・".join(e["what"]) for e in pick["events"]]}
+    return body[:sec.start()] + new + body[sec.end():], kid, dropped, warnings
+
+
+def log_rookies(slug, kid):
+    """若手欄に出た選手を台帳に積む（scout.py が「1年は出さない」に使う。名前は ESPN 表記）。"""
+    path = "docs/rookies.json"
+    log = json.load(open(path, encoding="utf-8")) if os.path.exists(path) else []
+    log = [r for r in log if r["date"] != slug]
+    log.insert(0, {"date": slug, "names": [kid["espn"]], "ja": kid["head"]})
+    log.sort(key=lambda r: r["date"], reverse=True)
+    json.dump(log, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+
+
+# ─────────────────────────────────────────────────────────────
 # 扉（全面1枚 / 写真が無ければ題を一字）
 # ─────────────────────────────────────────────────────────────
 def hero_for(slug, meta):
@@ -397,6 +549,9 @@ def main():
     body, n_en = en_sources(body)
     if not n_en:
         warnings.append("英語ソースが1件もありません（日英ミックスが方針）")
+    body, kid, r_dropped, r_warnings = rookies(body, slug, load_pick(slug, rebuild))
+    dropped += r_dropped
+    warnings += r_warnings
     if 'class="topics"' not in body:
         warnings.append("今週のトピックス欄がありません")
     body, t_dropped, t_videos, t_cats, t_stale, t_nodate = mosaicize(body, slug)
@@ -449,11 +604,14 @@ def main():
     json.dump(issues, open("docs/issues.json", "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
     write_cover(issues)
+    if kid:
+        log_rookies(slug, kid)
 
     url = f"https://mediiiiium.github.io/tony-magazine/issues/{slug}.html"
     json.dump({"ok": True, "no": no, "title": meta["title"], "topic": meta["topic"],
                "lead": meta["lead"], "url": url, "dropped_videos": dropped,
-               "en_sources": n_en, "topic_videos": t_videos, "warnings": warnings},
+               "en_sources": n_en, "topic_videos": t_videos, "warnings": warnings,
+               "date_ja": date_ja, "rookies": kid},
               open("build_result.json", "w"), ensure_ascii=False)
     print(f"第{no}号「{meta['title']}」を組みました → docs/issues/{slug}.html")
     if dropped:

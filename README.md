@@ -3,6 +3,7 @@
 毎週日曜の朝、興味を「広げる」か「深める」テーマをひとつ深掘りして届ける、
 読者ひとりのための週刊個人誌。GitHub Pages で発行し、Pushover（iPhone）に届く。
 特集は毎号1テーマ（日常圏の深掘りも未知ジャンルへの寄り道も可。日英ソースをミックスし海外ソースは翻訳して紹介・YouTube動画つき）、
+連載「今週の若手」（データで選んだ23歳以下の1人を、グラフと動画で。息子と一緒に読む欄で、同じ中身が息子の Slack DM にも届く）、
 巻末に AI / クラフトビール / 海外フットボール / エンタメ / SNSバズ の「今週のトピックス」。
 
 📰 誌面: https://mediiiiium.github.io/tony-magazine/
@@ -11,13 +12,19 @@
 
 ```
 毎週日曜 6:00 JST (GitHub Actions cron)
+  → scripts/scout.py が「今週の若手」の1人を選ぶ（ESPN の公開 JSON。欧州7リーグ＋J1 の23歳以下を
+     出場時間・90分あたりの成績・リーグの強さ・若さで点数化。攻撃→中盤→守備の順に枠を回し、
+     月の最初の号は日本人かJリーグ。試合データは data/scout/ に貯めて次週は差分だけ取る）
   → claude -p（サブスク枠 CLAUDE_CODE_OAUTH_TOKEN / WebSearch・WebFetch のみ許可）
      prompts/editorial.md の編集方針 + 過去号一覧 を読んでテーマ選定 → Web調査 → 執筆
   → scripts/build_issue.py が検品・サニタイズして誌面を組む
      - script/iframe/イベント属性は機械除去（動画は data-yt から生成）
      - YouTube 動画IDはサムネイル実在確認。無い動画は落とす（ID捏造対策）
      - ソース欄が無い号は不合格
+     - 若手欄は数字のグラフを pick.json から誌面側で描き、文章と動画だけ LLM の原稿から取る。
+       出た選手は docs/rookies.json に積み、1年は出さない
   → docs/ に commit & push（= GitHub Pages に発行）
+  → 若手欄を息子の Slack DM に送る（私用WS「103」。送り主は父のアカウント。送れたかは Pushover に一言添える）
   → Pushover に「第N号 + リンク」通知（発行できた号は「あとで」= 通知センターに静かに積む）
 ```
 
@@ -33,6 +40,8 @@ Pushover に送れなかったときは workflow が赤くなり、GitHub アプ
 | `scripts/make_prompt.py` | 編集方針+過去号一覧からプロンプトを組む |
 | `scripts/build_issue.py` | 検品・サニタイズ・誌面組み・目次再生成 |
 | `scripts/notify.py` | Pushover 通知（tony の `scripts/notify.py` と同じ流儀） |
+| `scripts/scout.py` | 「今週の若手」の1人をデータで選ぶ。点数の付け方は冒頭の docstring |
+| `scripts/notify_son.py` | 若手欄を息子の Slack DM へ（発行できなかった週は送らない） |
 | `scripts/rebuild.py` | 保管した生原稿から過去号を組み直す（デザイン変更後に走らせる） |
 | `templates/` | 号・目次の HTML テンプレート |
 | `archive/` | LLM が書いた生原稿（`YYYY-MM-DD.txt`）。誌面の原本 |
@@ -41,6 +50,8 @@ Pushover に送れなかったときは workflow が赤くなり、GitHub アプ
 ## 必要な Secrets（Actions）
 
 - `CLAUDE_CODE_OAUTH_TOKEN` — `claude setup-token` で発行（サブスク枠。API課金なし）
+- `SLACK_USER_TOKEN` — 私用WS「103」の gmail-digest App の User Token（息子への DM に使う。tony と共用）
+- `SLACK_SON_USER_ID` — 息子の Slack ユーザーID（`U` で始まる。`gh secret set SLACK_SON_USER_ID -R mediiiiium/tony-magazine`）
 - `PUSHOVER_TOKEN` / `PUSHOVER_USER` — tony と同じ Pushover のキー（`scripts/secret-pushover.sh token|user` で設定）
 
 ## 過去号の扱い

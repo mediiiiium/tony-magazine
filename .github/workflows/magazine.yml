@@ -18,7 +18,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -31,6 +31,13 @@ jobs:
         run: |
           echo "slug=$(TZ=Asia/Tokyo date +%F)" >> "$GITHUB_OUTPUT"
           echo "date_ja=$(TZ=Asia/Tokyo date '+%Y年%-m月%-d日')" >> "$GITHUB_OUTPUT"
+
+      # 連載「今週の若手」の1人をデータで選ぶ（ESPN の公開 JSON）。コケたら若手欄なしで発行する
+      - name: 今週の若手を選ぶ
+        continue-on-error: true
+        env:
+          DATE_SLUG: ${{ steps.meta.outputs.slug }}
+        run: python scripts/scout.py
 
       - name: プロンプトを組み立てる
         env:
@@ -85,6 +92,7 @@ jobs:
           git config user.name "tony-magazine-bot"
           git config user.email "actions@users.noreply.github.com"
           git add docs archive
+          if [ -d data ]; then git add data; fi   # scout.py が貯めた試合データ（次週は差分だけ取る）
           git commit -m "発行: ${{ steps.meta.outputs.slug }} 号"
           git push
 
@@ -102,6 +110,16 @@ jobs:
           else
             echo "残す原稿なし（claude -p の段階で失敗）"
           fi
+
+      # 連載「今週の若手」を息子の Slack DM へ。ここは落ちても続ける
+      # （送れたかどうかは son_result.json 経由で、次の Pushover 通知に一言添える）
+      - name: 息子の Slack へ若手欄を送る
+        if: steps.build.outcome == 'success'
+        continue-on-error: true
+        env:
+          SLACK_USER_TOKEN: ${{ secrets.SLACK_USER_TOKEN }}
+          SLACK_SON_USER_ID: ${{ secrets.SLACK_SON_USER_ID }}
+        run: python scripts/notify_son.py
 
       # ★このステップは絶対に飛ばさない。成功でも失敗でも必ず Pushover に知らせる。
       #   Pushover に送れなかったらこのステップが落ちて workflow が赤くなる（GitHub アプリで気づく）。

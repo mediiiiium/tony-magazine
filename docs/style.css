@@ -257,3 +257,60 @@ body.cover{background:#111010;color:#f3ecdd}
    （揃えたままだと、隣のカードが開いた分だけ引き伸ばされて大穴になる） */
 .mosaic:has(.digest[open]){align-items:start}
 .mosaic:has(.digest[open]) .card{min-height:13rem}
+
+/* ---------- 連載「今週の若手」 = 1号1人の選手カード（数字は誌面側で描く。息子と一緒に読む欄） ---------- */
+.rookies{margin:4.4rem 0 0;border-top:3px double var(--line);padding-top:1.6rem}
+.rookies>h2{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:1.2rem;letter-spacing:.2em;margin:0 0 1.2rem}
+.rookie{--pitch:#123222;--line-on:rgba(243,236,221,.14);--gold:#e2b84a;
+  position:relative;overflow:hidden;background:var(--pitch);color:#f3ecdd;border-radius:20px;
+  padding:1.7rem 1.6rem 1.4rem;margin:0 0 1rem;
+  background-image:radial-gradient(circle at 100% 0,rgba(226,184,74,.16),transparent 55%)}
+.rookie .lb{margin:0 0 .5rem;font-size:.66rem;letter-spacing:.24em;font-weight:700;color:rgba(243,236,221,.55)}
+.rk-head{display:flex;align-items:center;gap:1rem}
+.rk-head .crest{width:3.6rem;height:3.6rem;object-fit:contain;flex:none;
+  background:rgba(243,236,221,.92);border-radius:50%;padding:.45rem}
+.rk-head h3{margin:0;font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:1.9rem;line-height:1.25;letter-spacing:.02em}
+.rk-head .rk-en{margin:.15rem 0 0;font-size:.72rem;letter-spacing:.12em;color:rgba(243,236,221,.5)}
+.rookie .chips{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0 0;padding:0}
+.rookie .chips li{font-size:.72rem;letter-spacing:.06em;padding:.25em .8em;border-radius:99px;border:1px solid var(--line-on)}
+.rk-week{display:flex;gap:.8rem;align-items:flex-start;margin:1.1rem 0 0;padding:.75rem .9rem;border-radius:12px;
+  background:var(--gold);color:#1b1608}
+.rk-week>span{flex:none;font-size:.66rem;font-weight:700;letter-spacing:.2em;padding-top:.2rem}
+.rk-week ul{list-style:none;margin:0;padding:0;font-size:.88rem;line-height:1.7;font-weight:500}
+.rk-stats{margin:1.3rem 0 0;display:grid;gap:.85rem}
+.rk-stats .st{display:grid;grid-template-columns:1fr auto;gap:.15rem .8rem;align-items:baseline}
+.rk-stats .lb{margin:0;font-size:.74rem;letter-spacing:.1em}
+.rk-stats .val{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:1.2rem;text-align:right}
+.rk-stats .bar{grid-column:1/-1;height:.5rem;border-radius:99px;background:var(--line-on);overflow:hidden}
+.rk-stats .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#9fd3a8,var(--gold))}
+.rk-stats .note{grid-column:1/-1;font-size:.68rem;color:rgba(243,236,221,.5);letter-spacing:.03em}
+.rk-last5{margin:1.4rem 0 0}
+.rk-last5 .lb{display:flex;justify-content:space-between}
+.rk-last5 .lb span{letter-spacing:.06em;font-weight:400}
+.rk-last5 .cols{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;align-items:end}
+.rk-last5 .col{display:flex;flex-direction:column;align-items:center;gap:.25rem}
+.rk-last5 em{font-style:normal;font-size:.7rem;color:var(--gold);min-height:1em;letter-spacing:.1em}
+.rk-last5 .tube{width:100%;max-width:2.6rem;height:4.2rem;border-radius:8px;background:var(--line-on);
+  display:flex;align-items:flex-end;overflow:hidden}
+.rk-last5 .tube i{display:block;width:100%;background:#9fd3a8;border-radius:8px 8px 0 0}
+.rk-last5 span{font-size:.66rem;color:rgba(243,236,221,.7)}
+.rk-last5 small{font-size:.6rem;color:rgba(243,236,221,.45)}
+.rk-why{margin:1.4rem 0 0}
+.rk-why .stack{display:flex;height:1.9rem;border-radius:8px;overflow:hidden;gap:2px}
+.rk-why .stack i{display:flex;align-items:center;justify-content:center;min-width:0;font-style:normal;
+  font-size:.62rem;font-weight:700;letter-spacing:.04em;color:#1b1608;white-space:nowrap;overflow:hidden}
+.rk-why .stack i:nth-child(1){background:#9fd3a8}.rk-why .stack i:nth-child(2){background:var(--gold)}
+.rk-why .stack i:nth-child(3){background:#e98f6f}.rk-why .stack i:nth-child(4){background:#b9a7e8}
+.rk-why .stack span{overflow:hidden;text-overflow:ellipsis;padding:0 .3rem}
+.rk-why .note{margin:.45rem 0 0;font-size:.66rem;color:rgba(243,236,221,.5)}
+.rookie .why{margin:1.4rem 0 0;font-size:.9rem;line-height:1.95;color:rgba(243,236,221,.88)}
+.rookie .kid{margin:.9rem 0 0;font-size:1rem;line-height:1.9;font-weight:500;
+  background:rgba(243,236,221,.08);border-radius:12px;padding:.8rem 1rem}
+.rookie .kid span,.rookies .fav span{display:inline-block;margin-right:.6em;font-size:.62rem;letter-spacing:.12em;
+  font-weight:700;padding:.15em .6em;border-radius:99px;background:#f3ecdd;color:#123222;vertical-align:.15em}
+.rookie .clips{display:grid;grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:.6rem}
+.rookie .clips .yt-thumb span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 1.4rem)}
+.rookie .outlet{display:inline-block;margin-top:.9rem;font-size:.68rem;letter-spacing:.06em;color:rgba(243,236,221,.5)}
+.rookies .fav{margin:0;font-size:.9rem;line-height:1.9;border:1px dashed var(--line);border-radius:12px;padding:.8rem 1rem}
+.rookies .fav span{background:var(--ink);color:var(--paper)}
+@media(max-width:520px){.rookie{padding:1.4rem 1.15rem 1.2rem}.rk-head h3{font-size:1.55rem}}

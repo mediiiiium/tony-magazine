@@ -12,6 +12,24 @@ issues = json.load(open("docs/issues.json", encoding="utf-8"))
 past = "\n".join(f"- 第{i['no']}号（{i['date']}）: {i['topic']} —「{i['title']}」" for i in issues) \
        or "- まだ過去号はありません（この号が実質の初回です）"
 
+# 今週の若手（scout.py がデータで選んだ1人）。選べなかった週は欄ごと書かせない
+POS_JA = {"F": "FW", "M": "MF", "D": "DF", "G": "GK"}
+try:
+    pick = json.load(open("pick.json", encoding="utf-8"))
+except FileNotFoundError:
+    pick = {"ok": False}
+if pick.get("ok"):
+    events = "\n".join(f"  - {e['date']} vs {e['vs']}: {'・'.join(e['what'])}" for e in pick["events"]) \
+             or "  - （今週の試合での目立った記録はなし。今季の積み上げで選ばれた）"
+    rookie = f"""選手: {pick['name']}（ESPN 表記）
+所属: {pick['team_name']}（{pick['league']}）／ {pick['age']}歳（{pick['born']}生）／ {POS_JA.get(pick['pos'], pick['pos'])} ／ 国籍 {pick['nat']}
+今季: {pick['team_games']}試合中 先発{pick['starts']}・出場{pick['apps']}・{pick['mins']}分・{int(pick['g'])}ゴール・{int(pick['a'])}アシスト
+選ばれた枠: {pick['slot']}（同じ枠・23歳以下・7リーグ＋J1 の{pick['pool']}人から点数で選出）
+今週の記録:
+{events}"""
+else:
+    rookie = "今週は選手を選べなかった。<section class=\"rookies\"> は書かない"
+
 issue_no = len(issues) + 1
 date_ja = os.environ.get("DATE_JA", "")
 
@@ -36,6 +54,9 @@ prompt = f"""{editorial}
 「今週のトピックス」に入れてよいのは、この期間に報じられた／起きたことだけ。
 各 <li> の data-date はこの範囲に収まるはずで、外れた項目は誌面に載る前に落とされる。
 （特集はこの期間に縛られない。古い題材でよい）
+
+# 今週の若手（この選手について書く）
+{rookie}
 
 それでは、今号のテーマを選んで執筆してください。
 """
