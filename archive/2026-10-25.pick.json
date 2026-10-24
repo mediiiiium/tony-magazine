@@ -1,0 +1,98 @@
+{
+ "ok": true,
+ "slot": "中盤",
+ "japan_week": false,
+ "pool": 432,
+ "id": "409541",
+ "name": "Josh King",
+ "age": 19,
+ "born": "2007-01-03",
+ "pos": "M",
+ "nat": "England",
+ "lg": "eng.1",
+ "league": "プレミアリーグ",
+ "team_name": "Fulham",
+ "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png",
+ "group": "中盤",
+ "apps": 8,
+ "starts": 8,
+ "mins": 662,
+ "full": 3,
+ "g": 2.0,
+ "a": 1.0,
+ "sh": 21.0,
+ "sv": 0,
+ "ga_on": 7,
+ "cs_full": 0,
+ "team_games": 8,
+ "start_share": 1.0,
+ "ga90": 0.9516616314199395,
+ "ga_a90": 0.4078549848942598,
+ "save_pct": 0.0,
+ "score": 0.87232,
+ "parts": {
+  "信頼": 0.27999999999999997,
+  "ゴール＋アシスト": 0.333,
+  "シュート": 0.13899999999999998
+ },
+ "last5": [
+  {
+   "date": "2026-09-12",
+   "mins": 77,
+   "g": 0,
+   "a": 0
+  },
+  {
+   "date": "2026-09-20",
+   "mins": 80,
+   "g": 0,
+   "a": 0
+  },
+  {
+   "date": "2026-10-10",
+   "mins": 76,
+   "g": 0,
+   "a": 0
+  },
+  {
+   "date": "2026-10-17",
+   "mins": 78,
+   "g": 0,
+   "a": 0
+  },
+  {
+   "date": "2026-10-24",
+   "mins": 81,
+   "g": 0,
+   "a": 1.0
+  }
+ ],
+ "events": [
+  {
+   "date": "2026-10-24",
+   "vs": "Coventry City",
+   "what": [
+    "1アシスト"
+   ]
+  }
+ ],
+ "ranks": {
+  "peers": 18,
+  "mins": 2,
+  "score": 1,
+  "g": 2,
+  "a": 5,
+  "ga_a90": 4
+ },
+ "p": {
+  "start_share": 0.7,
+  "ga_a90": 0.74,
+  "sh90": 0.9266666666666666
+ },
+ "runners_up": [
+  "Ibrahim Maza（Bayer Leverkusen・0.84）",
+  "Antonio Nusa（RB Leipzig・0.83）",
+  "Julio Enciso（Ipswich Town・0.80）",
+  "Diego Gómez（Brighton & Hove Albion・0.78）"
+ ]
+}

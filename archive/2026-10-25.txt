@@ -1,0 +1,144 @@
+<!--META
+{"topic":"粘菌","title":"脳のない黄色い膜は、東京の鉄道網を引いた","lead":"一つの細胞で、目も脳もない。それなのに迷路を解き、関東の鉄道網とよく似た路線図を描く粘菌（モジホコリ）。この「賢さ」の正体と、日本の研究者たちの発見をたどる。","emoji":"🟡","accent":"#9A7B00","glyph":"菌","hero_query":"slime mold Physarum"}
+META-->
+<section class="chapter">
+  <h2>黄色い「ひとつの細胞」</h2>
+  <p>朽ちた木の下や落ち葉の間に、黄色い絵の具をこぼしたような膜が広がっていることがあります。粘菌の一種、モジホコリ（学名 <em>Physarum polycephalum</em>）の変形体です。見た目はカビのようですが、動物でも植物でもない不思議な生きものです。</p>
+  <p>この黄色い膜は、核を何百万個も抱えた<strong>巨大なひとつの細胞</strong>です。日本語版ウィキペディアによれば、実験室では面積が5.52平方メートルに達した例もあります。体の中では原形質が1〜2分の周期で行ったり来たりと脈打ち、流れの速さは最大で毎秒1mmです。</p>
+  <p>神経も脳もありません。それでも「考えているようにしか見えない」ふるまいを見せるため、世界中の研究者が通っています。米『Scientific American』は、粘菌が少なくとも6億年前から存在し、脳が生まれるよりずっと前から生きてきたと紹介しています。</p>
+</section>
+
+<section class="chapter">
+  <h2>迷路の出口を知っている細胞</h2>
+  <p>転機は2000年。北海道大学（当時）の中垣俊之らが、英科学誌『Nature』に「迷路を解くアメーバ状生物」の論文を発表しました。迷路の中に粘菌をちぎって置き、入口と出口の2か所にオートミール（餌）を置きます。すると粘菌は迷路じゅうに広がったあと、行き止まりの部分から身を引き、<strong>2つの餌を結ぶ最短の道だけ</strong>を太い管として残しました。</p>
+  <p>粘菌は地図を持っているわけではありません。体の中を流れる原形質が、よく流れる管を太くし、流れの乏しい管を細らせる。この単純な「手入れ」の繰り返しが、結果として最短経路を浮かび上がらせます。中垣は2008年に認知科学賞、2010年に交通計画賞と、イグノーベル賞を2度受賞しました。「人を笑わせ、そして考えさせる研究」に贈られる賞です。</p>
+  <figure class="video" data-yt="75k8sqh5tfQ"><figcaption>粘菌が迷路を解く実験映像（YouTube「PhysarumMachines」チャンネル、2011年投稿。英国の Andrew Adamatzky らの研究に関連する映像）</figcaption></figure>
+</section>
+
+<blockquote class="pullquote">設計図も司令塔もないまま、いちばん良い道だけが残る。</blockquote>
+
+<section class="chapter">
+  <h2>関東の地図に餌をまいたら</h2>
+  <p>2010年1月、中垣のグループは『Science』に、より大胆な論文を載せました（筆頭著者は手老篤史）。寒天の上に関東地方の地図を見立て、東京と周辺の36の都市の位置にオートミールを置いて、真ん中に粘菌を放ったのです。粘菌は、約8時間で各地点を直接結ぶ枝を伸ばし、約1日後には現実の鉄道網とよく似た網目をつくったと報じられています。山や湖の代わりに、粘菌が嫌う光を当てて地形を再現した実験では、さらに似たそうです。</p>
+  <p>驚くべきは似ていることよりも、<strong>性能</strong>です。研究チームによれば、粘菌のネットワークは建設費（総延長）、輸送効率、そして一部が切れても全体が機能し続ける耐障害性のバランスが、実際の鉄道網に匹敵しました。人間が何十年もかけて試行錯誤してきた設計を、粘菌は一晩の「広げて、育てて、削る」で再現したことになります。</p>
+  <p>研究チームはこの動きを数式のモデルにし、ほかの分野の道路網や通信網の設計にも使えるのではないか、と提案しました。</p>
+</section>
+
+<section class="chapter">
+  <h2>自分の通った跡が「記憶」になる</h2>
+  <p>粘菌の賢さは、経路探索だけではありません。2012年、シドニー大学の Chris Reid らは『PNAS』で、粘菌が自分の残した粘液を<strong>外づけの記憶</strong>として使っていると報告しました。粘菌は移動のたびに半透明の粘液を残し、そこを避けるのです。</p>
+  <p>U字の罠の向こうに砂糖を置くと、何もない寒天では24匹中23匹がたどり着きました。ところが寒天にあらかじめ粘液を塗っておくと、たどり着いたのは24匹中8匹。自分の跡を避ける性質が、罠の中では裏目に出たわけです。記憶は頭の中だけでなく、環境に書き込むこともできる。生きものの「知性」の定義をゆさぶる結果です。</p>
+</section>
+
+<aside class="column">
+  <h3>コラム：小学校の教室から始められる粘菌</h3>
+  <p>モジホコリは乾燥した「菌核」の状態で売られており、オートミールを与えれば育てられるため、学校の理科でも使われます。1時間に約1mmという遅さを、タイムラプスで撮るだけでも様子が見えてきます。英国のアーティスト Heather Barnett は、2009年から2018年にかけて粘菌の実験を重ね、その記録が Aeon の短編映像になりました。科学とアートの境目に、粘菌は居ついています。</p>
+</aside>
+
+<section class="chapter">
+  <h2>もっと知るには</h2>
+  <p>最初の一歩としては、中垣俊之『かしこい単細胞 粘菌』（福音館書店）が手に取りやすい一冊です。迷路や路線図の話が子ども向けの文章で書かれていて、大人が読んでも発見があります。次に、下の英語ソースにある Scientific American の記事で、粘菌の「賢さ」をめぐる論点を広く眺めてください。さらに進むなら、2010年の『Science』論文（Tero et al., "Rules for Biologically Inspired Adaptive Network Design"）が、広島大学のリポジトリで公開されています。</p>
+  <p>事業の人間にとっていちばん持ち帰りたいのは、「中央で最適化しなくても、局所のフィードバックだけで堅牢な構造は育つ」という見方です。物流網でもチームの情報の流れでも、まず太く育つ道と、細って消える道を観察してみる。粘菌は、その実験台を黄色い膜の上で見せてくれます。</p>
+</section>
+
+<section class="sources">
+  <h2>ソース</h2>
+  <article class="en-src" data-words="500">
+    <h3><a href="https://www.scientificamerican.com/blog/observations/slime-mold-validates-efficiency-of-tokyo-rail-network/">Slime mold validates efficiency of Tokyo rail network</a></h3>
+    <p class="en-ja">「粘菌が東京の鉄道網の効率の高さを裏づけた」／Scientific American</p>
+    <ul class="pts">
+      <li>北大の手老篤史らの研究チームは、東京周辺の36都市の位置に餌（オートミール）を置き、粘菌が既存の鉄道網とよく似たネットワークをつくることを示した。地形の障害物に相当する条件を加えると、さらに似たものになった。</li>
+      <li>粘菌のネットワークは、人間の設計者と同じようにコストと有用性のバランスを取り、しかも「中央制御も全体の情報もなしに」つくられる。偶発的な切断への耐障害性も高かった。</li>
+      <li>チームはこの仕組みを数理モデルにした。論文に付いた解説を書いた Wolfgang Marwan は、自己組織化・自己最適化・自己修復が携帯通信網などの技術に必要になるかもしれないと述べ、このモデルを「beautifully useful」と評した。</li>
+    </ul>
+    <p class="orig">
+      <span class="en">“All aboard the slime mold express.”</span>
+      <span class="ja">「粘菌エクスプレス、ご乗車ください」（記事の結びの一文）</span>
+    </p>
+  </article>
+  <article class="en-src" data-words="2000">
+    <h3><a href="https://www.scientificamerican.com/article/brainless-slime-molds/">How Brainless Slime Molds Redefine Intelligence</a></h3>
+    <p class="en-ja">「脳のない粘菌は、知性の定義をどう書き換えるか」／Scientific American（Ferris Jabr、2012年11月）</p>
+    <ul class="pts">
+      <li>粘菌は数百万の核をもつひとつの細胞で、神経系はない。迷路では行き止まりから退き、餌と餌をつなぐ最短ルートに沿って伸びる。</li>
+      <li>粘液の足跡は探索ずみの目印になる。粘液を前もって塗った皿では餌にたどり着いたのは24匹中8匹で、通常の皿は23匹だった。</li>
+      <li>乾燥が周期的に来ることを内部のリズムで予測して動きを遅くしたり、タンパク質と炭水化物のバランスのよい餌を選んだりもする。少なくとも6億年前から存在するとされる。</li>
+    </ul>
+    <p class="orig">
+      <span class="en">“Slime molds are redefining what you need to have to qualify as intelligent.”</span>
+      <span class="ja">「粘菌は、知的であるために何が必要か、という条件そのものを書き換えつつある」</span>
+    </p>
+  </article>
+  <article class="en-src" data-words="330">
+    <h3><a href="https://www.nationalgeographic.com/science/article/brainless-creature-solves-problems-with-memories-of-slime">Brainless creature solves problems with memories of slime</a></h3>
+    <p class="en-ja">「脳のない生きものは、粘液の記憶で問題を解く」／National Geographic（Ed Yong、2012年10月）</p>
+    <ul class="pts">
+      <li>Y字の通路で片方に粘液を塗ると、粘菌はほぼ必ず粘液のない側を選んだ。逃げ道がなければ、粘液のある場所を再び通ることもあり、反射ではなく選択に見えた。</li>
+      <li>U字の罠では、何もない寒天上のほぼ全個体が平均60時間弱で砂糖に着いた。粘液を塗った寒天では成功は約3分の1で、約75時間かかった。</li>
+      <li>自分の跡を使えない粘菌は、すでに通った場所を再訪する時間が10倍以上になった。研究者の Chris Reid は、外部の記憶が内部の記憶より先に進化した可能性を指摘する。</li>
+    </ul>
+    <p class="orig">
+      <span class="en">“the ultimate in crowdsourcing”</span>
+      <span class="ja">「究極のクラウドソーシング」（体の各部分がパルスで「投票」して進路を決める粘菌の仕組みを、記事はこう呼ぶ）</span>
+    </p>
+  </article>
+  <ul>
+    <li><a href="https://ja.wikipedia.org/wiki/モジホコリ">モジホコリ（Wikipedia 日本語版）</a> — 大きさ・脈動・中垣俊之の研究の概要</li>
+    <li><a href="https://en.wikipedia.org/wiki/Physarum_polycephalum">Physarum polycephalum（Wikipedia）</a> — 2000年の迷路論文と2010年の鉄道網実験の書誌</li>
+    <li><a href="https://www.global.hokudai.ac.jp/blog/two-ig-nobel-laureates-discuss-research-that-makes-people-laugh-and-then-think/">Two Ig Nobel laureates discuss “Research that makes people laugh and then think”（北海道大学）</a> — 中垣のイグノーベル賞（2008年・2010年）</li>
+    <li><a href="https://aeon.co/videos/creeping-through-mazes-repelling-adversaries-the-slow-motion-smarts-of-slime-moulds">Creeping through mazes, repelling adversaries（Aeon）</a> — Heather Barnett の実験映像と粘菌の速さ</li>
+    <li><a href="https://ir.lib.hiroshima-u.ac.jp/00029243">Rules for Biologically Inspired Adaptive Network Design（広島大学リポジトリ）</a> — 2010年『Science』論文の書誌情報</li>
+  </ul>
+</section>
+
+<section class="rookies">
+  <article class="rookie">
+    <h3>ジョシュ・キング</h3>
+    <p class="why">フラムのアカデミー育ちの19歳。ロンドンのウィンブルドン出身で、2015年に入団し、17歳だった2024-25シーズンにトップチームへ。ドリブルが鋭く縦に運べるうえ、体は細身でもボールを奪われにくく、守備のプレスも激しい選手です。今季はアルバロ・アルベロア監督のもとで8試合すべてに先発し、2ゴール1アシスト。24日のコベントリー戦（1-0で勝利）では、80分のオスカー・ボブの決勝ゴールをアシストしました。17分には自らも枠に当たる強いシュートを放っています。見どころは、ボールを持ったときの縦への仕掛けと、最後のシュートやパスの精度です。</p>
+    <p class="kid">フラムの19さいの選手だよ。足が速くてドリブルがうまく、土曜日の試合では、決勝ゴールのパスを出してチームを勝たせたんだ。</p>
+    <a href="https://dave.sport/news/coventry-0-1-fulham-oscar-bobb-report/">Dave Sport</a>
+  </article>
+  <p class="fav" data-date="2026-10-20">20日のチャンピオンズリーグで、PSG が バルサに 4-2 で勝ったよ。バルサのヤマルも 1 点とったけれど、バルサは今季はじめての負けになったんだ。<a href="https://www.aljazeera.com/sports/liveblog/2026/10/20/psg-vs-barcelona-live-champions-league">Al Jazeera</a></p>
+</section>
+
+<section class="topics">
+  <h2>今週のトピックス</h2>
+  <div class="topic-group">
+    <h3>AI</h3>
+    <ul>
+      <li data-date="2026-10-21">Anthropic が、朝にまとめを届けて必要な時だけ連絡する個人エージェント「Claude Duet」を発表した。米国の Pro・Max 会員向けのウェイトリスト制で、研究プレビュー段階。<a href="https://iphoneincanada.ca/2026/10/21/claude-duet-proactive-ai-agent-app">iPhone in Canada</a></li>
+      <li data-date="2026-10-23">米大手銀行が、顧客が勝手にログイン情報を渡した外部の AI エージェントによる未承認のアクセスを検知している。数十の金融機関に及ぶという。<a href="https://www.cbsnews.com/news/ai-agents-customer-bank-accounts-security/">CBS News</a>
+        <div class="digest" data-words="700">
+          <ul class="figs"><li><b>数十</b>影響が報じられた金融機関</li><li><b>10/13</b>ダイモンCEOが外部エージェントを入れないと発言</li></ul>
+          <p class="body">Axios の報道を CBS が10月23日に伝えた記事。米大手銀行で、顧客が信頼性の確認されていない AI エージェントにログイン情報を渡し、利用規約に反する形で口座にアクセスされる例が、数十の金融機関で出ているという。口座の資金が抜かれたわけではないが、本人が認めていない行動、たとえば銀行への苦情の連絡などをするエージェントもあった。ホワイトハウスの AI 担当デビッド・サックスは、本人が認めたエージェントと不正なものを分け、銀行は「読み取り専用」のアクセスを認めうるとしつつ、書き込み権限は別のリスクだと述べた。JPMorgan のダイモンCEOは、13日の決算会見で「どんな外部エージェントも入れるわけではない」と述べ、シュワブも未承認エージェントをブロックしていると報じられた。</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>クラフトビール</h3>
+    <ul>
+      <li data-date="2026-10-22">Brewers Association が、GLP-1 系の減量薬がクラフトビールの需要を押し下げる可能性に注目した。同団体の10月のニュースレターで取り上げられた。<a href="https://vinetur.com/en/20261022109554/brewers-association-spotlights-glp-1-drugs-as-a-potential-threat-to-craft-beer-demand.html">Vinetur</a></li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>海外フットボール</h3>
+    <ul>
+      <li data-date="2026-10-20">PSG が バルセロナに 4-2 で勝った。バルサはヤマルらが得点したが、今季の初黒星になった。<a href="https://www.aljazeera.com/sports/liveblog/2026/10/20/psg-vs-barcelona-live-champions-league">Al Jazeera</a></li>
+      <li data-date="2026-10-24">フラムがコベントリーに 1-0 で勝ち、降格圏を抜け出した。ボブの80分の決勝点をキングがアシストした。<a href="https://dave.sport/news/coventry-0-1-fulham-oscar-bobb-report/">Dave Sport</a></li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>エンタメ</h3>
+    <ul>
+      <li data-date="2026-10-19">実写映画『ストリートファイター』が北米の週末興行で初登場1位になった。3日間で約3100万ドル、世界では5110万ドル。<a href="https://www.thestar.com.my/news/world/2026/10/19/street-fighter-tops-north-american-box-office-in-opening-weekend">The Star</a></li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>SNSバズ</h3>
+    <ul>
+      <li data-date="2026-10-24">TikTok で「The Night We Met」の曲に乗せた「懐かしい思い出」動画が急増した。投稿者は前週比で155%増の247人。過去の一場面を静かな曲で見せる形式が、共感を呼びやすい。<a href="https://virlo.ai/trends">Virlo</a></li>
+      <li data-date="2026-10-24">「Don't call me, don't come by my house」の音声を使った別れ話ネタが今週の新顔になった。共感できる一言に、自分の状況を重ねやすいのが理由。<a href="https://virlo.ai/trends">Virlo</a></li>
+    </ul>
+  </div>
+</section>
