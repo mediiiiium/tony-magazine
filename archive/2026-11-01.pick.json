@@ -1,0 +1,94 @@
+{
+ "ok": true,
+ "slot": "守備",
+ "japan_week": true,
+ "pool": 496,
+ "id": "362186",
+ "name": "Kosei Suwama",
+ "age": 23,
+ "born": "2003-06-06",
+ "pos": "D",
+ "nat": "Japan",
+ "lg": "jpn.1",
+ "league": "J1リーグ",
+ "team_name": "Yokohama F. Marinos",
+ "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7116.png",
+ "group": "守備",
+ "apps": 12,
+ "starts": 12,
+ "mins": 1080,
+ "full": 12,
+ "g": 0,
+ "a": 0,
+ "sh": 0,
+ "sv": 0,
+ "ga_on": 12,
+ "cs_full": 6,
+ "team_games": 12,
+ "start_share": 1.0,
+ "ga90": 1.0,
+ "ga_a90": 0.0,
+ "save_pct": 0.0,
+ "score": 0.41145454545454546,
+ "parts": {
+  "信頼": 0.3144385026737968,
+  "守りの結果": 0.2983957219251337,
+  "ゴール＋アシスト": 0.0,
+  "規律": 0.050802139037433164
+ },
+ "last5": [
+  {
+   "date": "2026-09-19",
+   "mins": 90,
+   "g": 0,
+   "a": 0
+  },
+  {
+   "date": "2026-10-10",
+   "mins": 90,
+   "g": 0,
+   "a": 0
+  },
+  {
+   "date": "2026-10-17",
+   "mins": 90,
+   "g": 0,
+   "a": 0
+  },
+  {
+   "date": "2026-10-21",
+   "mins": 90,
+   "g": 0,
+   "a": 0
+  },
+  {
+   "date": "2026-10-25",
+   "mins": 90,
+   "g": 0,
+   "a": 0
+  }
+ ],
+ "events": [],
+ "ranks": {
+  "peers": 11,
+  "mins": 1,
+  "score": 1,
+  "ga90": 2,
+  "cs_full": 1,
+  "ga_a90": 4
+ },
+ "p": {
+  "start_share": 0.786096256684492,
+  "ga_a90": 0.0,
+  "cs_rate": 0.9518716577540107,
+  "ga90": 0.8128342245989305,
+  "cards90": 0.5080213903743316
+ },
+ "runners_up": [
+  "Luka Vuskovic（Brighton & Hove Albion・0.95）",
+  "Tarik Muharemovic（Leeds United・0.80）",
+  "Zachary Athekame（Lyon・0.77）",
+  "Xavi Espart（Barcelona・0.76）",
+  "Konstantinos Tzolakis（Hull City・0.71）"
+ ]
+}
