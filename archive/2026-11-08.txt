@@ -1,0 +1,110 @@
+<!--META
+{"topic":"能面","title":"表情のない顔は、なぜ泣くのか——能面と「照らす・曇らす」の科学","lead":"能面は、わざと無表情に彫られています。それなのに舞台の上では、笑い、泣き、怒る。ヒノキの一塊から顔を起こす職人の手と、理研の研究者が見つけた「表情のキメラ」。無表情が感情を生むしくみをたどります。","emoji":"🎭","accent":"#6B2D3C","glyph":"面","hero_query":"Noh mask Japanese theater"}
+META-->
+<section class="chapter">
+  <h2>「能面のような顔」は、褒め言葉ではない</h2>
+  <p>「能面のような顔」といえば、感情が読めない顔のことです。nippon.com の能面の解説も、この言い回しから始まっています。ところが実際に能を観ると、同じ面が笑い、嘆き、怒っているように見えます。感情のない顔が、なぜ感情を運べるのか。今号はこの不思議を追います。</p>
+  <p>能は室町時代に、観阿弥・世阿弥の親子が大成した舞台芸術です。主役の「シテ」は、多くの場合、面（おもて）をつけて舞います。面の種類は、もとは約60種だったものが、今では200種を超えるとされています（the-NOH.com）。老人の「翁」、若い女の「小面（こおもて）」、嫉妬に燃える女の「般若」。人から鬼、亡霊まで、顔の数だけ世界があります。</p>
+</section>
+
+<section class="chapter">
+  <h2>一塊のヒノキから、顔を起こす</h2>
+  <p>面の材料は、木曽のヒノキです。nippon.com によると、樹齢200〜300年の木から切り出した材を使います。彫るのに約3週間かかります。顔の内側には漆を塗ります。演者の息や汗から木を守るためです。表側には貝殻を砕いた白い顔料「胡粉（ごふん）」を塗り、その上から彩色します。</p>
+  <p>彫りと彩色を、同じひとりの作家が担うのも珍しい点です。遠くの客席から見える「彫り」と、間近で見られる「彩色」の両方を引き受けるわけです。さらに、面をつけた演者の視界はごく狭くなります。そのため、目の穴の角度と深さには特に気を配ります。取材された面打ちの北澤秀太さんは、約300本のノミを持っています。その多くは、木彫家だった父から受け継いだものです。</p>
+  <p>京都の中村光江さんの制作は、動画で見られます。ヒノキの塊を荒く削り、鼻・唇・目を彫り出し、貝殻の粉と膠（にかわ）で下地を作り、顔料を自分で調合して塗ります。無言の映像ですが、木のかたまりがだんだん「人の顔」になっていく様子に引き込まれます。</p>
+  <figure class="video" data-yt="B7bPmVp4LRY"><figcaption>中村光江さんが能面を作る工程を追った短編（Process X）。材料はヒノキ。紹介記事は My Modern Met</figcaption></figure>
+</section>
+
+<blockquote class="pullquote">無表情に彫るのは、手抜きではない。「何にでもなれる顔」を彫るという技術です。</blockquote>
+
+<section class="chapter">
+  <h2>首を傾けると、顔が変わる</h2>
+  <p>面の表情をつくる基本の技が、「照らす」と「曇らす」です。面をわずかに上へ向けると、光があたって、ほほえんで見えます。下へ向けると、目や眉のあたりに影がたまり、泣いているように見えます。the-NOH.com は、上向きの面は「ほんの少し笑っているように」、下向きの面は「かすかに眉をひそめ、悲しみや涙を表せる」と説明しています。</p>
+  <p>ただし、面だけが主役なわけではありません。CiNii にある研究によると、能の舞台では、面だけの効果より、身体全体の姿勢が生む効果のほうが大きかったそうです。動くのは首ですが、感情は体全体で伝えているということです。</p>
+  <p>能の世界では、「名品とは、演者が何百もの表情を表せる面だ」と言われるそうです（nippon.com が紹介する能役者の言葉）。面そのものは動きません。動く余地を残すことが、彫り手の仕事なのです。</p>
+</section>
+
+<section class="chapter">
+  <h2>理研が見つけた「感情のキメラ」</h2>
+  <p>2012年、理化学研究所の宮田裕光さんらの研究グループが、この謎に実験で迫りました。論文は PLoS ONE に載っています。きっかけは、先行研究の意外な結果でした。能に親しみのない大学生は、下を向いた面を「喜んでいる」、上を向いた面を「悲しんでいる」と、逆に判断する傾向があったのです。</p>
+  <p>研究グループは、画面上で眉・目・口を組み合わせて能面を合成し、人に評価してもらいました。わかったのは、傾けられた面の表情が、眉・目・口でそれぞれ違う感情を示す「複合表情」らしいということです。研究者はこれを「情動キメラ」と呼びました。さらに、感情を読み取る決め手は、主に口の形でした。下を向いたときの口をもつ面は、一貫して「喜んでいる」と判断されたそうです（理研の研究紹介ページ。具体的な被験者数は紹介ページに記載がなく、論文本文での確認が必要です）。</p>
+  <p>研究グループは、伝えたい感情と逆の要素をあえて混ぜる手法が、能面に神秘的な印象を与えているのではないかと考えています。ただし、これは研究者の解釈であり、定説として確定した話ではありません。</p>
+</section>
+
+<aside class="column">
+  <h3>コラム　面打ちは、世襲の仕事だった</h3>
+  <p>the-NOH.com によると、面の制作は室町時代以降に世襲の技として受け継がれました。越前（福井）の出目家や、近江（滋賀）の井関家が有名です。いまは家に属さない作家もいます。同じサイトは、「演じる世界」と「面を作る世界」は、本質的にはそれぞれ独立していると記しています。面は役者が選ぶ道具というより、作家が差し出す「顔」なのかもしれません。</p>
+</aside>
+
+<section class="chapter">
+  <h2>もっと知るには</h2>
+  <ul>
+    <li>まず上の動画を観て、中村光江さんの手の動きを追ってみてください。言葉がなくても伝わります。</li>
+    <li>能楽堂では、面を展示する日があります。観る前に、小面と般若の顔を見比べておくと、舞台での見え方が変わります。</li>
+    <li>観るときは、役者の首の角度だけを見てください。「照らす」「曇らす」の瞬間が、見えてきます。</li>
+    <li>クラフトビール事業者の目で見ると、「余白を残す設計」は、ブランドの顔づくりにも通じる話です。</li>
+  </ul>
+</section>
+
+<section class="sources">
+  <h2>ソース</h2>
+  <article class="en-src" data-words="1500">
+    <h3><a href="https://www.nippon.com/en/articles/-/12516">Nō Masks (nippon.com)</a></h3>
+    <p class="en-ja">「能面」／nippon.com</p>
+    <ul class="pts">
+      <li>能面は多くが中立的な表情で、「能面のような顔」という慣用句の由来になっています。材は木曽のヒノキで、樹齢200〜300年の木から切り出します。</li>
+      <li>彫りに約3週間かかります。内側は漆で守り、表は貝殻の胡粉を塗って彩色します。目の穴の角度は、狭くなる視界を考えて慎重に決めます。</li>
+      <li>面打ちの北澤秀太さんは、約300本のノミを持ちます。彫りと彩色をひとりでこなす点が珍しいと紹介されています。</li>
+    </ul>
+    <p class="orig">
+      <span class="en">“A face like a nō mask”</span>
+      <span class="ja">「能面のような顔」（感情をめったに見せない人を指す言い回し）</span>
+    </p>
+  </article>
+  <ul>
+    <li><a href="https://the-noh.com/en/world/mask.html">the-NOH.com — Masks</a> — 面の種類（約60種から200種超へ）、照らす／曇らす、世襲の面打ち</li>
+    <li><a href="https://www.jst.go.jp/erato/okanoya/2012/11/22140945.html">JST ERATO 岡ノ谷情動情報プロジェクト 研究紹介</a> — 理研・宮田裕光さんらの「情動キメラ」研究</li>
+    <li><a href="https://mymodernmet.com/noh-mask-process/">My Modern Met — Noh mask process</a> — 中村光江さんの制作工程と動画</li>
+    <li><a href="https://www.aeon.co/videos/how-a-noh-mask-maker-summons-a-lifelike-face-from-a-single-block-of-wood">Aeon — How a Noh mask maker summons a lifelike face</a> — 動画の背景（中村さんは約40年の経験）</li>
+  </ul>
+</section>
+
+<section class="rookies">
+  <article class="rookie">
+    <h3>ラミン・ヤマル</h3>
+    <p class="why">バルセロナの19歳のFW。今季は出場11試合・先発11、10ゴール7アシストで、ラ・リーガでも攻撃の中心です。今週は11月3日のチャンピオンズリーグ、アストン・ビラ戦（3-0）で、開始7分に先制ゴールを決めました。クラブ公式によれば、通算14ゴールとなり、ムバッペの13を抜いて「20歳未満の最多得点者」になっています（37試合での到達）。見どころは、相手のミスを逃さず仕留める、あの早い判断と、右サイドから切れ込んで巻くシュートです。</p>
+    <p class="kid">今週、ヤマルは19さいで、チャンピオンズリーグの「20さいになる前でいちばん点を取った人」になったよ。試合のはじめの7分で、もう点を取ったんだ。</p>
+    <a href="https://www.fcbarcelona.com/en/football/first-team/news/4603853/lamine-yamal-top-champions-league-scorer-under-20-years-of-age">FC Barcelona</a>
+  </article>
+  <p class="fav" data-date="2026-11-05">ラフィーニャが、バルサと2030年まで契約を延ばしたよ。ヤマルといっしょに点を取る仲間が、これからも残るんだ。<a href="https://www.fcbarcelona.com/en/football/first-team/news/4604888/raphinha-staying-at-fc-barcelona-until-2030">FC Barcelona</a></p>
+</section>
+
+<section class="topics">
+  <h2>今週のトピックス</h2>
+  <div class="topic-group">
+    <h3>AI</h3>
+    <ul>
+      <li data-date="2026-11-05">OpenAI が、セキュリティ特化モデル「GPT-6 Cyber」を公開した。利用は承認された顧客に限られ、入力は100万トークン20ドル。<a href="https://venturebeat.com/technology/openai-launches-gpt-6-cyber-with-stronger-exploit-research-and-higher-api-price-than-anthropic-and-google">VentureBeat</a>
+        <div class="digest" data-words="1500">
+          <ul class="figs"><li><b>48.5%</b>ExploitGym のスコア</li><li><b>948件</b>exploit を作れた Linux カーネルの脆弱性</li><li><b>81件</b>報告された Firefox の未知の重大脆弱性</li></ul>
+          <p class="body">OpenAI は、セキュリティ向けの「GPT-6 Cyber」を、承認された Daybreak Red 顧客に限って提供し始めました。同社は能力を「Critical」と評価しています。ExploitGym のスコアは48.5%で、前世代の GPT-5.6 Cyber の32.1%を上回りました。研究者は、Linux カーネルの1,724件の脆弱性を再現し、948件で実際に動く exploit を作ったとのことです。同じ条件の GPT-5.6 Sol は166件でした。Firefox では、未知の重大脆弱性81件を報告し、Mozilla が修正を進めています。価格は入力20ドル／出力100ドルで、Anthropic の Claude Mythos 5.1（10ドル／50ドル）より高く、Google の Gemini 4 Argon Cyber Permissive（4ドル／20ドル）と比べると大幅に高くなっています。ただし、記事は、これがトークン単価の比較であり、調査1件あたりのコストではないと断っています。</p>
+        </div>
+      </li>
+      <li data-date="2026-11-03">Google・OpenAI・Anthropic・Microsoft が、AI学習への利用可否を robots.txt で示す共通の仕組みを支持した。ただしIETFでは個人提出の草案の段階で、強制力はない。<a href="https://www.itechpost.com/articles/237707/20261103/google-openai-anthropic-unite-introduce-new-ai-scraping-controls.htm">iTechPost</a></li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>クラフトビール</h3>
+    <ul>
+      <li data-date="2026-11-05">スピリッツ大手 Sazerac が、オレゴンの Full Sail Brewing を買収した。同社の広報は、長期的にはフルセイルのビールを造る予定はないと述べている。<a href="https://fooddive.com/news/sazerac-acquires-full-sail-brewing-craft-brewery/873860">Food Dive</a></li>
+    </ul>
+  </div>
+  <div class="topic-group">
+    <h3>海外フットボール</h3>
+    <ul>
+      <li data-date="2026-11-03">ヤマルがCLで14点目を決め、20歳未満の最多得点者になった。ムバッペの13点を抜き、37試合での到達だった。<a href="https://www.fcbarcelona.com/en/football/first-team/news/4603853/lamine-yamal-top-champions-league-scorer-under-20-years-of-age">FC Barcelona</a></li>
+      <li data-date="2026-11-03">バルサがアストン・ビラに3-0で快勝した。ヤマルが先制し、ラフィーニャが2点を加えた。<a href="https://www.fcbarcelona.com/en/football/first-team/news/4603860/fc-barcelona-3-0-aston-villa-three-goals-three-points">FC Barcelona</a></li>
+      <li data-date="2026-11-05">ラフィーニャが、バルサと2030年まで契約を延ばした。<a href="https://www.fcbarcelona.com/en/football/first-team/news/4604888/raphinha-staying-at-fc-barcelona-until-2030">FC Barcelona</a></li>
+    </ul>
+  </div>
+</section>
