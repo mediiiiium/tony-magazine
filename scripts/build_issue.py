@@ -515,7 +515,7 @@ def main():
         os.makedirs(ARCHIVE_DIR, exist_ok=True)
         open(f"{ARCHIVE_DIR}/{slug}.txt", "w", encoding="utf-8").write(raw + "\n")
 
-    m = re.search(r"(?s)<!--META\s*(\{.*?\})\s*META-->", raw)
+    m = re.search(r"(?s)<!--META\s*(\{.*?\})\s*(?:META)?-->", raw)
     if not m:
         fail("META ブロックが見つかりません")
     try:
