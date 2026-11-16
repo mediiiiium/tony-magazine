@@ -69,6 +69,9 @@ def sanitize(body):
     body = re.sub(r"(?is)<iframe[^>]*/?>", "", body)
     body = re.sub(r"""(?i)\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)""", "", body)
     body = re.sub(r"(?i)javascript\s*:", "", body)
+    # LLM の書き方の揺れを揃える（以降の読み取りは class="..." / <a href="..."> の形だけを見るため）
+    body = re.sub(r"""(?i)\bclass\s*=\s*'([^']*)'""", r'class="\1"', body)
+    body = re.sub(r"""(?is)<a\s[^>]*?\bhref\s*=\s*(["'])(.*?)\1[^>]*>""", r'<a href="\2">', body)
     return body
 
 
@@ -142,7 +145,7 @@ def en_sources(body):
             '英語のソースには、Claude が原文を読んで書いた日本語ダイジェストを付けています。'
             '原文を開かなくても中身が分かります。</p>\n' + "\n".join(built) + "\n</div>\n")
     # ソース欄の <h2> 直後に差し込む
-    body = re.sub(r'(?is)(<section class="sources">\s*<h2>.*?</h2>)', r"\1\n" + lane.replace("\\", "\\\\"), body, count=1)
+    body = re.sub(r'(?is)(<section class="sources"[^>]*>\s*<h2>.*?</h2>)', r"\1\n" + lane.replace("\\", "\\\\"), body, count=1)
     return body, len(arts)
 
 
@@ -236,14 +239,14 @@ def drop_stale(items, slug):
 
 def mosaicize(body, slug=""):
     """<div class="topic-group"> の羅列を、カードのモザイクに組み替える。"""
-    sec = re.search(r'(?is)<section class="topics">(.*?)</section>', body)
+    sec = re.search(r'(?is)<section class="topics"[^>]*>(.*?)</section>', body)
     if not sec:
         return body, [], 0, [], [], 0
     inner = sec.group(1)
     dropped, videos, cats = [], 0, []
     stale, nodate = [], 0
     cards = []
-    for grp in re.findall(r'(?is)<div class="topic-group">(.*?)</div>\s*(?=<div class="topic-group">|$)', inner):
+    for grp in re.findall(r'(?is)<div class="topic-group"[^>]*>(.*?)</div>\s*(?=<div class="topic-group"[^>]*>|$)', inner):
         cat = re.search(r"(?is)<h3>(.*?)</h3>", grp)
         cat = re.sub(r"(?is)<[^>]+>", "", cat.group(1)).strip() if cat else ""
         # ダイジェスト（中に <ul class="figs"><li> を持つ）を先に退避しないと、
@@ -388,7 +391,7 @@ def rookie_visual(pick):
 def rookies(body, slug="", pick=None):
     """連載「今週の若手」（1号1人）を組む。数字は pick.json から描き、文章と動画は LLM の原稿から取る。
     返り値: (body, 息子向けの中身 or None, 落とした動画, 警告)"""
-    sec = re.search(r'(?is)<section class="rookies">(.*?)</section>', body)
+    sec = re.search(r'(?is)<section class="rookies"[^>]*>(.*?)</section>', body)
     if not pick:
         if sec:
             body = body[:sec.start()] + body[sec.end():]
@@ -398,7 +401,7 @@ def rookies(body, slug="", pick=None):
     inner = sec.group(1)
     dropped, warnings = [], []
     art = (re.search(r'(?is)<article class="rookie"[^>]*>(.*?)</article>', inner) or [None, ""])[1]
-    field = lambda cls: plain_text((re.search(rf'(?is)<p class="{cls}">(.*?)</p>', art) or [None, ""])[1])
+    field = lambda cls: plain_text((re.search(rf'(?is)<p class="{cls}"[^>]*>(.*?)</p>', art) or [None, ""])[1])
     clips = []
     for vid, cap in re.findall(r'(?is)<li[^>]*data-yt="([^"]*)"[^>]*>(.*?)</li>', art):
         vid = vid.strip()
@@ -515,17 +518,21 @@ def main():
         os.makedirs(ARCHIVE_DIR, exist_ok=True)
         open(f"{ARCHIVE_DIR}/{slug}.txt", "w", encoding="utf-8").write(raw + "\n")
 
-    m = re.search(r"(?s)<!--META\s*(\{.*?\})\s*(?:META)?-->", raw)
+    m = re.search(r"(?s)<!--\s*META\s*(\{.*?\})\s*(?:META)?\s*-->", raw)
     if not m:
         fail("META ブロックが見つかりません")
     try:
         meta = json.loads(m.group(1))
-    except json.JSONDecodeError as e:
-        fail(f"META がJSONとして読めません: {e}")
-    for k in ("topic", "title", "lead", "emoji", "accent"):
+    except json.JSONDecodeError:
+        try:   # LLM がよくやる末尾カンマだけは許す
+            meta = json.loads(re.sub(r",\s*([}\]])", r"\1", m.group(1)))
+        except json.JSONDecodeError as e:
+            fail(f"META がJSONとして読めません: {e}")
+    for k in ("topic", "title", "lead"):
         if not meta.get(k):
             fail(f"META に {k} がありません")
-    if not ALLOWED_ACCENT.match(meta["accent"]):
+    meta["emoji"] = meta.get("emoji") or "📖"   # 飾りなので、無くても没にはしない
+    if not ALLOWED_ACCENT.match(str(meta.get("accent") or "")):
         meta["accent"] = "#8a6d1f"
 
     body = raw[m.end():].strip()
@@ -545,15 +552,21 @@ def main():
     no = prev["no"] if prev else len(issues) + 1        # 号数は振り直さない
     date_ja = prev["date_ja"] if prev else date_ja
 
-    warnings = []
+    warnings = []   # 細かい注記（ログと build_result に残すだけ。通知には載せない）
+    problems = []   # 誌面が欠けた・壊れた。発行はするが通知で知らせる
+    if len(re.findall(r"(?i)<section\b", body)) != len(re.findall(r"(?i)</section>", body)):
+        problems.append("原稿が途中で切れている可能性があります（section の開きと閉じが合いません）")
     body, n_en = en_sources(body)
     if not n_en:
         warnings.append("英語ソースが1件もありません（日英ミックスが方針）")
     body, kid, r_dropped, r_warnings = rookies(body, slug, load_pick(slug, rebuild))
     dropped += r_dropped
-    warnings += r_warnings
+    if not kid:
+        problems += r_warnings          # 若手欄そのものが出せなかった
+    else:
+        warnings += r_warnings
     if 'class="topics"' not in body:
-        warnings.append("今週のトピックス欄がありません")
+        problems.append("今週のトピックス欄がありません")
     body, t_dropped, t_videos, t_cats, t_stale, t_nodate = mosaicize(body, slug)
     dropped += t_dropped
     missing = [c for c in TINT if c not in t_cats]
@@ -566,7 +579,7 @@ def main():
         warnings.append(f"日付(data-date)の無いトピックスが{t_nodate}件（速報性を検品できていません）")
     # トピックスは本文（38rem）の外に出す。カードのモザイクは70remで組むため
     topics = ""
-    mt = re.search(r'(?is)<section class="topics">.*?</section>', body)
+    mt = re.search(r'(?is)<section class="topics"[^>]*>.*?</section>', body)
     if mt:
         topics = mt.group(0)
         body = body[:mt.start()] + body[mt.end():]
@@ -610,13 +623,13 @@ def main():
     url = f"https://mediiiiium.github.io/tony-magazine/issues/{slug}.html"
     json.dump({"ok": True, "no": no, "title": meta["title"], "topic": meta["topic"],
                "lead": meta["lead"], "url": url, "dropped_videos": dropped,
-               "en_sources": n_en, "topic_videos": t_videos, "warnings": warnings,
+               "en_sources": n_en, "topic_videos": t_videos, "warnings": warnings, "problems": problems,
                "date_ja": date_ja, "rookies": kid},
               open("build_result.json", "w"), ensure_ascii=False)
     print(f"第{no}号「{meta['title']}」を組みました → docs/issues/{slug}.html")
     if dropped:
         print(f"⚠️ 実在確認できず落とした動画: {dropped}", file=sys.stderr)
-    for w in warnings:
+    for w in problems + warnings:
         print(f"⚠️ {w}", file=sys.stderr)
 
 

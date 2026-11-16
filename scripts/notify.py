@@ -4,8 +4,8 @@
 Pushover に送れなかったら exit 1 で workflow を赤くし、GitHub アプリの通知で気づく
 （Pushover が死んでいることを Pushover では知らせられない）。
 
-優先度は tony の呼び方に合わせる: 発行できた号は「あとで」(-1。通知センターに静かに積む)、
-発行できなかった週は仕組みの警告なので「通常」(0)。
+優先度は tony の呼び方に合わせる: 問題なく発行できた号は「あとで」(-1。通知センターに静かに積む)、
+発行できなかった週・誌面の一部が欠けた週は「通常」(0)。細かい注記は通知に載せない。
 ★token / user は例外メッセージにも出さない（Actions のログに残るため）。"""
 import json
 import os
@@ -45,23 +45,23 @@ def send(message, title, priority, url="", url_title=""):
 def build(result, run_url):
     """(title, message, priority, url, url_title) を返す。"""
     if result.get("ok"):
+        # 知らせるのは「誌面が欠けた・届かなかった」ことだけ。細かい注記（英語ソースが無い、
+        # 扉が写真でない等）は Actions のログと build_result.json に残し、通知には載せない
         message = f"今週の寄り道: {result['topic']} —「{result['title']}」\n{result['lead']}"
-        notes = list(result.get("warnings") or [])
-        if result.get("dropped_videos"):
-            notes.append(f"実在確認できなかった動画 {len(result['dropped_videos'])} 本を誌面から外しました")
+        problems = list(result.get("problems") or [])
         if os.path.exists("son_result.json"):
             son = json.load(open("son_result.json", encoding="utf-8"))
-            if son.get("sent"):
-                notes.append(f"息子の Slack に今週の若手（{son['player']}）を送りました")
-            else:
-                notes.append(f"息子の Slack には送れていません: {son.get('reason', '理由不明')}")
-        else:
-            notes.append("息子の Slack に送れたか分かりません（送信ステップが途中で落ちた）")
-        if notes:
-            # 注記は本文が上限で切られても残るよう、先に長さを空けておく
-            tail = "\n（" + " / ".join(notes) + "）"
-            message = message[:MAX_MESSAGE - len(tail)] + tail
-        return (f"📖 Tony Magazine 第{result['no']}号", message, LATER,
+            if not son.get("sent") and result.get("rookies"):
+                problems.append(f"息子の Slack に送れていません: {son.get('reason', '理由不明')}")
+        elif result.get("rookies"):
+            problems.append("息子の Slack に送れたか分かりません（送信ステップが途中で落ちた）")
+        if not problems:
+            return (f"📖 Tony Magazine 第{result['no']}号", message, LATER,
+                    result["url"], "📰 読む")
+        # 注記は本文が上限で切られても残るよう、先に長さを空けておく
+        tail = "\n\n⚠️ " + "\n⚠️ ".join(problems)
+        message = message[:MAX_MESSAGE - len(tail)] + tail
+        return (f"⚠️ Tony Magazine 第{result['no']}号（一部うまくいきませんでした）", message, NORMAL,
                 result["url"], "📰 読む")
     reason = result.get("reason", "原稿の生成に失敗（claude -p が異常終了）")
     return ("⚠️ Tony Magazine 今週号を発行できませんでした", f"理由: {reason}", NORMAL,
