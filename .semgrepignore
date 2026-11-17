@@ -10,3 +10,6 @@ dist/
 build/
 __pycache__/
 *.min.js
+
+# 自動生成される誌面（外部記事への http リンクを含むことがある）
+docs/issues/

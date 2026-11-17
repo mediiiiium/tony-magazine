@@ -20,8 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
+      # nosemgrep: yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag — 公式アクションはメジャータグ固定の方針
       - uses: actions/checkout@v4
 
+      # nosemgrep: yaml.github-actions.security.github-actions-mutable-action-tag.github-actions-mutable-action-tag — 公式アクションはメジャータグ固定の方針
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'

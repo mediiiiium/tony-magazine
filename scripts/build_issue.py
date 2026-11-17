@@ -56,6 +56,7 @@ def fail(reason):
 def yt_exists(vid):
     try:
         req = urllib.request.Request(f"https://img.youtube.com/vi/{vid}/hqdefault.jpg", method="HEAD")
+        # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected — URL は https://img.youtube.com 固定
         with urllib.request.urlopen(req, timeout=15) as res:
             return res.status == 200
     except Exception:

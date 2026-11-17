@@ -38,6 +38,7 @@ def get(url, timeout=30, tries=4):
     for i in range(tries):
         try:
             req = urllib.request.Request(url, headers=UA)
+            # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected — 呼び出し元は API（Met）・COMMONS の固定 https URL 配下のみ
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 return json.loads(r.read().decode())
         except urllib.error.HTTPError as e:
@@ -77,11 +78,12 @@ def pick(ids, words):
         except Exception:
             continue
         url = o.get("primaryImage") or ""
-        if not url or not o.get("isPublicDomain"):
+        if not url.startswith("https://") or not o.get("isPublicDomain"):
             continue
         if words and not relevant(o, words):
             continue
         try:
+            # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected — 画像 URL は Met API の応答。直前で https のみに限定
             raw = urllib.request.urlopen(
                 urllib.request.Request(url, headers=UA), timeout=90).read()
             im = Image.open(io.BytesIO(raw)).convert("RGB")
@@ -228,7 +230,10 @@ def commons_search(query, words, limit=30):
 
 def commons_pick(query, words):
     for c in commons_search(query, words):
+        if not (c["url"] or "").startswith("https://"):
+            continue
         try:
+            # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected — 画像 URL は Commons API の応答。直前で https のみに限定
             raw = urllib.request.urlopen(
                 urllib.request.Request(c["url"], headers=UA), timeout=90).read()
             im = Image.open(io.BytesIO(raw)).convert("RGB")

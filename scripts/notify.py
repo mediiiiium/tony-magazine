@@ -31,6 +31,7 @@ def send(message, title, priority, url="", url_title=""):
         payload["url_title"] = url_title
     req = urllib.request.Request(API, data=urllib.parse.urlencode(payload).encode())
     try:
+        # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected — 宛先は Pushover API の固定 https URL
         with urllib.request.urlopen(req, timeout=30) as res:
             body = json.loads(res.read().decode())
     except urllib.error.HTTPError as e:

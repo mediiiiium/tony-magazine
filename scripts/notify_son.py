@@ -20,6 +20,7 @@ def slack(method, params, token):
         headers={"Authorization": "Bearer " + token},
     )
     try:
+        # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected — 宛先は固定の https API
         with urllib.request.urlopen(req, timeout=30) as res:
             data = json.loads(res.read().decode())
     except (urllib.error.URLError, OSError, ValueError) as e:

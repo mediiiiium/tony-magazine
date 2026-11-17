@@ -59,6 +59,7 @@ def get(url, tries=3):
     for i in range(tries):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": "tony-magazine/1.0"})
+            # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected — 呼び出し元は BASE（固定 https）配下のみ
             with urllib.request.urlopen(req, timeout=30) as res:
                 return json.loads(res.read().decode())
         except Exception:
